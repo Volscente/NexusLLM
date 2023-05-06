@@ -91,6 +91,9 @@ poetry install --without test,docs,dev
 ```
 
 # Resources
+## ChatGPT
+- [Andrej Karpathy Tutorial](https://www.youtube.com/watch?v=kCc8FmEb1nY)
+
 ## GPT-3
 
 ## HuggingFace Bloomz
