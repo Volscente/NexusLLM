@@ -1,3 +1,8 @@
+# Character Based LLM
+## Definition
+This is an exercise from Andrej Karpathy that aims to demonstrate how LLMs works.
+The code implements a LLM based on character prediction: given a set of characters and a context, it will try to predict
+the very next character of the sequence.
 # Large Language Model (LLM)
 ## Definition
 It is a Language Model because it models a sequence of words/characters in a probabilistic way: 
