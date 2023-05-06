@@ -17,3 +17,6 @@ It is the Neural Network technology behind the Large Language Models like ChatGP
 ### Tokenization
 It is an important data preprocessing operation which converts the single portion of the sequence 
 (characters or tokens of words) into numerical value based on all the possible values of the train vocabulary.
+Some of the most famous Tokenizer are:
+- [Google SentencePiece](https://github.com/google/sentencepiece)
+- [TikToken from OpenAI](https://github.com/openai/tiktoken)
