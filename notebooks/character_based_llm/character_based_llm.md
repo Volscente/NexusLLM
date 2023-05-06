@@ -14,3 +14,6 @@ It starts from the given prompt and then tries to complete the sequence of it, g
 - This [video](https://www.youtube.com/watch?v=kCc8FmEb1nY) from Andrej Karpathy explains how LLMs work
 ### Transformer Architecture
 It is the Neural Network technology behind the Large Language Models like ChatGPT (Chat Generally Pre-Trained Transformer).
+### Tokenization
+It is an important data preprocessing operation which converts the single portion of the sequence 
+(characters or tokens of words) into numerical value based on all the possible values of the train vocabulary.
