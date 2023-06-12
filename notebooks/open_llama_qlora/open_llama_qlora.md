@@ -6,3 +6,7 @@ including brainstorming, classification, closed QA, generation, information extr
 ## Bitsandbytes
 The bitsandbytes is a lightweight wrapper around CUDA custom functions, 
 in particular 8-bit optimizers, matrix multiplication (LLM.int8()), and quantization functions.
+## QLoRA
+It is an efficient finetuning approach that reduces memory usage enough to finetune a 65B parameter model on a single 
+48GB GPU while preserving full 16-bit finetuning task performance. QLoRA backpropagates gradients through a frozen, 
+4-bit quantized pretrained language model into Low Rank Adapters (LoRA).
