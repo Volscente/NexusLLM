@@ -16,6 +16,8 @@ pandas = "^2.0.0"
 numpy = "^1.24.2"
 matplotlib = "^3.7.1"
 jupyterlab = "^3.6.3"
+openai = "^0.27.8"
+langchain = "^0.0.228"
 
 [build-system]
 requires = ["poetry-core"]
