@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "llm-experimentation"
-version = "0.1.0"
+version = "0.1.1"
 description = "A repository containing research and experimentations with LLMs"
 authors = ["Simone Porreca <porrecasimone@gmail.com>", "Ali Abbas Jaffri <megahertz888@gmail.com>"]
 license = "GPL-3.0-or-later"
