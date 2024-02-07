@@ -9,6 +9,9 @@ packages = []
 
 [tool.poetry.dependencies]
 python = "^3.10"
+tiktoken = "^0.3.3"
+torch = "^2.0.0"
+torchvision = "^0.15.1"
 
 
 [tool.poetry.group.dev.dependencies]
