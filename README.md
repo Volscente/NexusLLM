@@ -1,17 +1,34 @@
-# Large Language Models Experimentation
+# NexusLLM
 # Introduction
-A repository containing research and experimentations with LLMs
-
+NexusLLM is a GitHub repository dedicated to exploring various experiments related to Language Model Models (LMM). From fine-tuning and instruction-tuning to RAG and agent-based systems, it offers a diverse range of experiments and insights for researchers and enthusiasts interested in natural language processing and AI innovation.
 # Setup
+## Update PYTHONPATH
+Add the current directory to the `PYTHONPATH` environment variables.
+``` bash
+export PYTHONPATH="$PYTHONPATH:/<absolute_path>/MediBioticsAI"
+```
+
+## Justfile
+> `just` is a handy way to save and run project-specific commands
+> 
+> The main benefit it to keep all configuration and scripts in one place.
+> 
+> It uses the `.env` file for ingesting variables.
+
+You can install it by following the [Documentation](https://just.systems/man/en/chapter_4.html).
+Afterwards, you can execute existing commands located in the `justfile`.
+
+Type `just` to list all available commands.
+
+
 ## Poetry
-### Definition
-Poetry is a tool for dependency management and packaging in Python. 
-It allows you to declare the libraries your project depends on and it will manage (install/update) them for you. Poetry offers a lockfile to ensure repeatable installs, and can build your project for distribution.
+
+> Python packaging and dependency management made easy
+
+### Installation
 
 [Reference Documentation](https://python-poetry.org/)
 
-### Installation
-#### MacOS
 Run the following command from the terminal:
 ``` bash
 curl -sSL https://install.python-poetry.org | python3 -
@@ -21,54 +38,6 @@ For **MacOS** with ZSH add the `.local/bin` to the `PATH` environment variable. 
 
 ``` bash
 export PATH="$HOME/.local/bin:$PATH"
-```
-### Pyproject.toml
-
-``` toml
-[tool.poetry]
-name = "rp-poetry"
-version = "0.1.0"
-description = ""
-authors = ["Philipp <philipp@realpython.com>"]
-
-[tool.poetry.dependencies]
-python = "^3.9"
-
-[tool.poetry.dev-dependencies]
-pytest = "^5.2"
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
-```
-
-Each section identified by square brackets is called "Table". If a table is too-specific, it must be prefixed with tool. 
-You now see that the only tool is poetry, but you might also have `[tool.pytest.ini_options]` for pytest.
-
-### Poetry.lock
-If you have never run the command before and there is also no `poetry.lock` file present, 
-Poetry simply resolves all dependencies listed in your `pyproject.toml` file and downloads the latest version of their files.
-
-When Poetry has finished installing, it writes all the packages and their exact versions that it downloaded to the `poetry.lock` file, 
-locking the project to those specific versions. 
-You should commit the `poetry.lock` file to your project repo so that all people working on the project are locked to
-the same versions of dependencies (more below).
-
-### Create Virtual Environment
-Poetry is able to manage virtual environments and it is not created by default when creating a new poetry project. 
-
-**NOTE:** PyCharm will ask you if you want to create one.
-
-Otherwise, inside the project directory, use the following command:
-``` bash
-poetry env use python3
-```
-
-The virtual environment will be created in the directory `~/Library/Caches/pypoetry` for MacOS.
-
-The created venvs can be viewed with the following command:
-``` bash
-poetry env list
 ```
 
 ### Add Dependency

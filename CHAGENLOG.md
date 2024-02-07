@@ -1,0 +1,14 @@
+v.0.1.1
+------
+- [x] Add `.github/pull_request_template.md`
+- [x] Add `.github/workflows/pull_request_workflow.yml`
+- [x] Add `configuration/config.yaml`
+- [x] Add `data`
+- [x] Add `notebooks`
+- [x] Add `scripts`
+- [x] Add `.env`
+- [x] Add `.gitattributes`
+- [x] Add `CHANGELOG.md`
+- [x] Add `justfile`
+- [x] Update Wiki
+- [x] Update `README.md`

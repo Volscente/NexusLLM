@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "llm-experimentation"
-version = "0.1.0"
+version = "0.1.1"
 description = "A repository containing research and experimentations with LLMs"
 authors = ["Simone Porreca <porrecasimone@gmail.com>", "Ali Abbas Jaffri <megahertz888@gmail.com>"]
 license = "GPL-3.0-or-later"
@@ -12,15 +12,15 @@ python = "^3.10"
 tiktoken = "^0.3.3"
 torch = "^2.0.0"
 torchvision = "^0.15.1"
-
-
-[tool.poetry.group.dev.dependencies]
-pandas = "^2.0.0"
-numpy = "^1.24.2"
-matplotlib = "^3.7.1"
-jupyterlab = "^3.6.3"
-openai = "^0.27.8"
-langchain = "^0.0.228"
+pylint = "^3.0.3"
+pandas = "^2.2.0"
+numpy = "^1.26.4"
+matplotlib = "^3.8.2"
+jupyterlab = "^4.1.0"
+openai = "^1.11.1"
+langchain = "^0.1.5"
+pytest = "^8.0.0"
+pylint-pytest = "^1.1.7"
 
 [build-system]
 requires = ["poetry-core"]
