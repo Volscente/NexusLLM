@@ -144,3 +144,7 @@ A very simplified version adopts just the average:
 > Context: `[18, 47]` &rarr; `41.5` (avg)
 > 
 > Target: `57`
+
+# Training Process
+## Goal
+Given an input sequence of tokens (e.g., words), predict the next token.
