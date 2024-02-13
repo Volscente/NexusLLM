@@ -157,6 +157,13 @@ A very simplified version adopts just the average:
 2. It has multiple representation subspaces by using multiple Query, Key and Value vectors. It is used to
 project the input embeddings into multiple subspaces.
 
+## Process
+Given the multiple Query, Key and Value vectors in the Self-Attention layer, there is the need
+to condense all of them into a single one, in order to be fed to the Feed Forward layer.
+
+They are concatenated and multiplied by a weight matrix.
+![Multi-Head Attention Process](./images/multi_head_attention.png)
+
 # Training Process
 ## Goal
 Given an input sequence of tokens (e.g., words), predict the next token.
