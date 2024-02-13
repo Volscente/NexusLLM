@@ -128,6 +128,12 @@ Standardise the *Attention Score* by, let's say, the square dimension of the ten
 ### Step 4 - Softmax Function
 Pass the standardised attention score in Softmax function to normalise it.
 
+### Step 5 - Retrieve Relevant Tokens
+Multiply the value vector by the Softmax score, in order to retrieve relevant tokens.
+
+### Step 6 - Compute Self-Attention
+Sum up the weighted value vectors to obtain the self-attention matrix.
+
 ## Aggregated Weighted Context
 It is one of the first approach for of *Self-Attention*.
 
@@ -144,6 +150,12 @@ A very simplified version adopts just the average:
 > Context: `[18, 47]` &rarr; `41.5` (avg)
 > 
 > Target: `57`
+
+# Multi-Head Attention
+## Comparison with Single-Head Attention
+1. It expands the model’s ability to focus on different positions.
+2. It has multiple representation subspaces by using multiple Query, Key and Value vectors. It is used to
+project the input embeddings into multiple subspaces.
 
 # Training Process
 ## Goal
