@@ -22,6 +22,7 @@ The above alternatives may also vary for the number of Encoder and/or Decoder bl
 - GTP-2 has 32 Decoder blocks
 
 ## Input
+### Tokens
 The input of a Transformer, and in general of each Neural Network, is a Tensor. In this case, it is obtained from the input
 text through an **Embedding Algorithm**.
 
@@ -33,6 +34,16 @@ It is also important to know that there are *Special* tokens used by the Neural 
 - [CLS] or 101 - Start of the sentence
 - [SEP] or 102 - Separator of sentences
 - [MASK] or 103 - Mask token for MLM (Masked Language Model)
+
+### Vocabulary
+It is important to notice that, when for example the word *"The"* is tokenized into the token *"464"*,
+this number is actually an index to an **Embedding Matrix**.
+
+The model holds an **Embedding Matrix** in which each word is represented to a Tensor of, let's say, 768 dimension.
+
+GPT-2 has a 50.257 x 768 vocabulary:
+- 50.257 words
+- 768 dimension (each word is represented through 768 numbers)
 
 ## Encoder
 The *Encoder* block is composed by a **Self-Attention** layer and a **Feed Forward Neural Network**.
@@ -167,3 +178,13 @@ They are concatenated and multiplied by a weight matrix.
 # Training Process
 ## Goal
 Given an input sequence of tokens (e.g., words), predict the next token.
+
+# Inference Process
+## Projecting the Output
+The Transformer network works through the following step
+1. Transform input text into token IDs
+2. Feed the token IDs into the Transformer
+3. Hidden State is a tensor of probabilities with the dimension of the Transformer vocabulary
+
+At this point, into order to transform the number back to a text, the network picks up the max probability through a Softmax function
+from the hidden state tensor, which will correspond to a word in the vocabulary.
