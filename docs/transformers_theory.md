@@ -180,6 +180,14 @@ They are concatenated and multiplied by a weight matrix.
 Given an input sequence of tokens (e.g., words), predict the next token.
 
 # Inference Process
+## Auto-Regression
+The way these models actually work is that after each token is produced, 
+that token is added to the sequence of inputs. 
+And that new sequence becomes the input to the model in its next step. 
+This is an idea called *“Auto-Regression”*.
+
+This feature is not always incorporated. For example, BERT does not have it.
+
 ## Projecting the Output
 The Transformer network works through the following step
 1. Transform input text into token IDs
