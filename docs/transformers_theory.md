@@ -120,8 +120,9 @@ because it is in the future of the sequence.`
 ## Processing
 ### Step 1 - Compute Query, Key and Value Tensors
 From a single input tensor of tokens, three other tensors are generated:
-1. **Query Tensor** - It is a representation of the current token used to score against all the other tokens
-2. **Key Tensor** - It holds like the tables for all the tokens in the segment. It is what it matches against in the search
+1. **Query Tensor** - It is a representation of the current token used to score against all the other tokens.
+It represents *"What we're looking for*".
+2. **Key Tensor** - It holds like the labels for all the tokens in the segment. It is what it matches against in the search
 for relevant tokens. It represents what a token can offer.
 3. **Value Tensor** - It is the actual content of the tokens
 
@@ -139,6 +140,8 @@ of that token:
 - ...
 - q_1 * k_n
 
+This is done in order to understand how well the analysed token matches with all the others. 
+
 ### Step 3 - Standardisation
 Standardise the *Attention Score* by, let's say, the square dimension of the tensors.
 
@@ -146,7 +149,7 @@ Standardise the *Attention Score* by, let's say, the square dimension of the ten
 Pass the standardised attention score in Softmax function to normalise it.
 
 ### Step 5 - Retrieve Relevant Tokens
-Multiply the value vector by the Softmax score, in order to retrieve relevant tokens.
+Multiply the **Value Tensor** by the Softmax score, in order to retrieve relevant tokens and their content.
 
 ### Step 6 - Compute Self-Attention
 Sum up the weighted value vectors to obtain the self-attention matrix.
