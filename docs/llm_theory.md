@@ -42,3 +42,21 @@ of model outputs.
 
 ### Comparison
 RLHF is able to better capture humans way of generating responses, but it's harder to implement.
+
+# LoRA
+## General
+The *Low-Rang Adaptation* algorithm is designed for fine-tuning LLMs while keeping memory consumption low.
+
+## Process
+LLMs are pre-trained by updating the weights of certain weight matrices. 
+LoRA focuses on pair of *Rank-Decomposition Weight Matrices* (Update matrices) 
+to the existing pre-training weights. It basically adds new weights matrices on top.
+
+### Hyperparameters
+- 
+
+## Advantages
+1. Preserve pre-training weights, minimizing the risk of catastrophic forgetting
+2. Update Matrices have far fewer parameters tha pre-training weights, thus are much more portable
+3. Update Matrices are incorporated into original attention layers
+4. Memory efficiency due to the dimension of Update Matrices

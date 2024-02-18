@@ -21,6 +21,10 @@ lint_sql file="./queries":
   poetry run sqlfluff fix --dialect bigquery --exclude-rules LT05 {{file}}
   poetry run sqlfluff lint --dialect bigquery --exclude-rules LT05 {{file}}
 
+# Start Jupyter Lab
+jupy:
+  poetry run jupyter lab
+
 # Test .env file
 test_env_file:
   echo $TEST_ENV_VAR

@@ -21,6 +21,11 @@ openai = "^1.11.1"
 langchain = "^0.1.5"
 pytest = "^8.0.0"
 pylint-pytest = "^1.1.7"
+accelerate = "^0.27.2"
+peft = "^0.8.2"
+bitsandbytes = "^0.42.0"
+transformers = "^4.37.2"
+trl = "^0.7.11"
 
 [build-system]
 requires = ["poetry-core"]
