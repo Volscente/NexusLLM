@@ -53,7 +53,8 @@ LoRA focuses on pair of *Rank-Decomposition Weight Matrices* (Update matrices)
 to the existing pre-training weights. It basically adds new weights matrices on top.
 
 ### Hyperparameters
-- 
+- **Rank** - It is the number of Update Matrices (min = 8). It depends on the complexity of the dataset.
+Higher the number, higher the complexity and, thus, the memory requirements.
 
 ## Advantages
 1. Preserve pre-training weights, minimizing the risk of catastrophic forgetting
