@@ -77,6 +77,7 @@ model.layers.0.self_attn.q_proj.weight
 model.layers.0.self_attn.k_proj.weight
 model.layers.0.self_attn.v_proj.weight
 model.layers.0.self_attn.o_proj.weight
+model.layers.0.self_attn.rotary_emb.inv_freq
 model.layers.0.mlp.gate_proj.weight
 model.layers.0.mlp.down_proj.weight
 model.layers.0.mlp.up_proj.weight
@@ -91,12 +92,20 @@ lm_head.weight
 Naming convention is: `{identifier}.{layer}.{layer_number}.{component}.{module}.{parameter}`.
 
 Some basic modules are:
-- `up_proj`: The projection matrix used in the upward (decoder to encoder) attention pass. It projects the decoder's hidden states to the same dimension as the encoder's hidden states for compatibility during attention calculations.
-down_proj: The projection matrix used in the downward (encoder to decoder) attention pass. It projects the encoder's hidden states to the dimension expected by thr decoder for attention calculations.
-q_proj: The projection matrix applied to the query vectors in the attention mechanism. Transforms the input hidden states to the desired dimension for effective query representations.
-v_proj: The projection matrix applied to the value vectors in the attention mechanism. Transforms the input hidden states to the desired dimension for effective value representations.
-k_proj: The projection matrix applied to the key vectors blah blah.
-o_proj: The projection matrix applied to the output of the attention mechanism. Transforms the combined attention output to the desired dimension before further processing.
+- `up_proj`: The projection matrix used in the upward (decoder to encoder) attention pass. 
+It projects the decoder's hidden states to the same dimension as the encoder's hidden states 
+for compatibility during attention calculations.
+- `down_proj`: The projection matrix used in the downward (encoder to decoder) attention pass. 
+It projects the encoder's hidden states to the dimension expected by thr decoder for attention
+calculations.
+- `q_proj`: The projection matrix applied to the query vectors in the attention mechanism.
+Transforms the input hidden states to the desired dimension for effective query representations.
+- `v_proj`: The projection matrix applied to the value vectors in the attention mechanism. 
+Transforms the input hidden states to the desired dimension for effective value representations.
+- `k_proj`: The projection matrix applied to the key vectors blah blah.
+Transforms the input hidden states to the desired dimension for effective value representations.
+- `o_proj`: The projection matrix applied to the output of the attention mechanism. 
+Transforms the combined attention output to the desired dimension before further processing.
 
 ## Advantages
 1. Preserve pre-training weights, minimizing the risk of catastrophic forgetting
