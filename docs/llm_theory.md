@@ -50,6 +50,20 @@ However, they're not really efficient in answering questions.
 This is the reason for the *Fine-Tuning* step: allows us to specialize the model's capabilities and optimize its 
 performance on a narrower, task-specific dataset.
 
+## Process
+The goal is to re-train the model's weights for a specific task. The way in which this happens
+can vary much, depending on the Fine-Tuning algorithm chosen. The whole model's weights can be retrained, just a portion or
+having another set of weights (LoRA).
+
+During this Fine-Tuning Process, all the elements of a normal training are applied: optimizer (e.g., SGD or Adam), learning rate,
+dropout, weight decay, overfit and early stopping.
+
+## Dataset Definition
+The dataset used for the Fine-Tuning should have:
+1. **Data Diversity** - Do not address a single task, but aim for more. Ensure to include all possible conversation scenarios
+2. **Dataset Size** - At least 10MiB. It's not easy to overfit a pre-trained model with fine-tuning, so the more, the better
+3. **Dataset Quality** - Do not feed garbage
+
 ## Performance
 A pure pre-trained model can be most of the time be out-performed by a fine-tuned model, even if the original pre-trainig
 was performed on fewer tokens.
@@ -141,3 +155,21 @@ Transforms the combined attention output to the desired dimension before further
 2. Update Matrices have far fewer parameters tha pre-training weights, thus are much more portable
 3. Update Matrices are incorporated into original attention layers
 4. Memory efficiency due to the dimension of Update Matrices
+
+
+# QLoRA
+## Definition
+QLoRA (Quantized Low Rank Adapters) is an efficient fine-tuning approach that reduces memory usage 
+while maintaining high performance for large language models. 
+It enables the fine-tuning of a 65B parameter model on a single 48GB GPU, 
+while preserving full 16-bit fine-tuning task performance.
+
+**Key Innovations:**
+- Backpropagation of gradients through a frozen, 4-bit quantized pretrained language model into Low Rank Adapters (LoRA)
+- Use of a new data type called 4-bit NormalFloat (NF4), which optimally handles normally distributed weights
+- Double quantization to reduce the average memory footprint by quantising the quantization constants
+- Paged optimizers to effectively manage memory spikes during the fine-tuning process
+
+## Hyperparameters
+- **Batch Size** - Number of training sample processed at the same time, before updating the weights
+- **Epochs** - The number of time the model sees the entire dataset
