@@ -8,6 +8,34 @@ This is an idea called *“Auto-Regression”*.
 
 This feature is not always incorporated. For example, BERT does not have it.
 
+# Pre-Training
+## Definition
+It's the very first step of training a LLM and, in this operation, a huge amount of
+text data is processed.
+
+## Steps
+### Data Processing
+In order to feed the text data in the training process, they have to be converted into tokens
+by a *Tokenizer*, which is specifically trained for the task.
+
+Its job is to encode and decode text into tokens (and vice versa).
+
+The dataset is then pre-processed using the tokenizer's vocabulary, 
+converting the raw text into a format suitable for training the model. 
+This step involves mapping tokens to their corresponding IDs, 
+and incorporating any necessary special tokens or attention masks. 
+Once the dataset is pre-processed, it is ready to be used for the pre-training phase.
+
+### Training
+In this step, the model learns either to predict the next token in a sequence,
+or filling the missing tokens in a given sequence. In this way, the model learn  language patterns, grammar, and semantic relationships 
+
+The task depends on the training algorithm, but it is a supervised-learning algorithm.
+
+#### Learning Algorithms
+- **Masked Language Modeling** - The model tries to predict certain masked tokens within the input sequence
+- **Casual Language Modeling** - The model tries to predict the next token given the preceding context
+
 # Fine-Tuning
 ## Definition
 LLMs are *pre-trained* on very extensive text corpus
@@ -19,7 +47,8 @@ This pre-training is very long and costly.
 Such pre-trained models are just able to predict tokens and, thus, construct sentences.
 However, they're not really efficient in answering questions.
 
-This is the reason for the *Fine-Tuning* step.
+This is the reason for the *Fine-Tuning* step: allows us to specialize the model's capabilities and optimize its 
+performance on a narrower, task-specific dataset.
 
 ## Performance
 A pure pre-trained model can be most of the time be out-performed by a fine-tuned model, even if the original pre-trainig
