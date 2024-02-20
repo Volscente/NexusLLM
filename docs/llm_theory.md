@@ -53,8 +53,50 @@ LoRA focuses on pair of *Rank-Decomposition Weight Matrices* (Update matrices)
 to the existing pre-training weights. It basically adds new weights matrices on top.
 
 ### Hyperparameters
-- **Rank** - It is the number of Update Matrices (min = 8). It depends on the complexity of the dataset.
+#### Rank
+It is the number of Update Matrices (min = 8). It depends on the complexity of the dataset.
 Higher the number, higher the complexity and, thus, the memory requirements.
+To match a full fine-tune, the rank has to be equal to the model's hidden size (`model.config.hidden_size`)
+
+#### Target Modules
+It determines which weights and matrices have to be targeted. By default, the
+*Query Vector* and *Value Vector*.
+Such matrices can be usually retrieved as follow:
+```python
+from transformers import AutoModelForCausalLM
+model_name = "huggyllama/llama-7b"      # can also be a local directory
+model = AutoModelForCausalLM.from_pretrained(model_name)
+layer_names = model.state_dict().keys()
+
+for name in layer_names:
+    print(name)
+
+""" Output
+model.embed_tokens.weight
+model.layers.0.self_attn.q_proj.weight
+model.layers.0.self_attn.k_proj.weight
+model.layers.0.self_attn.v_proj.weight
+model.layers.0.self_attn.o_proj.weight
+model.layers.0.mlp.gate_proj.weight
+model.layers.0.mlp.down_proj.weight
+model.layers.0.mlp.up_proj.weight
+model.layers.0.input_layernorm.weight
+model.layers.0.post_attention_layernorm.weight
+...
+model.norm.weight
+lm_head.weight
+"""
+```
+
+Naming convention is: `{identifier}.{layer}.{layer_number}.{component}.{module}.{parameter}`.
+
+Some basic modules are:
+- `up_proj`: The projection matrix used in the upward (decoder to encoder) attention pass. It projects the decoder's hidden states to the same dimension as the encoder's hidden states for compatibility during attention calculations.
+down_proj: The projection matrix used in the downward (encoder to decoder) attention pass. It projects the encoder's hidden states to the dimension expected by thr decoder for attention calculations.
+q_proj: The projection matrix applied to the query vectors in the attention mechanism. Transforms the input hidden states to the desired dimension for effective query representations.
+v_proj: The projection matrix applied to the value vectors in the attention mechanism. Transforms the input hidden states to the desired dimension for effective value representations.
+k_proj: The projection matrix applied to the key vectors blah blah.
+o_proj: The projection matrix applied to the output of the attention mechanism. Transforms the combined attention output to the desired dimension before further processing.
 
 ## Advantages
 1. Preserve pre-training weights, minimizing the risk of catastrophic forgetting
