@@ -90,14 +90,23 @@ RLHF is able to better capture humans way of generating responses, but it's hard
 ## General
 The *Low-Rang Adaptation* algorithm is designed for fine-tuning LLMs while keeping memory consumption low.
 
+The main concept is the *Low Rank*: there are very few elements in the weights matrices of an LLM that carry information.
+So it is required to just add a Low Rank Update matrices in order to capture such valuable information.
+
+The main point to fine-tune is the Self-Attention layer, since it's the one having the lowest rank (i.e, the most redundant information)
+
 ## Process
-LLMs are pre-trained by updating the weights of certain weight matrices. 
+LLMs are pre-trained by updating the weights of certain weight matrices, added into the model's architecture. 
 LoRA focuses on pair of *Rank-Decomposition Weight Matrices* (Update matrices) 
 to the existing pre-training weights. It basically adds new weights matrices on top.
 
+The update matrices are placed only for the self-attention layers.
+
+If the rank is equal to the rank of the Self-Attention layer, we are doing a full fine-tuning.
+
 ### Hyperparameters
 #### Rank
-It is the number of Update Matrices (min = 8). It depends on the complexity of the dataset.
+It is the number of independent rows within a matrix. It depends on the complexity of the dataset.
 Higher the number, higher the complexity and, thus, the memory requirements.
 To match a full fine-tune, the rank has to be equal to the model's hidden size (`model.config.hidden_size`)
 
