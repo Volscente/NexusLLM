@@ -101,6 +101,7 @@ LoRA focuses on pair of *Rank-Decomposition Weight Matrices* (Update matrices)
 to the existing pre-training weights. It basically adds new weights matrices on top.
 
 The update matrices are placed only for the self-attention layers.
+It also shows better results when these Update Matrices are applied on the Value Tensors of the self-attention layers.
 
 If the rank is equal to the rank of the Self-Attention layer, we are doing a full fine-tuning.
 
