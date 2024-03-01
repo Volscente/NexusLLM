@@ -183,3 +183,15 @@ while preserving full 16-bit fine-tuning task performance.
 ## Hyperparameters
 - **Batch Size** - Number of training sample processed at the same time, before updating the weights
 - **Epochs** - The number of time the model sees the entire dataset
+
+# Axolotl
+## Definition
+Axolotl is a tool designed to streamline the fine-tuning of various AI models, 
+offering support for multiple configurations and architectures. It supports different moodels (e.g., LLaMA, Falcon, etc.)
+and different Fine-Tuning algorithms, such as LoRA and QLoRA.
+
+## Advantages
+- **Single Configuration File** - All parameters used to train an LLM are neatly stored in a yaml config file. 
+This makes it convenient for sharing and reproducing models.
+Examples in the GitHub repo [here](https://github.com/OpenAccess-AI-Collective/axolotl/tree/main/examples).
+- **Dataset Flexibility** - Different prompt's formats supported
