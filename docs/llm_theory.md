@@ -195,3 +195,25 @@ and different Fine-Tuning algorithms, such as LoRA and QLoRA.
 This makes it convenient for sharing and reproducing models.
 Examples in the GitHub repo [here](https://github.com/OpenAccess-AI-Collective/axolotl/tree/main/examples).
 - **Dataset Flexibility** - Different prompt's formats supported
+
+## Modify Configuration
+Some parameters that should be usually changed are:
+- `base_model`
+- `base_model_config` (Usually the same as the `base_model`)
+- `hub_model_id` (New model name)
+- `datasets` (`path` and `type`)
+
+### Gradient Checkpointing
+Gradient checkpointing is a technique used in machine learning, particularly in deep learning, 
+to reduce the memory requirements during the training of neural networks, especially those with many layers.
+
+In deep learning, during the backpropagation process, 
+gradients are computed and stored for each layer in order to update the model parameters. 
+However, as neural networks become deeper, 
+the memory requirements for storing these gradients can become a limiting factor, 
+especially in memory-constrained environments such as GPUs.
+
+Gradient checkpointing addresses this issue by trading off memory consumption with recomputation during the backward pass. 
+Instead of storing the gradients for all layers, 
+only a subset of the layers' activations and intermediate gradients are stored, 
+while the remaining layers' activations are recomputed during the backward pass when needed. 
