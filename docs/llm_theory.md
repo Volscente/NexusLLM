@@ -83,6 +83,9 @@ Models learn by interacting with their environment and receiving feedback.
 They are trained to maximize a reward signal (using PPO), which is often derived from human evaluations 
 of model outputs.
 
+One example of dataset used in RLHF is [Anthropic/hh-rlhf](https://huggingface.co/datasets/Anthropic/hh-rlhf/viewer/default/train).
+For each row there is one chosen and one rejected answer.
+
 ### Comparison
 RLHF is able to better capture humans way of generating responses, but it's harder to implement.
 
@@ -217,3 +220,21 @@ Gradient checkpointing addresses this issue by trading off memory consumption wi
 Instead of storing the gradients for all layers, 
 only a subset of the layers' activations and intermediate gradients are stored, 
 while the remaining layers' activations are recomputed during the backward pass when needed. 
+
+# Direct Preference Optimisation (DPO)
+## Definition
+It is RLHF Fine-Tuning technique.
+
+## PPO vs DPO
+The *Proximal Policy Optimization (PPO)* is another reinforcement learning algorithm that aims to improve the policy of an agent.
+One of the key features of PPO is the use of a "proximal policy optimization" approach, 
+which constrains the policy updates to be within a certain "trust region" 
+to prevent large policy changes that could lead to instability in learning.
+It however still very unstasble and computationally expensive.
+
+It also implies optimizing a surrogate objective function that approximates the true objective.
+
+The *Direct Preference Optimization (DPO)* directly optimizes the preferences of an agent over different actions or policies, 
+rather than optimizing a surrogate objective function.
+In DPO, the agent learns a preference function that assigns values or scores to different actions or 
+policies based on their expected long-term rewards.
