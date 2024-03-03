@@ -230,7 +230,7 @@ The *Proximal Policy Optimization (PPO)* is another reinforcement learning algor
 One of the key features of PPO is the use of a "proximal policy optimization" approach, 
 which constrains the policy updates to be within a certain "trust region" 
 to prevent large policy changes that could lead to instability in learning.
-It however still very unstasble and computationally expensive.
+It however still very unstable and computationally expensive.
 
 It also implies optimizing a surrogate objective function that approximates the true objective.
 
