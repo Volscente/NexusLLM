@@ -185,8 +185,12 @@ They are concatenated and multiplied by a weight matrix.
 ![Multi-Head Attention Process](./images/multi_head_attention.png)
 
 # Training Process
-## Goal
-Given an input sequence of tokens (e.g., words), predict the next token.
+## Pre-Training
+Given an input sequence of tokens (e.g., words), predict the next token. This is generally known as
+*Pre-Training* phase and it is done by feeding to the Transformer a huge amount of Internet text data.
+
+## Fine-Tuning
+In order to be useful enough, after the Pre-Training operation, the model goes to another training step called *Fine-Tuning*.
 
 # Inference Process
 ## Auto-Regression

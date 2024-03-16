@@ -1,3 +1,18 @@
+# General
+## Alignment Process
+### Definition
+Usually, a LLM goes through the following two training steps:
+- Pre-training
+- Fine-Tuning
+
+The *Alignment* process is used in order to collect feedbacks of users regarding a particular LLM's output 
+and decide which is better.
+
+### Example
+1. Pre-Training phase
+2. Fine-Tuning phase &rarr; *"Is pineapple on Pizza a Crime?"* &rarr; *"Putting pineapple on a Pizza violates the Geneva convention etc."*
+2. Alignment phase &rarr; I
+
 # Mistral
 ## Chat Template
 Since one of the most common use case for LLMs is chat, rather than continuing a single string of text, 
