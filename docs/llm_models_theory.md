@@ -20,15 +20,18 @@ Usually called also "Prompt Engineering", it is the process of crafting a good p
 ### Types
 - **Zero-Shot Prompting** - Ask the LLM to solve a problem
 - **Few-Shot Prompting** - Provide few examples on how to solve the problem and then ask
-- **Chain of Thought Prompting** - Guide the LLM through the entire process it has to do to solve the problem
+- **Chain-of-Thought Prompting** - Guide the LLM through the entire process it has to do to solve the problem
 
 ## Inference
-### Output Token
+### Sampling Techniques
 How to choose which is the best output token?
-1. Greedy Search - Most probable
-2. Random Sampling
-3. Temperature Sampling
-4. Toxicity Sampling
+1. Greedy Search - Most probable token
+2. Random Sampling - Selects the next token according to the probability distribution, where each token is sampled 
+proportionally to its predicted probability.
+3. Temperature Sampling - Adjusts the probability distribution by a temperature parameter. 
+Higher temperatures promote diversity, lower temperatures favor high-probability tokens.
+4. Top-K sampling - Randomly samples from the top K most probable tokens.
+5. 
 
 ### Performance
 There are several ways to make the inference process more performing:

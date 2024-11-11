@@ -87,8 +87,18 @@ One example of dataset used in RLHF is [Anthropic/hh-rlhf](https://huggingface.c
 For each row there is one chosen and one rejected answer.
 
 ### Parameter Efficient Fine-Tuning (PEFT)
-Instead of fine-tuning the whole model, PEFT just focuses on a specific portion to fine-tuning the model
-for a very specific task.
+Since both SFT and RLHF are very costly, the PEFT was a huge step forward.
+At a high-level, PEFT approaches append a significantly smaller set of weights (e.g., on the order of thousands of parameters) 
+that are used to ‘perturb’ the pre-trained LLM weights. The perturbation has the effect of fine-tuning 
+the LLM to perform a new task or set of tasks. This has the benefit of training a significantly smaller set of weights, 
+compared to traditional fine-tuning of the entire model.
+
+Some PEFT techniques are:
+- **Adapter-based fine-tuning** - It employs small modules, called adapters, to the pre-trained model. Only adapters' parameters are trained
+- **Low-Rank Adaptation (LoRA)** - It uses two smaller matrices to approximate the original weight matrix update instead 
+of fine-tuning the whole LLM. This technique freezes the original weights and trains these update matrices, 
+significantly reducing resource requirements with minimum additional inference latency. 
+Additionally, LoRA has improved variants such as QLoRA,48 which uses quantized weights for even greater efficiency. 
 
 ### Comparison
 RLHF is able to better capture humans way of generating responses, but it's harder to implement.
@@ -242,3 +252,40 @@ The *Direct Preference Optimization (DPO)* directly optimizes the preferences of
 rather than optimizing a surrogate objective function.
 In DPO, the agent learns a preference function that assigns values or scores to different actions or 
 policies based on their expected long-term rewards.
+
+# Code Examples
+## SFT on Vertex AI
+```python
+Python
+  # Before you start run this command:
+  # pip install --upgrade --user --quiet google-cloud-aiplatform
+  # after running pip install make sure you restart your kernel
+  import vertexai
+  from vertexai.generative_models import GenerativeModel
+  from vertexai.preview.tuning import sft
+  # TODO : Set values as per your requirements
+  # Project and Storage Constants
+  PROJECT_ID = ‘<project_id>’
+  REGION = ‘<region>’
+  vertexai.init(project=PROJECT_ID, location=REGION)
+  # define training & eval dataset.
+  TRAINING_DATASET = ‘gs://cloud-samples-data/vertex-ai/model-evaluation/
+  peft_train_sample.jsonl’
+  # set base model and specify a name for the tuned model
+  BASE_MODEL = ‘gemini-1.5-pro-002’
+  TUNED_MODEL_DISPLAY_NAME = ‘gemini-fine-tuning-v1’
+  # start the fine-tuning job
+  sft_tuning_job = sft.train(
+     source_model=BASE_MODEL,
+     train_dataset=TRAINING_DATASET,
+     # # Optional:
+     tuned_model_display_name=TUNED_MODEL_DISPLAY_NAME,
+)
+  # Get the tuning job info.
+  sft_tuning_job.to_dict()
+  # tuned model endpoint name
+  tuned_model_endpoint_name = sft_tuning_job.tuned_model_endpoint_name
+  # use the tuned model
+  tuned_genai_model = GenerativeModel(tuned_model_endpoint_name)
+  print(tuned_genai_model.generate_content(contents=’What is a LLM?’))
+```
