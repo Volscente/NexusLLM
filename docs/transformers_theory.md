@@ -7,6 +7,12 @@
 - **NLP** - The main area is for sure everything that concerns Natural Language Processing, where Transformers were born
 - **CV** - Transformers have been also tested in Computer Vision field with promising results
 
+## Process Overview
+The Transformer can be seen as a sequence of different steps:
+1. Tokenization &rarr; Divide the text into chunks
+2. Embeddings &rarr; Transform the chunks into numbers
+3. Positional Encoding &rarr; Encode the position of the original words, so the model won't forget
+
 # Architecture
 ## General
 The basic architecture of a Transformer is composed by **Encoders** and **Decoders**.
