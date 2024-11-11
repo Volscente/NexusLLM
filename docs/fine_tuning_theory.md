@@ -86,6 +86,10 @@ of model outputs.
 One example of dataset used in RLHF is [Anthropic/hh-rlhf](https://huggingface.co/datasets/Anthropic/hh-rlhf/viewer/default/train).
 For each row there is one chosen and one rejected answer.
 
+### Parameter Efficient Fine-Tuning (PEFT)
+Instead of fine-tuning the whole model, PEFT just focuses on a specific portion to fine-tuning the model
+for a very specific task.
+
 ### Comparison
 RLHF is able to better capture humans way of generating responses, but it's harder to implement.
 

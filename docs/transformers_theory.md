@@ -14,6 +14,12 @@ The Transformer can be seen as a sequence of different steps:
 3. Positional Encoding &rarr; Encode the position of the original words, so the model won't forget
 
 # Architecture
+## Introduction
+There are two main elements that differentiate how different LLM works:
+1. The Architecture (e.g., decoder only, encoder only, etc.)
+2. The training process (e.g., pre-training + fine-tuning + etc.)
+
+In this section we're going to explore the architecture element of LLMs.
 ## General
 The basic architecture of a Transformer is composed by **Encoders** and **Decoders**.
 
