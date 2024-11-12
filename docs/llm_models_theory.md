@@ -18,7 +18,7 @@ and decide which is better.
 Usually called also "Prompt Engineering", it is the process of crafting a good prompt for the desired purpose.
 
 ### Types
-- **Zero-Shot Prompting** - Ask the LLM to solve a problem
+- **Zero-Shot Prompting** - Ask the LLM to solve a problem without previous reference or example
 
 ![Zero-Shot Prompting](./images/zero_shot_prompting.png)
 
