@@ -24,6 +24,7 @@ the search space.
 
 # Types of Embeddings
 ## Text Embeddings
+### Definition
 They are created through a process:
 1. Tokenisation
 2. indexing
@@ -95,3 +96,18 @@ a particular application.
 use dimensionality reductions techniques such as PCA.
 
 ## Graph Embeddings
+### Definition
+Graph embeddings are another embedding technique that lets you represent not
+only information about a specific object but also its neighbors.
+
+# Training
+## Two Tower Architecture
+Current embedding models usually use dual encoder (two tower) architecture. For example,
+for the text embedding model used in question-answering, one tower is used to encode
+the queries and the other tower is used to encode the documents.
+
+![Two Tower Architecture](./images/two_tower_architecture.png)
+
+The training includes a pretraining (unsupervised learning) and fine tuning (supervised
+learning). Nowadays, the embedding models are usually directly initialized from foundation
+models such as BERT, T5, GPT, Gemini, CoCa.
