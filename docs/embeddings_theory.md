@@ -67,7 +67,7 @@ It is slightly less accurate than GloVe on average, but is considerably faster t
 ### Definition
 The evolution of the embeddings models can mainly be
 categorized into two stages: shallow Bag-of-words (BoW) models and deeper pretrained
-large language models.
+large language models (e.g., BERT).
 
 ### Shallow BoW Models
 Early document embedding works follow the bag-of-words (BoW) paradigm, assuming a
@@ -78,3 +78,20 @@ Another famous bag-of-words family of document embeddings is TF-IDF.
 
 It has two major weaknesses: both the word  ordering and the semantic meanings are ignored. 
 BoW models fail to capture the sequential relationships between words.
+
+## Image & Multimodal Embeddings
+### Computation
+Unimodal image embeddings can be derived in many ways: one of which is by training a
+CNN or Vision Transformer model on a large scale image classification task (for example,
+Imagenet), and then using the penultimate layer as the image embedding.
+
+## Structured Data Embeddings
+### Definition
+Unlike unstructured data, where a pre-trained embedding model is typically available, we
+have to create the embedding model for the structured data since it would be specific to
+a particular application.
+
+### General Computation
+use dimensionality reductions techniques such as PCA.
+
+## Graph Embeddings
