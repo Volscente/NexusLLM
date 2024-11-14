@@ -53,3 +53,88 @@ steps and its corresponding output:
 
    f. **Final Answer**: The model's final answer to provide to the original user query
 4. The ReAct loop concludes and a final answer is provided back ot the user
+
+# Tools
+## Introduction
+While language models excel at processing information, they lack the ability to directly
+perceive and influence the real world.
+
+So how can we empower our models to have real-time, context-aware interaction with
+external systems? Functions, Extensions, Data Stores and Plugins are all ways to provide this
+critical capability to the model.
+
+There are three main primary tools:
+- Extensions
+- Functions
+- Data Stores
+
+## Extensions
+Extensions allow agents to seamlessly execute APIs
+regardless of their underlying implementation. Let’s say that you’ve built an agent with a goal
+of helping users book flights. You know that you want to use the Google Flights API to retrieve
+flight information, but you’re not sure how you’re going to get your agent to make calls to this
+API endpoint. 
+
+One approach could be to implement custom code.
+This approach is not scalable and could easily break
+in any scenario that falls outside the implemented custom code.
+
+A more resilient approach would be to use an Extension. An Extension bridges the gap
+between an agent and an API by:
+1. Teaching the agent how to use the API endpoint using examples.
+2. Teaching the agent what arguments or parameters are needed to successfully call the
+API endpoint.
+
+![Agent Extensions](./images/agent_extensions.png)
+
+```python
+import vertexai
+import pprint
+from vertexai.preview.extensions import Extension
+
+PROJECT_ID = "YOUR_PROJECT_ID"
+REGION = "us-central1"
+
+vertexai.init(project=PROJECT_ID, location=REGION)
+
+extension_code_interpreter = Extension.from_hub("code_interpreter")
+CODE_QUERY = """Write a python method to invert a binary tree in O(n) time."""
+
+response = extension_code_interpreter.execute(
+operation_id = "generate_and_execute",
+operation_params = {"query": CODE_QUERY}
+)
+
+print("Generated Code:")
+pprint.pprint({response['generated_code']})
+```
+
+## Functions
+In the world of software engineering, functions are defined as self-contained modules
+of code that accomplish a specific task and can be reused as needed.
+
+Functions differ from Extensions in a few ways, most notably:
+1. A model outputs a Function and its arguments, but doesn’t make a live API call.
+2. Functions are executed on the client-side, while Extensions are executed on
+the agent-side.
+
+The logic and execution of calling the actual API endpoint is offloaded away
+from the agent and back to the client-side. This offers the developer more granular control over the flow.
+
+Common use cases:
+- API calls need to be made at another layer of the application stack
+- Security or authentication restrictions that prevent the agent from calling an API directly
+- Additional data transformation logic needs to be applied to the API Response that the
+agent cannot perform.
+
+![Agent Functions](./images/agent_functions.png)
+
+## Data Stores
+Data Stores address this limitation by providing access to more dynamic
+and up-to-date information, and ensuring a model’s responses remain grounded in factuality
+and relevance.
+
+In the context of Generative AI agents, Data Stores are typically implemented as a vector
+database that the developer wants the agent to have access to at runtime.
+
+![Agent  Data Stores](./images/agent_data_stores.png)
