@@ -87,6 +87,9 @@ API endpoint.
 
 ![Agent Extensions](./images/agent_extensions.png)
 
+An agent can learn how to use an extension through an OpenAPI Specification or a manifest file.
+These explain in a machine-readable way how to use the extension.
+
 ```python
 import vertexai
 import pprint
