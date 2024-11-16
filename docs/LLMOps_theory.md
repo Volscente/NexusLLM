@@ -63,4 +63,50 @@ instructions and examples along with placeholders to accommodate user input.
 GenAI models are usually a chain of agents, which characteristic presents few more challenges with respect to traditional MLOps.
 
 ## Aspects
-1. Evaluation
+1. Evaluation - Because of their tight coupling, chains need end-to-end evaluation, not just
+on a per-component basis, to gauge their overall performance and the quality of their
+output.
+2. Versioning - A chain needs to be managed as a complete artifact in its entirety. The chain
+configuration should be tracked with its own revision history for analysis, reproducibility,
+and understanding the impact of changes on output.
+3. Continuous Monitoring - It is used for detecting
+performance degradation, data drift, or unexpected behavior in the chain.
+4. Introspection - The ability to inspect the internal data flows of a chain (inputs and outputs
+from each component) as well as the inputs and outputs of the entire chain is paramount.
+
+# Continuous Training & Tuning
+## Definition
+In machine learning operations (MLOps), continuous training is the practice of repeatedly
+retraining machine learning models in a production environment.
+
+For gen AI models, continuous tuning of the models is often more practical than
+retraining from scratch due to the high data and computational costs involved.
+
+## Data Requirements
+This ease of prototyping, however, comes with a challenge. Traditional predictive AI relies on
+apriori well-defined dataset(s). In gen AI, a single application can leverage various data types,
+from completely different data sources, all working together (Figure 10). Let’s explore some
+of these data types:
+1. Conditioning Prompts - System prompts or Contextual prompts
+2. Few-shot Examples - Input-output pairs
+3. Grounding/Augmentation Data - Data coming from external sources to help the model crafting the output
+4. Task-specific Datasets - Used for fine-tuning
+5. Human Preference Datasets - Used for RLHF
+6. Full Pre Training Corpora - Dataset for pre-training
+
+# Evaluation
+## Approaches
+There are some established metrics, like BLEU for translations and ROUGE for summaries,
+but they don't always tell the full story. That's where custom evaluation methods come in.
+One approach is to use another foundational model as a judge. For example, you could
+prompt a large language model to score the quality of generated texts across various
+dimensions. This is the idea behind techniques like AutoSxS.
+
+The key here is to make sure your automated evaluation aligns with human judgment.
+
+Lack of ground truth data is another common hurdle, especially in the early stages of a
+project. One workaround is to generate synthetic data to serve as a temporary ground truth,
+which can be refined over time with human feedback.
+
+# Deploy
+## Introduction
