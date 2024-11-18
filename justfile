@@ -9,17 +9,17 @@ help:
 
 # PyLint
 lint:
-  poetry run pylint --load-plugins pylint_pytest \
-  --source-roots=./src \
-  --output-format=colorized \
-  --msg-template='Rule: {msg_id} - Position: [{line},{column}] -  {msg}' \
-  ./src ./tests
+  # PyLint lint from ./src
+  ./scripts/pylint_lint.sh
 
 # SQLFluff
 lint_sql file="./queries":
   # Fix and lint
-  poetry run sqlfluff fix --dialect bigquery --exclude-rules LT05 {{file}}
-  poetry run sqlfluff lint --dialect bigquery --exclude-rules LT05 {{file}}
+  ./scripts/sqlfluff_fix_and_lint.sh {{file}}
+
+# Start Jupyter Lab
+jupy:
+  poetry run jupyter lab
 
 # Test .env file
 test_env_file:
