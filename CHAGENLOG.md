@@ -9,9 +9,7 @@
 - [x] Add Notebook `embedding_experimentation.ipynb` in `notebooks/google`
 - [x] Add Notebook `agents_experimentation.ipynb` in `notebooks/agents`
 - [x] Add Docs `agents_theory.md` in `docs`
-- [x] Add Docs `LLMOps_theory.md` in `docs` 
-- [x] Update `CHANGELOG.md`
-- [x] Update project version
+- [x] Add Docs `LLMOps_theory.md` in `docs`
 
 # v.0.1.1
 
