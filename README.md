@@ -1,3 +1,5 @@
+![Inspiring Image](https://repository-images.githubusercontent.com/629625919/db9030d2-92e5-4c14-a024-66b5af87e2fe)
+
 # NexusLLM
 # Introduction
 NexusLLM is a GitHub repository dedicated to exploring various experiments related to Language Model Models (LMM). From fine-tuning and instruction-tuning to RAG and agent-based systems, it offers a diverse range of experiments and insights for researchers and enthusiasts interested in natural language processing and AI innovation.
