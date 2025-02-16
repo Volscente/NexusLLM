@@ -8,6 +8,24 @@
 ## Definition
 It is used the main element while using LLMs, and it converts strings into vectors.
 
+## Strings and Unicode in Python
+In Python you can retrieve the Unicode value of a character through `ord('<char>)`.
+
+The Python interpreter does not therefore see characters, but those numbers instead.
+
+UTF-8/16/32 are specific encoding of Unicode: they define how to represent Unicode characeters in bytes.
+For example: `'hello'.encode('utf-8')` would return the bytes for those 5 characters.
+
+```python
+list('Hello'.encode('utf-8'))# [72, 101, 108, 108, 111]
+```
+
+UTF-8 uses dynamic number of bytes up to 4, while UTF-16 and UTF-32 use always the same amount of 4 bytes, 
+leading to many 0s in their encodings, especially for single english characters.
+
+It would be amazing to directly feed bytes into an LLM, but the context window would be too high! Therefore, we still
+need the tokenization process.
+
 ## Common Problems
 ### Diluted Tokens
 The reason why LLMs work in different ways between different languages and/or topics,
