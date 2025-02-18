@@ -17,7 +17,7 @@ UTF-8/16/32 are specific encoding of Unicode: they define how to represent Unico
 For example: `'hello'.encode('utf-8')` would return the bytes for those 5 characters.
 
 ```python
-list('Hello'.encode('utf-8'))# [72, 101, 108, 108, 111]
+list('Hello'.encode('utf-8'))# [72, 101, 108, 108, 111] -> List of raw bytes
 ```
 
 UTF-8 uses dynamic number of bytes up to 4, while UTF-16 and UTF-32 use always the same amount of 4 bytes, 
@@ -25,6 +25,7 @@ leading to many 0s in their encodings, especially for single english characters.
 
 It would be amazing to directly feed bytes into an LLM, but the context window would be too high! Therefore, we still
 need the tokenization process.
+
 
 ## Common Problems
 ### Diluted Tokens
@@ -55,3 +56,18 @@ meaning of a text, fighting the "Diluted Tokens" problem.
 
 However, too big vocabulary might influence the LLM softmax function for the token sampling
 while constructing its output.
+
+# Techniques
+## Byte Pair Encoding
+It is a technique that want to compress the output encoding by encoding together the pairs of most common bytes.
+
+For example: [aaabbaabaacaa] &rarr; The sequence "aa" is the most common &rarr; Z = aa &rarr; [ZabbZbZcZ]   
+
+This would reduce the length of the output sequence. This can be done recursively and shortening each time the output sequence. 
+
+It is possible to perform an hyperparameter tuning process in order to understand which is the best Vocabulary size that has the
+best compression (i.e, the number of times we repeat the Byte Pair Encoding).
+
+# Training
+## General
+The Tokenizer has its own training set, separated from the LLM's training.
