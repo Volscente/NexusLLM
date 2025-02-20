@@ -90,8 +90,17 @@ These can be learned during the training process.
 understand word order.
 
 ## Encoder
+### Scope
+An encoder processes the input sequence and compresses the information into a context vector 
+(also known as sentence embedding vector) of a fixed length. 
+This representation is expected to be a good summary of the meaning of the whole source sequence.
+
+### Architecture
 The *Encoder* block is composed by a **Self-Attention** layer and a **Feed Forward Neural Network**.
 ![Encoder Architecture](./images/encoder.png)
+
+The encoder can also be implemented as an RNN (i.e., using LSTM and GRU). An inherit problem of Encoder is the fixed-length
+context, which makes impossible to remember long sequences. The Attention Mechanism addressed this problem.
 
 ### Positional Encoder
 It is a technique used to store the original positions of tokens within a sequence. In this way, the tokens can
@@ -101,6 +110,11 @@ The most common technique is to add a fixed-length vectors to the input embeddin
 These vectors are designed to represent the position of the token in the sequence.
 
 ## Decoder
+### Scope
+A decoder is initialized with the context vector defined in the Encoder to emit the transformed output. 
+The early work only used the last state of the encoder network as the decoder initial state.
+
+### Architecture
 It has a similar architecture that an encoder block, but with an additional layer in the middle to
 help focus on relevant part of the input sentence.
 ![Encoder Architecture](./images/decoder.png)
@@ -128,6 +142,7 @@ Consider the sentence *"The animal didn't cross the street because it was too ti
 The word *"it"* refers to the *"Animal"*:
 ![Self-Attention Example](./images/self_attention.png)
 
+The main goal is to help memorise long sequences, by improving the compression mechanism of the encoder-decoder architecture.
 
 # Dot-Product Attention
 ## Definition
