@@ -71,3 +71,7 @@ best compression (i.e, the number of times we repeat the Byte Pair Encoding).
 # Training
 ## General
 The Tokenizer has its own training set, separated from the LLM's training.
+
+Taking into account the training dataset and the "Diluted Tokens" problem, it becomes clear that, the more words in the Tokenizer
+sees in the training dataset that are, for example, in Japanese, the better the Tokenizer would group up these words into 
+the same token. In this way, it would represent a Japanese sentence with far less tokens.
