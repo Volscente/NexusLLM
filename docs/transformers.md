@@ -144,6 +144,25 @@ The word *"it"* refers to the *"Animal"*:
 
 The main goal is to help memorise long sequences, by improving the compression mechanism of the encoder-decoder architecture.
 
+## Characteristics
+### Hard vs. Soft Attention
+In the paper [Show, Attend and Tell](http://proceedings.mlr.press/v37/xuc15.pdf) the problem of image caption generation
+has been analysed.
+
+From that paper, two approaches of Attention Mechanism have been derived:
+- *Soft Attention* - It applies the weights alignment over all the patches of the source image. It's an expensive approach if
+the image is large, but the model is differentiable.
+- *Hard Attention* - It applies the weights alignment only on a singe patch of the source image. It's less expensive, but the model is
+non-differentiable and thus requires further techniques to be trained.
+
+### Global vs. Local Attention
+In the paper [Effective Approaches to Attention-based Neural Machine Translation](https://arxiv.org/pdf/1508.04025.pdf) the
+difference between Global and Local Attention has been proposed.
+
+- *Global Attention* - It is similar to the "Soft Attention" mechanism
+- *Local Attention* - It is a mix between the Hard and Soft Attention mechanisms (The model first predicts the aligned position
+in the current sequence and then center the context window over that position)
+
 # Dot-Product Attention
 ## Definition
 It is another kind of attention mechanism, together with Self-Attention and Cross-Attention. 
