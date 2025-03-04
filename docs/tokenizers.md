@@ -57,6 +57,16 @@ meaning of a text, fighting the "Diluted Tokens" problem.
 However, too big vocabulary might influence the LLM softmax function for the token sampling
 while constructing its output.
 
+## Splitting
+The very first step of any Encoder is the text split.
+
+GPT-2, for example, does that through a REGEX, which can work differently between lowercase and uppercase.
+Also, the way in which the sentence is separated before encoding it can affect the final result.
+
+There are also rules when need to split text that includes, for example, code.
+
+This is the main change between GPT-2 and GPT-4 Tokenizers.
+
 # Techniques
 ## Byte Pair Encoding
 It is a technique that want to compress the output encoding by encoding together the pairs of most common bytes.
@@ -65,7 +75,7 @@ For example: [aaabbaabaacaa] &rarr; The sequence "aa" is the most common &rarr; 
 
 This would reduce the length of the output sequence. This can be done recursively and shortening each time the output sequence. 
 
-It is possible to perform an hyperparameter tuning process in order to understand which is the best Vocabulary size that has the
+It is possible to perform a hyperparameter tuning process in order to understand which is the best Vocabulary size that has the
 best compression (i.e, the number of times we repeat the Byte Pair Encoding).
 
 # Training
