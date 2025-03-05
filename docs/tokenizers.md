@@ -4,6 +4,9 @@
 - [Let's build the GPT Tokenizer](https://www.youtube.com/watch?v=zduSFxRajkE)
 ### Playground
 - [TikTokenizer](https://tiktokenizer.vercel.app/)
+### Libraries
+- [TikToken](https://github.com/openai/tiktoken)
+- [SentencePiece](https://github.com/google/sentencepiece)
 
 ## Definition
 It is used the main element while using LLMs, and it converts strings into vectors.
@@ -90,3 +93,9 @@ The Tokenizer has its own training set, separated from the LLM's training.
 Taking into account the training dataset and the "Diluted Tokens" problem, it becomes clear that, the more words in the Tokenizer
 sees in the training dataset that are, for example, in Japanese, the better the Tokenizer would group up these words into 
 the same token. In this way, it would represent a Japanese sentence with far less tokens.
+
+# Libraries
+## SentencePiece
+Unlike TikToken, SentencePiece is pretty good with both training and inference:
+- TikToken - Encode to UTF-8 and then applied BPE
+- SentencePiece - Apply BPE directly on the code points (and eventually falls back to UTF-8 for certain code points)
