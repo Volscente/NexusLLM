@@ -78,6 +78,11 @@ This would reduce the length of the output sequence. This can be done recursivel
 It is possible to perform a hyperparameter tuning process in order to understand which is the best Vocabulary size that has the
 best compression (i.e, the number of times we repeat the Byte Pair Encoding).
 
+## Special Tokens
+With the `TikToken` library it is possible to add special tokens to the Encoder.
+
+For example the `<endoftext>` and assign it with an unused index.
+
 # Training
 ## General
 The Tokenizer has its own training set, separated from the LLM's training.
