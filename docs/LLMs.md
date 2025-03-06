@@ -88,6 +88,16 @@ agent.run(prompt)
 ```
 
 ## Inference
+## Process
+There’s a common misconception that LLMs like GPT-2 directly produce text. 
+This isn’t the case. Instead, LLMs calculate logits, which are scores assigned to every possible token in their vocabulary. 
+To simplify, here’s an illustrative breakdown of the process:
+
+![LLM Inference Process](./images/llm_digits.png)
+
+The LLM produces just logits of the most probable tokens. Then we have the so called "Decoding" process, which will choose
+the token to sample through different Sample Techniques.
+
 ### Sampling Techniques
 How to choose which is the best output token?
 1. Greedy Search - Most probable token
