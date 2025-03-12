@@ -312,6 +312,16 @@ reducing the memory requirement as the number of GPUs increases.
     - **Pipeline Parallel** - Each layer is loaded into a GPU. 
     - **Tensor Parallel** - It splits each layer into multiple GPUs, further refining the Pipeline Parallelism
 
+### Training Optimisation
+The goal is to optimise the training by using different strategies:
+
+#### Adaptive Learning Rates with Warmup
+- Don't use a fixed learning rate, but adapt it dynamically during the training
+- In order to help the model not diverging at the start, initially use a very low learning rate (warmup)
+- Gradually increase the learning rate from the warmup value to the target value over a thousand in order to prevent
+sudden large updates which might destabilise the training
+- In order to ensure a stable convergence, reduce the learning rate over time through a decay strategy (Linear, Cosine or Exponential)
+
 ## Fine-Tuning
 In order to be useful enough, after the Pre-Training operation, the model goes to another training step called *Fine-Tuning*.
 See the dedicated file `fine_tuning_theory.md`.
