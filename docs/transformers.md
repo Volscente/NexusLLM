@@ -322,6 +322,23 @@ The goal is to optimise the training by using different strategies:
 sudden large updates which might destabilise the training
 - In order to ensure a stable convergence, reduce the learning rate over time through a decay strategy (Linear, Cosine or Exponential)
 
+#### Gradient Clipping
+- Cap the magnitude of the gradient to a certain threshold
+- It prevents **Exploding Gradients** (Gradients become too big)
+
+#### Normalisation
+- Usage of techniques to ensure stable activations and gradients, such as: Batch Norm, Layer Norm and Weight Norm
+- Reduce internal covariate shift in order to speed-up convergence
+- Prevents Exploding Gradients
+
+#### Mixed-Precision Training for Memory Efficiency
+- Use lower representation numbers to restrain excessive memory usage
+
+#### Optimisers
+- AdamW (Adam with Weight Decay) - It improves Adam by decoupling the weights decays from the gradients updates
+- Lion (EvoLved Sign Momentum) - Uses sign-based updates instead of raw gradients, leading to faster convergence
+and it works well with low-rank parameterization in transformers
+
 ## Fine-Tuning
 In order to be useful enough, after the Pre-Training operation, the model goes to another training step called *Fine-Tuning*.
 See the dedicated file `fine_tuning_theory.md`.
