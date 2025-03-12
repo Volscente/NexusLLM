@@ -291,8 +291,26 @@ The Training process is composed by 3 main steps:
 
 
 ## Pre-Training
+### Objective
 Given an input sequence of tokens (e.g., words), predict the next token. This is generally known as
-*Pre-Training* phase and it is done by feeding to the Transformer a huge amount of Internet text data.
+*Pre-Training* phase, and it is done by feeding to the Transformer a huge amount of Internet text data.
+
+### Data Preparation
+The massive dataset required for the pre-training has to be carefully curated by:
+- Cleaning data
+- Remove duplicates
+- Tokenization
+- Remove problematic data
+
+### Distributed Training
+It is a combination of different parallelisation strategies:
+- **Data Parallel** - Split the training dataset into batches and run them on parallel GPUs at the same time. The only
+requirement is to add gradient synchronisation at the end of each batch step. Since gradients are computed in parallel,
+there is not a linear decrease of the training time. Feasible only if the memory is not a constraint.
+- **Model Parallelism** - If the memory is a constraint, this strategy allows to split the model into several GPUs, thus
+reducing the memory requirement as the number of GPUs increases.
+    - **Pipeline Parallel** - Each layer is loaded into a GPU. 
+    - **Tensor Parallel** - It splits each layer into multiple GPUs, further refining the Pipeline Parallelism
 
 ## Fine-Tuning
 In order to be useful enough, after the Pre-Training operation, the model goes to another training step called *Fine-Tuning*.
