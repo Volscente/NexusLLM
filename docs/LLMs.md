@@ -88,7 +88,7 @@ agent.run(prompt)
 ```
 
 ## Inference
-## Process
+### Process
 There’s a common misconception that LLMs like GPT-2 directly produce text. 
 This isn’t the case. Instead, LLMs calculate logits, which are scores assigned to every possible token in their vocabulary. 
 To simplify, here’s an illustrative breakdown of the process:
@@ -96,16 +96,26 @@ To simplify, here’s an illustrative breakdown of the process:
 ![LLM Inference Process](./images/llm_digits.png)
 
 The LLM produces just logits of the most probable tokens. Then we have the so called "Decoding" process, which will choose
-the token to sample through different Sample Techniques.
+the token to sample through different Sampling Techniques.
 
 ### Sampling Techniques
 How to choose which is the best output token?
-1. Greedy Search - Most probable token
-2. Random Sampling - Selects the next token according to the probability distribution, where each token is sampled 
+
+#### Greedy Search
+It samples the most probable token each time. Once the token is sampled, it is then added to the input sequence.
+
+![Greed Search](./images/decoding_greed_search.png)
+
+#### Random Sampling
+Selects the next token according to the probability distribution, where each token is sampled 
 proportionally to its predicted probability.
-3. Temperature Sampling - Adjusts the probability distribution by a temperature parameter. 
+
+#### Temperature Sampling
+Adjusts the probability distribution by a temperature parameter. 
 Higher temperatures promote diversity, lower temperatures favor high-probability tokens.
-4. Top-K sampling - Randomly samples from the top K most probable tokens.
+
+#### Top-K sampling
+Randomly samples from the top K most probable tokens.
 
 ### Performance
 There are several ways to make the inference process more performing:
