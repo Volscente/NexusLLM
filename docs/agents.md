@@ -141,3 +141,11 @@ In the context of Generative AI agents, Data Stores are typically implemented as
 database that the developer wants the agent to have access to at runtime.
 
 ![Agent  Data Stores](./images/agent_data_stores.png)
+
+# Neural Turing Machine
+## Definition
+Coupling an ANN with an external memory in order to retrieve information through attention mechanism.
+
+## Attention Mechanisms
+- Content-based Addressing &rarr; Softmax of key-vector "k" and memory storage
+- Location-based Addressing &rarr; 1-D Convolution between key-vector and memory storage
