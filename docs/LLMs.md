@@ -106,6 +106,8 @@ It samples the most probable token each time. Once the token is sampled, it is t
 
 ![Greed Search](./images/decoding_greed_search.png)
 
+#### Beam Search
+
 #### Random Sampling
 Selects the next token according to the probability distribution, where each token is sampled 
 proportionally to its predicted probability.
