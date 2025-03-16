@@ -9,7 +9,9 @@ Such low dimensional representation try to preserve the most of the "essential i
 original objects.
 
 Ideally the embeddings are created, so they place objects with similar semantic properties
-closer in the embedding space
+closer in the embedding space.
+
+The Embeddings are usually obtained through different ML models, like Encoder-based Transformers such as BERT.
 
 ## Usage
 1. Precomputing the embeddings for billions items of the search space.
