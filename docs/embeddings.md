@@ -14,6 +14,7 @@ closer in the embedding space.
 The Embeddings are usually obtained through different ML models, like Encoder-based Transformers such as BERT.
 
 ## Usage
+### Semantic Search
 1. Precomputing the embeddings for billions items of the search space.
 2. Mapping query embeddings to the same embedding space.
 3. Efficient computing and retrieving of the nearest neighbors of the query embeddings in
