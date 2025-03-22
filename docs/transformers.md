@@ -109,6 +109,9 @@ also be processed in parallel while preserving the original position.
 The most common technique is to add a fixed-length vectors to the input embeddings of each token. 
 These vectors are designed to represent the position of the token in the sequence.
 
+By default, the Transformer is therefore position-agnostic and, through the Positional Encoder, the computed positional
+encodings are added to the token embeddings before feeding them into the transformer..
+
 ## Decoder
 ### Scope
 A decoder is initialized with the context vector defined in the Encoder to emit the transformed output. 
