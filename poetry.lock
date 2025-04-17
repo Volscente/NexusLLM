@@ -2972,6 +2972,24 @@ pydantic = ">=2,<3"
 images = ["pillow (>=10.1.0,<11.0.0)"]
 
 [[package]]
+name = "langchain-huggingface"
+version = "0.1.2"
+description = "An integration package connecting Hugging Face and LangChain"
+optional = false
+python-versions = "<4.0,>=3.9"
+files = [
+    {file = "langchain_huggingface-0.1.2-py3-none-any.whl", hash = "sha256:7de5cfcae32bfb6a99c084fc16176f02583a4f8d94febb6bb45bed5b34699174"},
+    {file = "langchain_huggingface-0.1.2.tar.gz", hash = "sha256:4a66d5c449298fd353bd84c9ed01f9bf4303bf2e4ffce14aab8c55c584eee57c"},
+]
+
+[package.dependencies]
+huggingface-hub = ">=0.23.0"
+langchain-core = ">=0.3.15,<0.4.0"
+sentence-transformers = ">=2.6.0"
+tokenizers = ">=0.19.1"
+transformers = ">=4.39.0"
+
+[[package]]
 name = "langgraph"
 version = "0.2.45"
 description = "Building stateful, multi-actor applications with LLMs"
@@ -7496,4 +7514,4 @@ cffi = ["cffi (>=1.11)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "f04737365b5faf552a1f9a58f33f73ed6acbfa6d3155cbceb9856c39e7ceac5a"
+content-hash = "39bda50c9dad4f24bd04d2470e2ea418092aa7a40bd0ec9c92d334e2611b967f"
