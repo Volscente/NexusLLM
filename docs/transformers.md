@@ -4,6 +4,8 @@ Before the invention of transformers1, recurrent neural networks (RNNSs) were th
 However, RNNs process input and output sequences sequentially, while Transformers can do it in parallel thanks to the
 self-attention mechanism. Although the cost has highly increased (Quadratic of the context length).
 
+Transformers are originally born for Natural Language Processing and, in particular, Translation problems.
+
 ### The Evolution of Transformers
 - GPT-1 was a decoder-only that combined an unsupervised pre-training over a large amount of labelled data and
 then fine-tuned for a specific task. The model was very limited, since it could generalise to tasks that are
