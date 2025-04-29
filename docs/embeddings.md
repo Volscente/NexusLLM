@@ -117,7 +117,8 @@ models such as BERT, T5, GPT, Gemini, CoCa.
 
 # Applications
 ## Semi-Categorical Text
-Suppose you have a column with very limited 
+- Suppose you have a column "Location" with entries that are not coherent (e.g., "US", "USA", United States", etc.
+- It is possible to use directly the Text Embeddings possibility
 
 ## Text Embeddings
 ### SentenceTransformer
