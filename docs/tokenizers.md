@@ -71,8 +71,9 @@ There are also rules when need to split text that includes, for example, code.
 This is the main change between GPT-2 and GPT-4 Tokenizers.
 
 # Techniques
-## Byte Pair Encoding
-It is a technique that want to compress the output encoding by encoding together the pairs of most common bytes.
+## Byte Pair Encoding (BPE)
+It is a technique that wants to compress the output encoding by encoding together the pairs of most common bytes.
+It is essentially a token embeddings' algorithm.
 
 For example: [aaabbaabaacaa] &rarr; The sequence "aa" is the most common &rarr; Z = aa &rarr; [ZabbZbZcZ]   
 

@@ -51,6 +51,7 @@ In the original paper were used 6 Encoder blocks and 6 Decoder blocks.
 There are of course many alternatives:
 - **Decoders Only** - Like GPT-3 and GPT-2
 - **Encoders Only** - Like BERT
+- **Encoder-Decoder Models** - Like BART or T5
 
 The above alternatives may also vary for the number of Encoder and/or Decoder blocks used: 
 - BERT has 24 Encoder blocks
