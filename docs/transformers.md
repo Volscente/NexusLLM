@@ -97,6 +97,7 @@ understand word order.
 An encoder processes the input sequence and compresses the information into a context vector 
 (also known as sentence embedding vector) of a fixed length. 
 This representation is expected to be a good summary of the meaning of the whole source sequence.
+It builds a contextual representation of the input sequence.
 
 ### Architecture
 The *Encoder* block is composed by a **Self-Attention** layer and a **Feed Forward Neural Network**.
@@ -119,6 +120,7 @@ encodings are added to the token embeddings before feeding them into the transfo
 ### Scope
 A decoder is initialized with the context vector defined in the Encoder to emit the transformed output. 
 The early work only used the last state of the encoder network as the decoder initial state.
+It focuses only on autoregressive decoding.
 
 ### Architecture
 It has a similar architecture that an encoder block, but with an additional layer in the middle to
