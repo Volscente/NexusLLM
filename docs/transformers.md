@@ -120,7 +120,7 @@ encodings are added to the token embeddings before feeding them into the transfo
 ### Scope
 A decoder is initialized with the context vector defined in the Encoder to emit the transformed output. 
 The early work only used the last state of the encoder network as the decoder initial state.
-It focuses only on autoregressive decoding.
+It focuses only on autoregressive decoding, in which is new token is generated sequentially from the previous one (Autoregressive).
 
 ### Architecture
 It has a similar architecture that an encoder block, but with an additional layer in the middle to
