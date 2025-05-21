@@ -30,11 +30,11 @@ Other applications involve:
 
 ## Process Overview
 The Transformer can be seen as a sequence of different steps:
-1. Tokenization &rarr; Divide the text into chunks (Only applicable to NLP tasks) &rarr; Output shape (input_dim)
-2. Embeddings &rarr; Expand the input sequence representation in order to: a) Increase representatioin power; b) Matche the Encoder expected size &rarr; Output shape (input_dim, d_model)
-3. Positional Encoding &rarr; Encode the position of the original sequence into the new expanded representation (Output of the Embedding), so the model won't forget the original position &rarr; Output shape (input_dim, d_model)
-4. Encoder &rarr; Create a Context Representation through the usage of Attention Mechanism &rarr; Capture tokens relationships &rarr; Output shape (input_dim, d_model)
-5. Decoder &rarr; Generate output sequence based on the Context Representation from Encoder one token at a time &rarr; Output shape (output_dim, 1)
+1. **Tokenization (NLP only)** &rarr; Convert raw text into a sequence of discrete tokens (e.g., words, subwords), often represented as integers &rarr; Output shape (sequence_length,)
+2. **Embeddings** &rarr; Expand the input sequence representation in order to: a) Increase representatioin power; b) Matche the Encoder expected size &rarr; Output shape (sequence_length, d_model)
+3. **Positional Encoding** &rarr; Encode the position of the original sequence into the new expanded representation (Output of the Embedding), so the model won't forget the original position &rarr; Output shape (sequence_length, d_model)
+4. **Encoder** &rarr; Applies layers of self-attention and feedforward networks to produce contextualized representations of each input token, allowing the model to capture dependencies across the sequence &rarr; Output shape (input_dim, d_model)
+5. **Decoder** &rarr; enerates the output sequence one token (or time step) at a time, using the encoder’s output as context, plus its own previously generated outputs (via masked self-attention) &rarr; Output shape (target_sequence_length, d_model)
 
 # Architecture
 ## Introduction
