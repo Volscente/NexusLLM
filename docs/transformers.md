@@ -14,7 +14,7 @@ similar to the task it was trained on.
 from traditional encoder-decoder transformer models by being an encoder-only architecture. 
 It was able to understand the context through an MLM training.
 - GPT-2 was trained on a bigger dataset (40GB) and with 1.5B parameters. It was able to capture longer-range dependencies and common sense reasoning.
-- 
+
 
 ## Resources
 - [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
@@ -30,9 +30,11 @@ Other applications involve:
 
 ## Process Overview
 The Transformer can be seen as a sequence of different steps:
-1. Tokenization &rarr; Divide the text into chunks
-2. Embeddings &rarr; Transform the chunks into numbers
-3. Positional Encoding &rarr; Encode the position of the original words, so the model won't forget
+1. Tokenization &rarr; Divide the text into chunks (Only applicable to NLP tasks) &rarr; Output shape (input_dim)
+2. Embeddings &rarr; Expand the input sequence representation in order to: a) Increase representatioin power; b) Matche the Encoder expected size &rarr; Output shape (input_dim, d_model)
+3. Positional Encoding &rarr; Encode the position of the original sequence into the new expanded representation (Output of the Embedding), so the model won't forget the original position &rarr; Output shape (input_dim, d_model)
+4. Encoder &rarr; Create a Context Representation through the usage of Attention Mechanism &rarr; Capture tokens relationships &rarr; Output shape (input_dim, d_model)
+5. Decoder &rarr; Generate output sequence based on the Context Representation from Encoder one token at a time &rarr; Output shape (output_dim, 1)
 
 # Architecture
 ## Introduction
