@@ -1,3 +1,9 @@
+# General
+## Areas of Evaluation
+An evaluation framework for LLMs should target two main areas:
+- **Use Case** - Custom metrics that directly measure how well the LLM is performing regarding the specific task
+- **System Architecture** - Generic metrics on, for example faithfulness of information retrieved by the RAG or the Task Completion for AI Agents
+
 # Metrics
 ## List
 - **Answer Relevancy** - Determines whether an LLM output is able to address the given input and certain context and rules ✅
