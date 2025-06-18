@@ -20,9 +20,19 @@ Some metrics are based on Statistics, while others are sometimes referred as *"M
 
 ![LLM Metrics](./images/llm_metrics.png)
 
-### Statistics
-- They might perform poorly when the output implies reasoning capabilities
+### Statistics Metrics
+- They might perform poorly when the output implies reasoning capabilities (No semantic is included)
+- They do not take into account any
 
 **List of Metrics:**
 - **BLEU (BiLingual Evaluation Understudy)** - It evaluates the output of the LLM application against annotated ground truths. It calculates the precision for each matching n-gram (n consecutive words) between an LLM output and expected output to calculate their geometric mean and applies a brevity penalty if needed.
-- **ROUGE (Recall-Oriented Understudy for Gisting Evaluation)** - It is used for text summarisation and calculates recall by comparing the overlap of n-grams between LLM outputs and expected outputs.
+- **ROUGE (Recall-Oriented Understudy for Gisting Evaluation)** - It is used for text summarisation and calculates recall by comparing the overlap of n-grams between LLM outputs and expected outputs.  It also leverages external linguistic databases like WordNet to account for synonyms. The final score is the harmonic mean of precision and recall, with a penalty for ordering discrepancies.
+- **METEOR (Metric for Evaluation of Translation with Explicit Ordering)** - It calculates scores by assessing both precision (n-gram matches) and recall (n-gram overlaps), adjusted for word order differences between LLM outputs and expected outputs. It can also leverages exteral linguistic databases.
+- **Levenshtein distance**
+
+### Model-based Metrics
+- Reliable but inaccurate (struggle to keep semantic included), because of their probabilistic nature
+
+**List of Metrics:**
+- **NLI** - It is a Non-LLM based and uses Natural Language Inference models to classify whether an LLM output is logically consistent (entailment), contradictory, or unrelated (neutral) with respect to a given reference text.
+- **BLEURT (Bilingual Evaluation Understudy with Representations from Transformers)** - It uses pre-trained models like BERT to score LLM outputs on some expected outputs
