@@ -36,3 +36,11 @@ Some metrics are based on Statistics, while others are sometimes referred as *"M
 **List of Metrics:**
 - **NLI** - It is a Non-LLM based and uses Natural Language Inference models to classify whether an LLM output is logically consistent (entailment), contradictory, or unrelated (neutral) with respect to a given reference text.
 - **BLEURT (Bilingual Evaluation Understudy with Representations from Transformers)** - It uses pre-trained models like BERT to score LLM outputs on some expected outputs
+
+# G-Eval
+## Introduction
+- It is an LLM-based Scorer ([Paper](https://arxiv.org/pdf/2303.16634.pdf))
+- Documentation from [DeepEval](https://www.deepeval.com/docs/metrics-llm-evals)
+
+![G-Eval](./images/g_eval.png)
+
