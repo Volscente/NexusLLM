@@ -44,3 +44,9 @@ Some metrics are based on Statistics, while others are sometimes referred as *"M
 
 ![G-Eval](./images/g_eval.png)
 
+## Process
+1. Prompt with the following information: 1) Task Introduction; 2) Evaluation Criteria
+2. Generate through the previous output the list of Evaluation Steps through the *"Auto Chain of Thoughts"*
+3. Prompt the Scorer LLM with
+   - Evaluation Steps
+   - 
