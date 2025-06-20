@@ -4,6 +4,14 @@ An evaluation framework for LLMs should target two main areas:
 - **Use Case** - Custom metrics that directly measure how well the LLM is performing regarding the specific task
 - **System Architecture** - Generic metrics on, for example, faithfulness of information retrieved by the RAG or the Task Completion for AI Agents
 
+## LLM Standalone Metrics
+These metrics are related to evaluate LLM against standardised benchmarks:
+- GLUE
+- SyperGLUE
+- HellaSwag
+- TruthfulQA
+- MMLU
+
 # Metrics
 ## List
 - **Answer Relevancy** - Determines whether an LLM output is able to address the given input and certain context and rules ✅
