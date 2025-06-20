@@ -41,6 +41,11 @@ Some metrics are based on Statistics, while others are sometimes referred as *"M
 - **BERTScore** - It relies on a pre-trained LLM like BERT and on the cosine similarity between expected output and predicted output. Afterward, the similarities are aggregated to produce a final score.
 - **MoverScore** - It relies on LLM like BERT to obtain deeper contextualised word embeddings for both reference text and generated text before computing the similarity.
 
+## Usage
+It is good to have:
+- 1-2 custom metrics (G-Eval or DAG) that are use case specific
+- 2-3 generic metrics (RAG, agentic, or conversational) that are system specific
+
 # G-Eval (Model-based Scorer)
 ## Introduction
 - It is an LLM-based Scorer ([Paper](https://arxiv.org/pdf/2303.16634.pdf))
@@ -177,3 +182,81 @@ It samples multiple output in order to detect hallucinations through a model-bas
 
 ![SelfCheckGPT](./images/selfcheckgpt.png)
 
+# RAG-Specific Metrics
+## Faithfulness
+### Introduction
+It evaluates whether the Generator is generating output that factually aligns with the information presented from the Retriever.
+
+It is possible to use a QAG Score here.
+
+### Process
+For faithfulness, if you define it as the proportion of truthful claims made in an LLM output with regards to the retrieval context, we can calculate faithfulness using QAG by following this algorithm:
+
+1. Use LLMs to extract all claims made in the output.
+2. For each claim, check whether the it agrees or contradicts with each individual node in the retrieval context. In this case, the close-ended question in QAG will be something like: “Does the given claim agree with the reference text”, where the “reference text” will be each individual retrieved node. (Note that you need to confine the answer to either a ‘yes’, ‘no’, or ‘idk’. The ‘idk’ state represents the edge case where the retrieval context does not contain relevant information to give a yes/no answer.)
+3. Add up the total number of truthful claims (‘yes’ and ‘idk’), and divide it by the total number of claims made.
+
+### Code
+```python
+from deepeval.metrics import FaithfulnessMetric
+from deepeval.test_case import LLMTestCase
+
+test_case=LLMTestCase(
+  input="...", 
+  actual_output="...",
+  retrieval_context=["..."]
+)
+metric = FaithfulnessMetric(threshold=0.5)
+
+metric.measure(test_case)
+print(metric.score)
+print(metric.reason)
+print(metric.is_successful())
+```
+
+## Answer Relevancy
+### Introduction
+It assesses whether RAG generator outputs concise answers, and can be calculated by determining the proportion of sentences in an LLM output that a relevant to the input.
+
+### Code
+```python
+from deepeval.metrics import AnswerRelevancyMetric
+from deepeval.test_case import LLMTestCase
+
+test_case=LLMTestCase(
+  input="...", 
+  actual_output="...",
+  retrieval_context=["..."]
+)
+metric = AnswerRelevancyMetric(threshold=0.5)
+
+metric.measure(test_case)
+print(metric.score)
+print(metric.reason)
+print(metric.is_successful())
+```
+
+## Contextual Precision
+### Introduction
+Contextual Precision is a RAG metric that assesses the quality of your RAG pipeline’s retriever.
+
+### Code
+```python
+from deepeval.metrics import ContextualPrecisionMetric
+from deepeval.test_case import LLMTestCase
+
+test_case=LLMTestCase(
+  input="...", 
+  actual_output="...",
+  # Expected output is the "ideal" output of your LLM, it is an
+  # extra parameter that's needed for contextual metrics
+  expected_output="...",
+  retrieval_context=["..."]
+)
+metric = ContextualPrecisionMetric(threshold=0.5) # Or ContextualRecallMetric
+
+metric.measure(test_case)
+print(metric.score)
+print(metric.reason)
+print(metric.is_successful())
+```
