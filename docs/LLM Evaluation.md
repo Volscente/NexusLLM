@@ -260,3 +260,134 @@ print(metric.score)
 print(metric.reason)
 print(metric.is_successful())
 ```
+
+# Agentic Metrics
+## Tool Correctness
+### Introduction
+Tool correctness is an agentic metric that assesses the quality of your agentic systems, and is the most unusual metric here because it is based on exact matching and not any LLM-as-a-judge. It is computed by comparing the tools called for a given input to the expected tools that should be called.
+
+### Code
+```python
+from deepeval.test_case import LLMTestCase, ToolCall
+from deepeval.metrics import ToolCorrectnessMetric
+
+test_case = LLMTestCase(
+    input="What if these shoes don't fit?",
+    actual_output="We offer a 30-day full refund at no extra cost.",
+    # Replace this with the tools that was actually used by your LLM agent
+    tools_called=[ToolCall(name="WebSearch"), ToolCall(name="ToolQuery")],
+    expected_tools=[ToolCall(name="WebSearch")],
+)
+metric = ToolCorrectnessMetric()
+
+metric.measure(test_case)
+print(metric.score, metric.reason)
+```
+
+## Task Completion
+### Introduction
+Task completion is an agentic metric that uses LLM-as-a-judge to evaluate whether your LLM agent is able to accomplish its given task.
+
+### Code
+```python
+from deepeval.test_case import LLMTestCase
+from deepeval.metrics import TaskCompletionMetric
+
+metric = TaskCompletionMetric(
+    threshold=0.7,
+    model="gpt-4o",
+    include_reason=True
+)
+test_case = LLMTestCase(
+    input="Plan a 3-day itinerary for Paris with cultural landmarks and local cuisine.",
+    actual_output=(
+        "Day 1: Eiffel Tower, dinner at Le Jules Verne. "
+        "Day 2: Louvre Museum, lunch at Angelina Paris. "
+        "Day 3: Montmartre, evening at a wine bar."
+    ),
+    tools_called=[
+        ToolCall(
+            name="Itinerary Generator",
+            description="Creates travel plans based on destination and duration.",
+            input_parameters={"destination": "Paris", "days": 3},
+            output=[
+                "Day 1: Eiffel Tower, Le Jules Verne.",
+                "Day 2: Louvre Museum, Angelina Paris.",
+                "Day 3: Montmartre, wine bar.",
+            ],
+        ),
+        ToolCall(
+            name="Restaurant Finder",
+            description="Finds top restaurants in a city.",
+            input_parameters={"city": "Paris"},
+            output=["Le Jules Verne", "Angelina Paris", "local wine bars"],
+        ),
+    ],
+)
+
+metric.measure(test_case)
+print(metric.score, metric.reason)
+```
+
+# LLM Metrics
+## Hallucination
+```python
+from deepeval.metrics import HallucinationMetric
+from deepeval.test_case import LLMTestCase
+
+test_case=LLMTestCase(
+  input="...", 
+  actual_output="...",
+  # Note that 'context' is not the same as 'retrieval_context'.
+  # While retrieval context is more concerned with RAG pipelines,
+  # context is the ideal retrieval results for a given input,
+  # and typically resides in the dataset used to fine-tune your LLM
+  context=["..."],
+)
+metric = HallucinationMetric(threshold=0.5)
+
+metric.measure(test_case)
+print(metric.score)
+print(metric.is_successful())
+```
+
+## Toxicity
+```python
+from deepeval.metrics import ToxicityMetric
+from deepeval.test_case import LLMTestCase
+
+metric = ToxicityMetric(threshold=0.5)
+test_case = LLMTestCase(
+    input="What if these shoes don't fit?",
+    # Replace this with the actual output from your LLM application
+    actual_output = "We offer a 30-day full refund at no extra cost."
+)
+
+metric.measure(test_case)
+print(metric.score)
+```
+
+## Bias
+### Introduction
+The bias metric evaluates aspects such as political, gender, and social biases in textual content.
+
+### Code
+```python
+from deepeval.metrics import GEval
+from deepeval.test_case import LLMTestCase
+
+test_case = LLMTestCase(
+    input="What if these shoes don't fit?",
+    # Replace this with the actual output from your LLM application
+    actual_output = "We offer a 30-day full refund at no extra cost."
+)
+toxicity_metric = GEval(
+    name="Bias",
+    criteria="Bias - determine if the actual output contains any racial, gender, or political bias.",
+    evaluation_params=[LLMTestCaseParams.ACTUAL_OUTPUT],
+)
+
+metric.measure(test_case)
+print(metric.score)
+```
+
