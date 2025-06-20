@@ -37,7 +37,11 @@ Some metrics are based on Statistics, while others are sometimes referred as *"M
 - **NLI** - It is a Non-LLM based and uses Natural Language Inference models to classify whether an LLM output is logically consistent (entailment), contradictory, or unrelated (neutral) with respect to a given reference text.
 - **BLEURT (Bilingual Evaluation Understudy with Representations from Transformers)** - It uses pre-trained models like BERT to score LLM outputs on some expected outputs
 
-# G-Eval
+### Statistical and Model-Based Scorers
+- **BERTScore** - It relies on a pre-trained LLM like BERT and on the cosine similarity between expected output and predicted output. Afterward, the similarities are aggregated to produce a final score.
+- **MoverScore** - It relies on LLM like BERT to obtain deeper contextualised word embeddings for both reference text and generated text before computing the similarity.
+
+# G-Eval (Model-based Scorer)
 ## Introduction
 - It is an LLM-based Scorer ([Paper](https://arxiv.org/pdf/2303.16634.pdf))
 - Documentation from [DeepEval](https://www.deepeval.com/docs/metrics-llm-evals)
@@ -49,4 +53,127 @@ Some metrics are based on Statistics, while others are sometimes referred as *"M
 2. Generate through the previous output the list of Evaluation Steps through the *"Auto Chain of Thoughts"*
 3. Prompt the Scorer LLM with
    - Evaluation Steps
-   - 
+   - Input Context
+   - Input Target
+4. (Optional) Normalise the output score by the probabilities of the output tokens
+
+## Code Snippets
+### Basic Implementation
+```python
+from deepeval.test_case import LLMTestCase, LLMTestCaseParams
+from deepeval.metrics import GEval
+
+test_case = LLMTestCase(input="input to your LLM", actual_output="your LLM output")
+coherence_metric = GEval(
+    name="Coherence",
+    criteria="Coherence - the collective quality of all sentences in the actual output",
+    evaluation_params=[LLMTestCaseParams.ACTUAL_OUTPUT],
+)
+
+coherence_metric.measure(test_case)
+print(coherence_metric.score)
+print(coherence_metric.reason)
+```
+
+# DAG (Model-based Scorer)
+## Introduction
+- Deep Acyclic Graph is a LLM-based scorer that relies on a decision tree
+- Each node is an LLM Judgement and each edge is a decision
+- Each leaf node is associated with a hardcoded score
+
+![DAG LLM Scorer](./images/dag_llm.png)
+
+## Advantages
+- Slightly more deterministic, since there's a certain degree of control in the score determination
+- It can be used to filter away edge cases where LLM output doesn't even meet minimum requirements
+
+## Code Snippets
+### Basic Implementation
+```python
+from deepeval.test_case import LLMTestCase
+from deepeval.metrics.dag import (
+    DeepAcyclicGraph,
+    TaskNode,
+    BinaryJudgementNode,
+    NonBinaryJudgementNode,
+    VerdictNode,
+)
+from deepeval.metrics import DAGMetric
+
+correct_order_node = NonBinaryJudgementNode(
+    criteria="Are the summary headings in the correct order: 'intro' => 'body' => 'conclusion'?",
+    children=[
+        VerdictNode(verdict="Yes", score=10),
+        VerdictNode(verdict="Two are out of order", score=4),
+        VerdictNode(verdict="All out of order", score=2),
+    ],
+)
+
+correct_headings_node = BinaryJudgementNode(
+    criteria="Does the summary headings contain all three: 'intro', 'body', and 'conclusion'?",
+    children=[
+        VerdictNode(verdict=False, score=0),
+        VerdictNode(verdict=True, child=correct_order_node),
+    ],
+)
+
+extract_headings_node = TaskNode(
+    instructions="Extract all headings in `actual_output`",
+    evaluation_params=[LLMTestCaseParams.ACTUAL_OUTPUT],
+    output_label="Summary headings",
+    children=[correct_headings_node, correct_order_node],
+)
+
+# create the DAG
+dag = DeepAcyclicGraph(root_nodes=[extract_headings_node])
+
+# create the metric
+format_correctness = DAGMetric(name="Format Correctness", dag=dag)
+
+# create a test case
+test_case = LLMTestCase(input="your-original-text", actual_output="your-summary")
+
+# evaluate
+format_correctness.measure(test_case)
+print(format_correctness.score, format_correctness.reason)
+```
+
+# Prometheus (Model-based Scorer)
+## Introduction
+- LLM-based evaluation framework use case agnostic
+- Based con Llama-2-chat and fine-tuned for evaluation purposes
+
+## Advantages
+- Evaluation steps are not produced by LLM, but are embedded in the node itself
+
+# QAG Score (Hybrid Scorer)
+## Introduction
+QAG (Question Answer Generation) Score uses binary answer (‘yes’ or ‘no’) to close-ended questions (which can be generated or preset) to compute a final metric score.
+
+**Example:**
+```
+So for this example LLM output:
+
+Martin Luther King Jr., the renowned civil rights leader, was assassinated on April 4, 1968, at the Lorraine Motel in Memphis, Tennessee. He was in Memphis to support striking sanitation workers and was fatally shot by James Earl Ray, an escaped convict, while standing on the motel’s second-floor balcony.
+A claim would be:
+
+Martin Luther King Jr. assassinated on the April 4, 1968
+And a corresponding close-ended question would be:
+
+Was Martin Luther King Jr. assassinated on the April 4, 1968?
+```
+## Advantages
+- The score is not directly generated by an LLM
+
+# GPTScore
+## Introduction
+It is similar to G-Eval, but the evaluation trask is performed with a form-filling paradigm.
+
+![GPTScore](./images/gptscore.png)
+
+# SelfCheckGPT
+## Introduction
+It samples multiple output in order to detect hallucinations through a model-based approach.
+
+![SelfCheckGPT](./images/selfcheckgpt.png)
+
