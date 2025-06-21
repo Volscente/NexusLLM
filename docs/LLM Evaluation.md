@@ -399,3 +399,32 @@ metric.measure(test_case)
 print(metric.score)
 ```
 
+# Evaluation Framework Platforms
+## Azure AI Foundry Automated Evaluation(Microsoft)
+Azure AI Foundry is an all-in-one AI platform for building, evaluating, and deploying generative AI solutions and custom copilots.
+
+## OpenAI Evals (OpenAI)
+The OpenAI Evals framework consists of a framework to evaluate an LLM or a system built on top of an LLM, and an open-source registry of challenging evals.
+
+## Weights & Biases
+A Machine Learning platform to quickly track experiments, version and iterate on datasets, evaluate model performance.
+
+## LangSmith (LangChain)
+Trace and evaluate language model applications and intelligent agents.
+
+## TruLens (TruEra)
+TruLens provides a set of tools for developing and monitoring neural nets, including LLMs.
+
+## Vertex AI Studio (Google)
+You can evaluate the performance of foundation models and your tuned generative AI models on Vertex AI.
+
+## Amazon Bedrock
+Amazon Bedrock supports model evaluation jobs.
+
+## DeepEval (Confident AI)
+An open-source LLM evaluation framework for LLM applications.
+
+[Sample Codes](https://github.com/confident-ai/deepeval/tree/main/examples).
+
+## Parea AI
+Parea provides tools for debugging, testing, evaluating, and monitoring LLM-powered applications.
