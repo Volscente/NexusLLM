@@ -12,6 +12,13 @@ These metrics are related to evaluate LLM against standardised benchmarks:
 - TruthfulQA
 - MMLU
 
+## Online vs. Offline Evaluation
+### Motivation
+Offline evaluation usually proves valuable in the initial development stages of features, but it falls short in assessing how model changes impact the user experience in a live production environment.
+
+### Definitions
+- **Offline** - Offline evaluation scrutinizes LLMs against specific datasets.
+
 # Metrics
 ## List
 - **Answer Relevancy** - Determines whether an LLM output is able to address the given input and certain context and rules ✅
