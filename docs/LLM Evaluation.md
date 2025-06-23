@@ -19,8 +19,12 @@ Offline evaluation usually proves valuable in the initial development stages of 
 ### Definitions
 - **Offline** - Offline evaluation scrutinizes LLMs against specific datasets.
 
-# Metrics
-## List
+## Evaluation Paradigms
+- **Dynamic Behavior Evaluation** - Rather than testing isolated code components, LLM evaluations focus on how the application responds to various inputs in real-time.
+- **Task-Oriented Assessments** - Evaluations are now centered on the application’s ability to complete user-specific tasks.
+
+# LLM Evaluation Metrics
+## General List
 - **Answer Relevancy** - Determines whether an LLM output is able to address the given input and certain context and rules ✅
 - **Task Completion** - Determines whether an LLM agent is able to complete the task it was set out to do ⚠️ &rarr; How to determine completion state?
 - **Correctness** - Determines whether an LLM output is factually correct based on some ground truth ✅
@@ -56,7 +60,7 @@ Some metrics are based on Statistics, while others are sometimes referred as *"M
 - **BERTScore** - It relies on a pre-trained LLM like BERT and on the cosine similarity between expected output and predicted output. Afterward, the similarities are aggregated to produce a final score.
 - **MoverScore** - It relies on LLM like BERT to obtain deeper contextualised word embeddings for both reference text and generated text before computing the similarity.
 
-## Usage
+## Usage Tips
 It is good to have:
 - 1-2 custom metrics (G-Eval or DAG) that are use case specific
 - 2-3 generic metrics (RAG, agentic, or conversational) that are system specific
