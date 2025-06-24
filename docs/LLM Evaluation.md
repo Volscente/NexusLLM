@@ -1,8 +1,9 @@
 # General
 ## Areas of Evaluation
 An evaluation framework for LLMs should target two main areas:
-- **Use Case** - Custom metrics that directly measure how well the LLM is performing regarding the specific task
-- **System Architecture** - Generic metrics on, for example, faithfulness of information retrieved by the RAG or the Task Completion for AI Agents
+- **Use Case** or **Dynamic Behavior Evaluation** - Custom metrics that directly measure how well the LLM is performing regarding the specific task
+- **System Architecture** - Generic metrics on, for example, faithfulness of information 
+retrieved by the RAG or the Task Completion for AI Agents
 
 ## LLM Standalone Metrics
 These metrics are related to evaluate LLM against standardised benchmarks:
@@ -19,9 +20,10 @@ Offline evaluation usually proves valuable in the initial development stages of 
 ### Definitions
 - **Offline** - Offline evaluation scrutinizes LLMs against specific datasets.
 
-## Evaluation Paradigms
-- **Dynamic Behavior Evaluation** - Rather than testing isolated code components, LLM evaluations focus on how the application responds to various inputs in real-time.
-- **Task-Oriented Assessments** - Evaluations are now centered on the application’s ability to complete user-specific tasks.
+## Evaluation Methodologies
+
+![LLM Evaluation Methodologies](./images/llm_evaluation_methodologies.png)
+
 
 # LLM Evaluation Metrics
 ## General List
@@ -439,3 +441,12 @@ An open-source LLM evaluation framework for LLM applications.
 
 ## Parea AI
 Parea provides tools for debugging, testing, evaluating, and monitoring LLM-powered applications.
+
+# Code-Based LLM Evaluations
+## Introduction
+- It involves creating automated CI/CD test cases to evaluate how the LLM performs on specific tasks or datasets
+- The advantage is that it's cost-efficient as it does not introduce token usage or latency
+
+## Use Cases
+- Test Correct Structure of Output
+- Test Specific Data in Output by verifying that the LLM output contains specific data points
