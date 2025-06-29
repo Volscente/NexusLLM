@@ -11,6 +11,15 @@ pip install deepeval
 - Set the OpenAI key in `OPENAI_API_KEY`.
 - It is possible to customise the back-end LLM.
 
+Set the output folder:
+```
+# linux
+export DEEPEVAL_RESULTS_FOLDER="./data"
+
+# or windows
+set DEEPEVAL_RESULTS_FOLDER=.\data
+```
+
 ## Commands
 ```
 # Run test
