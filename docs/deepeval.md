@@ -71,6 +71,27 @@ There are two types of metrics:
 - They are evaluation datasets instance from `EvaluationDataset`
 - Either `LLMTestCase` or `Goldens` (no `actual_output`) instances
 
+## TestCases
+### Single-Turn
+It tests a single, atomic unit of interaction, either between LLM's components or users.
+
+It can either implement an End-to-end evaluation or a Component-level evaluation.
+
+```python
+from deepeval.test_case import LLMTestCase, ToolCall
+
+test_case = LLMTestCase(
+    input="What if these shoes don't fit?",
+    expected_output="You're eligible for a 30 day refund at no extra cost.",
+    actual_output="We offer a 30-day full refund at no extra cost.",
+    context=["All customers are eligible for a 30 day full refund at no extra cost."],
+    retrieval_context=["Only shoes can be refunded."], # Retrieved documents in a RAG
+    tools_called=[ToolCall(name="WebSearch")]
+)
+```
+
+The `tools_called` is a list of `ToolCall` objects
+
 ## Usage
 ### Creation
 ```python
