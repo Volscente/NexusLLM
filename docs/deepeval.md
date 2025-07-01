@@ -29,6 +29,37 @@ deepeval test run test_example.py
 ## Additional Libraries
 - The `deepteam` includes any security related testing
 
+## LLM Evaluation
+### General
+It is composed by:
+- Test Cases
+```python
+from deepeval.test_case import LLMTestCase
+
+test_case = LLMTestCase(
+  input="Who is the current president of the United States of America?",
+  actual_output="Joe Biden",
+  retrieval_context=["Joe Biden serves as the current president of America."]
+)
+```
+- Metrics
+```python
+from deepeval.metrics import AnswerRelevancyMetric
+
+answer_relevancy_metric = AnswerRelevancyMetric()
+```
+- Evaluation Datasets (Check the dedicated section)
+
+Running a "Test Run":
+```python
+answer_relevancy_metric.measure(test_case)
+print(answer_relevancy_metric.score)
+```
+
+### Types
+- End-to-end evaluation
+- Component-level evaluation
+
 # Metrics
 ## General
 There are two types of metrics:
@@ -38,7 +69,7 @@ There are two types of metrics:
 # Datasets
 ## General
 - They are evaluation datasets instance from `EvaluationDataset`
-- Either `LLMTestCases` or `Goldens` (no `actual_output`) instances
+- Either `LLMTestCase` or `Goldens` (no `actual_output`) instances
 
 ## Usage
 ### Creation
