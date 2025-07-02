@@ -68,8 +68,13 @@ There are two types of metrics:
 
 # Datasets
 ## General
-- They are evaluation datasets instance from `EvaluationDataset`
+- They are evaluation datasets instance from `EvaluationDataset` (groups together multiple test cases of a same category)
 - Either `LLMTestCase` or `Goldens` (no `actual_output`) instances
+
+## Types
+### Goldens
+- Allow for LLM output generation during evaluation time &rarr; That's why they don't have `actual_output`
+- Serve as templates before becoming fully-formed test cases
 
 ## TestCases
 ### Single-Turn
@@ -138,13 +143,61 @@ mllm_test_case = MLLMTestCase(
 )
 ```
 
+### Multi-Turn
+A multi-turn test case in deepeval is represented by a `ConversationalTestCase`, and has TWO parameters:
+- `turns`
+- `chatbot_role`
+
+```python
+# Turn class definition
+class Turn:
+    role: Literal["user", "assistant"]
+    content: str
+    user_id: Optional[str] = None
+    retrieval_context: Optional[List[str]] = None
+    tools_called: Optional[List[ToolCall]] = None
+    additional_metadata: Optional[Dict] = None
+
+# Example
+from deepeval.test_case import Turn, ConversationalTestCase
+
+turns = [
+    Turn(
+        role="assistant",
+        content="Why did the chicken cross the road?",
+    ),
+    Turn(
+        role="user",
+        content="Are you trying to be funny?",
+    ),
+]
+
+test_case = ConversationalTestCase(turns=turns)
+```
+
 ## Usage
 ### Creation
 ```python
 from deepeval.test_case import LLMTestCase
-from deepeval.dataset import EvaluationDataset
+from deepeval.dataset import EvaluationDataset, Golden
 
-dataset = EvaluationDataset(test_cases=[LLMTestCase(input="...", actual_output="...")])
+# Dataset creation from LLMTestCases
+first_test_case = LLMTestCase(input="...", actual_output="...")
+second_test_case = LLMTestCase(input="...", actual_output="...")
+
+dataset = EvaluationDataset(test_cases=[first_test_case, second_test_case])
+
+# Dataset creation from Goldens
+first_golden = Golden(input="...")
+second_golden = Golden(input="...")
+
+dataset_goldens = EvaluationDataset(goldens=[first_golden, second_golden])
+print(dataset_goldens.goldens)
+
+# Append
+dataset.test_cases.append(test_case)
+# or
+dataset.add_test_case(test_case)
 ```
 
 - Pull it from the Cloud
@@ -202,6 +255,12 @@ from deepeval.metrics import AnswerRelevancyMetric
 )
 def test_customer_chatbot(test_case: LLMTestCase):
     assert_test(test_case, [AnswerRelevancyMetric(threshold=0.5)])
+```
+
+### Save
+```python
+# Locally
+dataset.save_as(file_type="csv", directory="./deepeval-test-dataset", include_test_cases=True)
 ```
 
 # Code Snippets
