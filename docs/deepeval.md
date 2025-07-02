@@ -90,7 +90,53 @@ test_case = LLMTestCase(
 )
 ```
 
-The `tools_called` is a list of `ToolCall` objects
+Other useful parameters are:
+- `token_cost`
+- `completion_time`
+
+### Tools
+The `tools_called` is a list of `ToolCall` objects, which are Pydantic types:
+```python
+class ToolCall(BaseModel):
+    name: str
+    description: Optional[str] = None
+    reasoning: Optional[str] = None # How to use the tool
+    output: Optional[Any] = None # Tool's output - Any data type
+    input_parameters: Optional[Dict[str, Any]] = None
+```
+
+An example:
+```python
+tools_called=[
+    ToolCall(
+        name="Calculator Tool"
+        description="A tool that calculates mathematical equations or expressions.",
+        input={"user_input": "2+3"}
+        output=5
+    ),
+    ToolCall(
+        name="WebSearch Tool"
+        reasoning="Knowledge base does not detail why the chicken crossed the road."
+        input={"search_query": "Why did the chicken crossed the road?"}
+        output="Because it wanted to, duh."
+    )
+]
+```
+
+### MLLM Test Case
+An MLLMTestCase in deepeval is designed to unit test outputs from MLLM (Multimodal Large Language Model) applications.
+
+Example:
+```python
+from deepeval.test_case import MLLMTestCase, MLLMImage
+
+mllm_test_case = MLLMTestCase(
+    # Replace this with your user input
+    input=["Change the color of the shoes to blue.", MLLMImage(url="./shoes.png", local=True)]
+    # Replace this with your actual MLLM application
+    actual_output=["The original image of red shoes now shows the shoes in blue.", MLLMImage(url="https://shoe-images.com/edited-shoes", local=False)]
+)
+```
 
 ## Usage
 ### Creation
