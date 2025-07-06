@@ -292,7 +292,8 @@ dataset.add_goldens_from_csv_file(
 import pytest
 from deepeval import assert_test
 from deepeval.metrics import AnswerRelevancyMetric
-...
+
+
 
 # Loop through test cases using Pytest
 @pytest.mark.parametrize(
@@ -300,7 +301,33 @@ from deepeval.metrics import AnswerRelevancyMetric
     dataset,
 )
 def test_customer_chatbot(test_case: LLMTestCase):
-    assert_test(test_case, [AnswerRelevancyMetric(threshold=0.5)])
+    hallucination_metric = HallucinationMetric(threshold=0.3)
+    answer_relevancy_metric = AnswerRelevancyMetric(threshold=0.5)
+    assert_test(test_case, [hallucination_metric, answer_relevancy_metric])
+
+
+@deepeval.on_test_run_end
+def function_to_be_called_after_test_run():
+    print("Test finished!")
+```
+
+### End-to-End
+```python
+# Define you LLM application
+def your_llm_app(input: str):
+    print("Call LLM!")
+
+# Define the Dataset for evaluation
+goldens = [Golden(input="...")]
+
+# Create the test cases
+test_case = []
+for golden in goldens:
+    res, text_chunks = your_llm_app(golden.input) # Call the LLM to generate the output and maybe a RAG context
+    test_case = LLMTestCase(input=golden.input, actual_output=res, retrieval_context=text_chunks)
+
+# Evaluate end-to-end
+evaluate(test_cases=test_cases, metrics=[AnswerRelevancyMetric()])
 ```
 
 ### Save
