@@ -240,6 +240,52 @@ evaluate(dataset, [AnswerRelevancyMetric()])
 deepeval test run test_dataset.py -n 2
 ```
 
+### Loading
+```python
+# From JSON
+from deepeval.dataset import EvaluationDataset
+
+dataset = EvaluationDataset()
+
+# Add as test cases
+dataset.add_test_cases_from_json_file(
+    # file_path is the absolute path to you .json file
+    file_path="example.json",
+    input_key_name="query",
+    actual_output_key_name="actual_output",
+    expected_output_key_name="expected_output",
+    context_key_name="context",
+    retrieval_context_key_name="retrieval_context",
+)
+
+# Or, add as goldens
+dataset.add_goldens_from_json_file(
+    # file_path is the absolute path to you .json file
+    file_path="example.json",
+    input_key_name="query"
+)
+
+# From CSV
+# Add as test cases
+dataset.add_test_cases_from_csv_file(
+    # file_path is the absolute path to you .csv file
+    file_path="example.csv",
+    input_col_name="query",
+    actual_output_col_name="actual_output",
+    expected_output_col_name="expected_output",
+    context_col_name="context",
+    context_col_delimiter= ";",
+    retrieval_context_col_name="retrieval_context",
+    retrieval_context_col_delimiter= ";"
+)
+
+# Or, add as goldens
+dataset.add_goldens_from_csv_file(
+    # file_path is the absolute path to you .csv file
+    file_path="example.csv",
+    input_col_name="query"
+)
+```
 
 ### PyTest Integration
 ```python
