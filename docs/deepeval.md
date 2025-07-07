@@ -384,3 +384,62 @@ def llm_app(input: str):
 
 evaluate(observed_callback=llm_app, goldens=[Golden(input="Hi!")])
 ```
+
+# Evaluation
+## Component Level
+### Definition
+Component-level evaluation assess individual units of LLM interaction between internal components such as retrievers, 
+tool calls, LLM generations, or even agents interacting with other agents, rather than treating the LLM app as a black box.
+
+### Tracing
+Including a Component Level evaluation implies tracing some part of your code.
+
+Example:
+```python
+from typing import List
+from openai import OpenAI
+
+from deepeval.tracing import observe, update_current_span
+from deepeval.test_case import LLMTestCase
+from deepeval.metrics import AnswerRelevancyMetric
+
+client = OpenAI()
+
+def your_llm_app(input: str):
+    def retriever(input: str):
+        return ["Hardcoded text chunks from your vector database"]
+
+    @observe(metrics=[AnswerRelevancyMetric()])
+    def generator(input: str, retrieved_chunks: List[str]):
+        res = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[
+                {"role": "system", "content": "Use the provided context to answer the question."},
+                {"role": "user", "content": "\n\n".join(retrieved_chunks) + "\n\nQuestion: " + input}
+            ]
+        ).choices[0].message.content
+
+        # Create test case at runtime
+        update_current_span(test_case=LLMTestCase(input=input, actual_output=res))
+
+        return res
+
+    return generator(input, retriever(input))
+
+
+print(your_llm_app("How are you?"))
+```
+
+### Run Evaluation
+```python
+from somewhere import your_llm_app # Replace with your LLM app
+
+from deepeval.dataset import Golden
+from deepeval import evaluate
+
+# Goldens from your dataset
+goldens = [Golden(input="...")]
+
+# Evaluate with `observed_callback`
+evaluate(goldens=goldens, observed_callback=your_llm_app)
+```
