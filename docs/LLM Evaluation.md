@@ -442,6 +442,22 @@ An open-source LLM evaluation framework for LLM applications.
 ## Parea AI
 Parea provides tools for debugging, testing, evaluating, and monitoring LLM-powered applications.
 
+## Optik by Comet
+Opik is an open-source platform by Comet for evaluating, testing, and monitoring Large Language Models (LLMs). 
+It provides flexible tools to track, annotate, and refine LLM applications across development and production environments.
+
+```python
+from opik.evaluation.metrics import Hallucination
+
+metric = Hallucination()
+score = metric.score(
+    input="What is the capital of France?",
+    output="Paris",
+    context=["France is a country in Europe."]
+)
+print(score)
+```
+
 # Code-Based LLM Evaluations
 ## Introduction
 - It involves creating automated CI/CD test cases to evaluate how the LLM performs on specific tasks or datasets
