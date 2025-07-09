@@ -417,7 +417,14 @@ print(metric.score)
 Azure AI Foundry is an all-in-one AI platform for building, evaluating, and deploying generative AI solutions and custom copilots.
 
 ## OpenAI Evals (OpenAI)
-The OpenAI Evals framework consists of a framework to evaluate an LLM or a system built on top of an LLM, and an open-source registry of challenging evals.
+### Introduction
+The OpenAI Evals framework consists of a framework to evaluate an LLM or a system built on top of an LLM, 
+and an open-source registry of challenging evals.
+
+It is based on pre-defined dataset.
+
+The process to create a new evaluation dataset is described in [custom-eval.md](https://github.com/openai/evals/blob/main/docs/custom-eval.md)
+from the OpenAI Evals package. Although it seems pretty rigid and too schematic for the actual standards.
 
 ## Weights & Biases
 A Machine Learning platform to quickly track experiments, version and iterate on datasets, evaluate model performance.
