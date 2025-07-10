@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "llm-experimentation"
-version = "1.0.1"
+version = "1.0.2"
 description = "A repository containing research and experimentations with LLMs"
 authors = ["Simone Porreca <porrecasimone@gmail.com>", "Ali Abbas Jaffri <megahertz888@gmail.com>"]
 license = "GPL-3.0-or-later"
@@ -8,34 +8,14 @@ readme = "README.md"
 packages = []
 
 [tool.poetry.dependencies]
-python = "^3.10"
-tiktoken = "^0.3.3"
-torch = "^2.0.0"
-torchvision = "^0.15.1"
-pylint = "^3.0.3"
-pandas = "^2.2.0"
-numpy = "^1.26.4"
-matplotlib = "^3.8.2"
-jupyterlab = "^4.1.0"
-openai = "^1.11.1"
-pytest = "^8.0.0"
-pylint-pytest = "^1.1.7"
-accelerate = "^0.27.2"
-peft = "^0.8.2"
-bitsandbytes = "^0.42.0"
-transformers = "^4.37.2"
-trl = "^0.7.11"
-ipywidgets = "^8.1.2"
-google-generativeai = "^0.8.3"
-gensim = "^4.3.3"
-chromadb = "^0.5.18"
-google-cloud-aiplatform = "^1.72.0"
-ipython-sql = "^0.5.0"
-langgraph = "0.2.45"
-langchain-google-genai = "2.0.4"
-
-[tool.poetry.group.dev.dependencies]
-python-dotenv = "^1.0.1"
+python = "^3.13"
+jupyterlab = "^4.3.6"
+sentence-transformers = "^4.1.0"
+ipywidgets = "^8.1.6"
+transformers = "^4.51.3"
+datasets = "^3.5.0"
+hf-xet = "^1.0.4"
+accelerate = "^1.6.0"
 
 [build-system]
 requires = ["poetry-core"]

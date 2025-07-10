@@ -4,6 +4,8 @@ Before the invention of transformers1, recurrent neural networks (RNNSs) were th
 However, RNNs process input and output sequences sequentially, while Transformers can do it in parallel thanks to the
 self-attention mechanism. Although the cost has highly increased (Quadratic of the context length).
 
+Transformers are originally born for Natural Language Processing and, in particular, Translation problems.
+
 ### The Evolution of Transformers
 - GPT-1 was a decoder-only that combined an unsupervised pre-training over a large amount of labelled data and
 then fine-tuned for a specific task. The model was very limited, since it could generalise to tasks that are
@@ -12,7 +14,7 @@ similar to the task it was trained on.
 from traditional encoder-decoder transformer models by being an encoder-only architecture. 
 It was able to understand the context through an MLM training.
 - GPT-2 was trained on a bigger dataset (40GB) and with 1.5B parameters. It was able to capture longer-range dependencies and common sense reasoning.
-- 
+
 
 ## Resources
 - [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
@@ -28,9 +30,11 @@ Other applications involve:
 
 ## Process Overview
 The Transformer can be seen as a sequence of different steps:
-1. Tokenization &rarr; Divide the text into chunks
-2. Embeddings &rarr; Transform the chunks into numbers
-3. Positional Encoding &rarr; Encode the position of the original words, so the model won't forget
+1. **Tokenization (NLP only)** &rarr; Convert raw text into a sequence of discrete tokens (e.g., words, subwords), often represented as integers &rarr; Output shape (sequence_length,)
+2. **Embeddings** &rarr; Expand the input sequence representation in order to: a) Increase representatioin power; b) Matche the Encoder expected size &rarr; Output shape (sequence_length, d_model)
+3. **Positional Encoding** &rarr; Encode the position of the original sequence into the new expanded representation (Output of the Embedding), so the model won't forget the original position &rarr; Output shape (sequence_length, d_model)
+4. **Encoder** &rarr; Applies layers of self-attention and feedforward networks to produce contextualized representations of each input token, allowing the model to capture dependencies across the sequence &rarr; Output shape (input_dim, d_model)
+5. **Decoder** &rarr; enerates the output sequence one token (or time step) at a time, using the encoder’s output as context, plus its own previously generated outputs (via masked self-attention) &rarr; Output shape (target_sequence_length, d_model)
 
 # Architecture
 ## Introduction
@@ -49,6 +53,7 @@ In the original paper were used 6 Encoder blocks and 6 Decoder blocks.
 There are of course many alternatives:
 - **Decoders Only** - Like GPT-3 and GPT-2
 - **Encoders Only** - Like BERT
+- **Encoder-Decoder Models** - Like BART or T5
 
 The above alternatives may also vary for the number of Encoder and/or Decoder blocks used: 
 - BERT has 24 Encoder blocks
@@ -90,8 +95,18 @@ These can be learned during the training process.
 understand word order.
 
 ## Encoder
+### Scope
+An encoder processes the input sequence and compresses the information into a context vector 
+(also known as sentence embedding vector) of a fixed length. 
+This representation is expected to be a good summary of the meaning of the whole source sequence.
+It builds a contextual representation of the input sequence.
+
+### Architecture
 The *Encoder* block is composed by a **Self-Attention** layer and a **Feed Forward Neural Network**.
 ![Encoder Architecture](./images/encoder.png)
+
+The encoder can also be implemented as an RNN (i.e., using LSTM and GRU). An inherit problem of Encoder is the fixed-length
+context, which makes impossible to remember long sequences. The Attention Mechanism addressed this problem.
 
 ### Positional Encoder
 It is a technique used to store the original positions of tokens within a sequence. In this way, the tokens can
@@ -100,7 +115,16 @@ also be processed in parallel while preserving the original position.
 The most common technique is to add a fixed-length vectors to the input embeddings of each token. 
 These vectors are designed to represent the position of the token in the sequence.
 
+By default, the Transformer is therefore position-agnostic and, through the Positional Encoder, the computed positional
+encodings are added to the token embeddings before feeding them into the transformer..
+
 ## Decoder
+### Scope
+A decoder is initialized with the context vector defined in the Encoder to emit the transformed output. 
+The early work only used the last state of the encoder network as the decoder initial state.
+It focuses only on autoregressive decoding, in which is new token is generated sequentially from the previous one (Autoregressive).
+
+### Architecture
 It has a similar architecture that an encoder block, but with an additional layer in the middle to
 help focus on relevant part of the input sentence.
 ![Encoder Architecture](./images/decoder.png)
@@ -128,6 +152,26 @@ Consider the sentence *"The animal didn't cross the street because it was too ti
 The word *"it"* refers to the *"Animal"*:
 ![Self-Attention Example](./images/self_attention.png)
 
+The main goal is to help memorise long sequences, by improving the compression mechanism of the encoder-decoder architecture.
+
+## Characteristics
+### Hard vs. Soft Attention
+In the paper [Show, Attend and Tell](http://proceedings.mlr.press/v37/xuc15.pdf) the problem of image caption generation
+has been analysed.
+
+From that paper, two approaches of Attention Mechanism have been derived:
+- *Soft Attention* - It applies the weights alignment over all the patches of the source image. It's an expensive approach if
+the image is large, but the model is differentiable.
+- *Hard Attention* - It applies the weights alignment only on a singe patch of the source image. It's less expensive, but the model is
+non-differentiable and thus requires further techniques to be trained.
+
+### Global vs. Local Attention
+In the paper [Effective Approaches to Attention-based Neural Machine Translation](https://arxiv.org/pdf/1508.04025.pdf) the
+difference between Global and Local Attention has been proposed.
+
+- *Global Attention* - It is similar to the "Soft Attention" mechanism
+- *Local Attention* - It is a mix between the Hard and Soft Attention mechanisms (The model first predicts the aligned position
+in the current sequence and then center the context window over that position)
 
 # Dot-Product Attention
 ## Definition
@@ -257,8 +301,53 @@ The Training process is composed by 3 main steps:
 
 
 ## Pre-Training
+### Objective
 Given an input sequence of tokens (e.g., words), predict the next token. This is generally known as
-*Pre-Training* phase and it is done by feeding to the Transformer a huge amount of Internet text data.
+*Pre-Training* phase, and it is done by feeding to the Transformer a huge amount of Internet text data.
+
+### Data Preparation
+The massive dataset required for the pre-training has to be carefully curated by:
+- Cleaning data
+- Remove duplicates
+- Tokenization
+- Remove problematic data
+
+### Distributed Training
+It is a combination of different parallelisation strategies:
+- **Data Parallel** - Split the training dataset into batches and run them on parallel GPUs at the same time. The only
+requirement is to add gradient synchronisation at the end of each batch step. Since gradients are computed in parallel,
+there is not a linear decrease of the training time. Feasible only if the memory is not a constraint.
+- **Model Parallelism** - If the memory is a constraint, this strategy allows to split the model into several GPUs, thus
+reducing the memory requirement as the number of GPUs increases.
+    - **Pipeline Parallel** - Each layer is loaded into a GPU. 
+    - **Tensor Parallel** - It splits each layer into multiple GPUs, further refining the Pipeline Parallelism
+
+### Training Optimisation
+The goal is to optimise the training by using different strategies:
+
+#### Adaptive Learning Rates with Warmup
+- Don't use a fixed learning rate, but adapt it dynamically during the training
+- In order to help the model not diverging at the start, initially use a very low learning rate (warmup)
+- Gradually increase the learning rate from the warmup value to the target value over a thousand in order to prevent
+sudden large updates which might destabilise the training
+- In order to ensure a stable convergence, reduce the learning rate over time through a decay strategy (Linear, Cosine or Exponential)
+
+#### Gradient Clipping
+- Cap the magnitude of the gradient to a certain threshold
+- It prevents **Exploding Gradients** (Gradients become too big)
+
+#### Normalisation
+- Usage of techniques to ensure stable activations and gradients, such as: Batch Norm, Layer Norm and Weight Norm
+- Reduce internal covariate shift in order to speed-up convergence
+- Prevents Exploding Gradients
+
+#### Mixed-Precision Training for Memory Efficiency
+- Use lower representation numbers to restrain excessive memory usage
+
+#### Optimisers
+- AdamW (Adam with Weight Decay) - It improves Adam by decoupling the weights decays from the gradients updates
+- Lion (EvoLved Sign Momentum) - Uses sign-based updates instead of raw gradients, leading to faster convergence
+and it works well with low-rank parameterization in transformers
 
 ## Fine-Tuning
 In order to be useful enough, after the Pre-Training operation, the model goes to another training step called *Fine-Tuning*.
