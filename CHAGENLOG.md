@@ -1,3 +1,9 @@
+# v.1.0.2
+
+------
+
+- [x] Add Document `evaluation.md` in `/docs`
+
 # v.1.0.1
 
 ------
