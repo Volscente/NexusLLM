@@ -1,22 +1,57 @@
-[tool.poetry]
-name = "llm-experimentation"
+[project]
+name = "nexusllm"
 version = "1.0.2"
-description = "A repository containing research and experimentations with LLMs"
-authors = ["Simone Porreca <porrecasimone@gmail.com>", "Ali Abbas Jaffri <megahertz888@gmail.com>"]
-license = "GPL-3.0-or-later"
+description = "NexusLLM is a GitHub repository dedicated to exploring various experiments related to Language Model Models (LMM). From fine-tuning and instruction-tuning to RAG and agent-based systems, it offers a diverse range of experiments and insights for researchers and enthusiasts interested in natural language processing and AI innovation."
+authors = [
+  {name = "Simone Porreca", email = "porrecasimone@gmail.com"},
+]
+requires-python = ">=3.13"
+dependencies = []
 readme = "README.md"
-packages = []
+license = "GPL-3.0"
+license-files = ["LICENSE"]
+keywords = ["AI", "Artificial Intelligence", "Machine Learning", "ML", "Python", "LLM", "Agent", "Transformer", "Embedding"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Framework :: Pytest",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence"
+]
 
-[tool.poetry.dependencies]
-python = "^3.13"
-jupyterlab = "^4.3.6"
-sentence-transformers = "^4.1.0"
-ipywidgets = "^8.1.6"
-transformers = "^4.51.3"
-datasets = "^3.5.0"
-hf-xet = "^1.0.4"
-accelerate = "^1.6.0"
+[project.urls]
+Documentation = "https://volscente.github.io/NexusLLM/"
+Repository = "https://github.com/Volscente/NexusLLM"
+Backlog = "https://github.com/users/Volscente/projects/11/views/1"
+Changelog = "https://github.com/Volscente/NexusLLM/blob/main/CHANGELOG.md"
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[dependency-groups]
+dev = []
+
+[tool.pytest.ini_options]
+
+# Filter deprecation warning from google-cloud-bigquery
+filterwarnings = [
+    "ignore:Deprecated call to `pkg_resources\\.declare_namespace\\('.*'\\):DeprecationWarning",
+    "ignore::DeprecationWarning",
+    "ignore:BigQuery Storage module not found, fetch data with the REST endpoint instead:UserWarning"
+]
+# Set the PYTHONPATH
+pythonpath = [
+  "src"
+]
+# Read from the .env file
+env_files = [".env"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F"]  # E=pycodestyle, F=pyflakes
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
