@@ -6,7 +6,11 @@ authors = [
   {name = "Simone Porreca", email = "porrecasimone@gmail.com"},
 ]
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "dynaconf>=3.2.11",
+    "pandas>=2.3.1",
+    "pydantic>=2.11.7",
+]
 readme = "README.md"
 license = "GPL-3.0"
 license-files = ["LICENSE"]
@@ -26,7 +30,15 @@ Backlog = "https://github.com/users/Volscente/projects/11/views/1"
 Changelog = "https://github.com/Volscente/NexusLLM/blob/main/CHANGELOG.md"
 
 [dependency-groups]
-dev = []
+dev = [
+    "jupyterlab>=4.4.4",
+    "matplotlib>=3.10.3",
+    "pre-commit>=4.2.0",
+    "pytest>=8.4.1",
+    "pytest-dotenv>=0.5.2",
+    "ruff>=0.12.3",
+    "sqlfluff>=3.4.2",
+]
 
 [tool.pytest.ini_options]
 
