@@ -33,6 +33,7 @@ Changelog = "https://github.com/Volscente/NexusLLM/blob/main/CHANGELOG.md"
 dev = [
     "jupyterlab>=4.4.4",
     "matplotlib>=3.10.3",
+    "mkdocs>=1.6.1",
     "pre-commit>=4.2.0",
     "pytest>=8.4.1",
     "pytest-dotenv>=0.5.2",
