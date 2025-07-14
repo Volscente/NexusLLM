@@ -3,6 +3,11 @@
 ------
 
 - [x] Add Document `evaluation.md` in `/docs`
+- [x] Refactor `pyproject.toml`
+- [x] Refactor `.github/pull_request_template.md`
+- [x] Refactor `.github/workflows/pull_request_workflow.yml`
+- [x] Update `justfile`
+- [x] Add `.pre-commit-config.yaml`
 
 # v.1.0.1
 
