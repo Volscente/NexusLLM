@@ -3,5 +3,8 @@ site_name: NexusLLM
 
 # Define Navigation
 nav:
-  - index.md
-  - LLMs.md
+  - Index: index.md
+  - LLMs: LLMs.md
+
+# Theme
+theme: readthedocs
