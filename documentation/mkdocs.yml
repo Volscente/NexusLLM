@@ -7,9 +7,14 @@ nav:
   - Transformers: transformers.md
   - Tokenizer: tokenizers.md
   - Embeddings: embeddings.md
+  - Vector Search: vector_search.md
   - LLMs: LLMs.md
+  - Google LLMs: google_llms.md
   - Fine-Tuning: fine_tuning.md
   - LLMs Evaluation: evaluation.md
+  - DeepEval: deepeval.md
+  - LLMOps: LLMOps.md
+  - Agents: agents.md
 
 # Theme
 theme: readthedocs
