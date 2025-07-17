@@ -1,4 +1,4 @@
-# Introduction
+# Transformers
 ## History
 Before the invention of transformers1, recurrent neural networks (RNNSs) were the popular approach for modeling sequences.
 However, RNNs process input and output sequences sequentially, while Transformers can do it in parallel thanks to the
@@ -38,8 +38,8 @@ The Transformer can be seen as a sequence of different steps:
 4. **Encoder** &rarr; Applies layers of self-attention and feedforward networks to produce contextualized representations of each input token, allowing the model to capture dependencies across the sequence &rarr; Output shape (input_dim, d_model)
 5. **Decoder** &rarr; enerates the output sequence one token (or time step) at a time, using the encoder’s output as context, plus its own previously generated outputs (via masked self-attention) &rarr; Output shape (target_sequence_length, d_model)
 
-# Architecture
-## Introduction
+## Architecture
+### Introduction
 There are two main elements that differentiate how different LLM works:
 
 1. The Architecture (e.g., decoder only, encoder only, etc.)
@@ -47,7 +47,7 @@ There are two main elements that differentiate how different LLM works:
 
 In this section we're going to explore the architecture element of LLMs.
 
-## General
+### General
 The basic architecture of a Transformer is composed by **Encoders** and **Decoders**.
 In the original paper were used 6 Encoder blocks and 6 Decoder blocks.
 
@@ -64,8 +64,8 @@ The above alternatives may also vary for the number of Encoder and/or Decoder bl
 - BERT has 24 Encoder blocks
 - GTP-2 has 32 Decoder blocks
 
-## Input
-### Tokens
+### Input
+#### Tokens
 The input of a Transformer, and in general of each Neural Network, is a Tensor. In this case, it is obtained from the input
 text through an **Embedding Algorithm**.
 
@@ -79,7 +79,7 @@ It is also important to know that there are *Special* tokens used by the Neural 
 - [SEP] or 102 - Separator of sentences
 - [MASK] or 103 - Mask token for MLM (Masked Language Model)
 
-### Vocabulary
+#### Vocabulary
 It is important to notice that, when for example the word *"The"* is tokenized into the token *"464"*,
 this number is actually an index to an **Embedding Matrix**.
 
@@ -90,10 +90,11 @@ GPT-2 has a 50.257 x 768 vocabulary:
 - 50.257 words
 - 768 dimension (each word is represented through 768 numbers)
 
-### Input Preparation and Embedding
+#### Input Preparation and Embedding
 To prepare language inputs for transformers, we convert an input sequence into tokens and then into input embeddings.
 
 Generating an input embedding involves the following steps:
+
 1. Normalization (Optional): Standardizes text by removing redundant whitespace, accents, etc.
 2. Tokenization: Breaks the sentence into words or subwords and maps them to integer token IDs from a vocabulary.
 3. Embedding: Converts each token ID to its corresponding high-dimensional vector, typically using a lookup table. 
@@ -101,21 +102,21 @@ These can be learned during the training process.
 4. Positional Encoding: Adds information about the position of each token in the sequence to help the transformer 
 understand word order.
 
-## Encoder
-### Scope
+### Encoder
+#### Scope
 An encoder processes the input sequence and compresses the information into a context vector 
 (also known as sentence embedding vector) of a fixed length. 
 This representation is expected to be a good summary of the meaning of the whole source sequence.
 It builds a contextual representation of the input sequence.
 
-### Architecture
+#### Architecture
 The *Encoder* block is composed by a **Self-Attention** layer and a **Feed Forward Neural Network**.
 ![Encoder Architecture](./images/encoder.png)
 
 The encoder can also be implemented as an RNN (i.e., using LSTM and GRU). An inherit problem of Encoder is the fixed-length
 context, which makes impossible to remember long sequences. The Attention Mechanism addressed this problem.
 
-### Positional Encoder
+#### Positional Encoder
 It is a technique used to store the original positions of tokens within a sequence. In this way, the tokens can
 also be processed in parallel while preserving the original position.
 
@@ -125,32 +126,32 @@ These vectors are designed to represent the position of the token in the sequenc
 By default, the Transformer is therefore position-agnostic and, through the Positional Encoder, the computed positional
 encodings are added to the token embeddings before feeding them into the transformer..
 
-## Decoder
-### Scope
+### Decoder
+#### Scope
 A decoder is initialized with the context vector defined in the Encoder to emit the transformed output. 
 The early work only used the last state of the encoder network as the decoder initial state.
 It focuses only on autoregressive decoding, in which is new token is generated sequentially from the previous one (Autoregressive).
 
-### Architecture
+#### Architecture
 It has a similar architecture that an encoder block, but with an additional layer in the middle to
 help focus on relevant part of the input sentence.
 ![Encoder Architecture](./images/decoder.png)
 
-## Normalisation Layer
+### Normalisation Layer
 Layer normalization computes the mean and variance of the activations to normalize the activations in a given layer. 
 This is typically performed to reduce covariate shift as well as improve gradient flow to yield faster convergence 
 during training as well as improved overall performance.
 
-## Residual Connections
+### Residual Connections
 Residual connections propagate the inputs to the output of one or more layers. This has the effect of making the 
 optimization procedure easier to learn and also helps deal with vanishing and exploding gradients.
 
-## Feedforward Layer
+### Feedforward Layer
 This layer applies a position-wise transformation to the data, independently for each position in the sequence, 
 which allows the incorporation of additional non-linearity and complexity into the model’s representations
 
-# Attention Mechanism
-## Key Concept
+## Attention Mechanism
+### Key Concept
 It is a mechanism that allows the model to look at other positions in the input sequence to get a 
 better understanding of token.
 
@@ -161,18 +162,19 @@ The word *"it"* refers to the *"Animal"*:
 
 The main goal is to help memorise long sequences, by improving the compression mechanism of the encoder-decoder architecture.
 
-## Characteristics
-### Hard vs. Soft Attention
+### Characteristics
+#### Hard vs. Soft Attention
 In the paper [Show, Attend and Tell](http://proceedings.mlr.press/v37/xuc15.pdf) the problem of image caption generation
 has been analysed.
 
 From that paper, two approaches of Attention Mechanism have been derived:
+
 - *Soft Attention* - It applies the weights alignment over all the patches of the source image. It's an expensive approach if
 the image is large, but the model is differentiable.
 - *Hard Attention* - It applies the weights alignment only on a singe patch of the source image. It's less expensive, but the model is
 non-differentiable and thus requires further techniques to be trained.
 
-### Global vs. Local Attention
+#### Global vs. Local Attention
 In the paper [Effective Approaches to Attention-based Neural Machine Translation](https://arxiv.org/pdf/1508.04025.pdf) the
 difference between Global and Local Attention has been proposed.
 
@@ -180,8 +182,8 @@ difference between Global and Local Attention has been proposed.
 - *Local Attention* - It is a mix between the Hard and Soft Attention mechanisms (The model first predicts the aligned position
 in the current sequence and then center the context window over that position)
 
-# Dot-Product Attention
-## Definition
+## Dot-Product Attention
+### Definition
 It is another kind of attention mechanism, together with Self-Attention and Cross-Attention. 
 Let’s see an example for text translation with the below architecture of Encoder (left) and Decoder (right).
 ![Dot-Product Attention](./images/self_attention_process.png)
