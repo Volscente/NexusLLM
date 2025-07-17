@@ -25,11 +25,13 @@ The transformer architecture was developed at Google in 2017 for use in a transl
 It’s a sequence-to-sequence model capable of converting sequences from one domain into sequences in another domains.
 
 Other applications involve:
+
 - **NLP** - The main area is for sure everything that concerns Natural Language Processing, where Transformers were born
 - **CV** - Transformers have been also tested in Computer Vision field with promising results
 
 ## Process Overview
 The Transformer can be seen as a sequence of different steps:
+
 1. **Tokenization (NLP only)** &rarr; Convert raw text into a sequence of discrete tokens (e.g., words, subwords), often represented as integers &rarr; Output shape (sequence_length,)
 2. **Embeddings** &rarr; Expand the input sequence representation in order to: a) Increase representatioin power; b) Matche the Encoder expected size &rarr; Output shape (sequence_length, d_model)
 3. **Positional Encoding** &rarr; Encode the position of the original sequence into the new expanded representation (Output of the Embedding), so the model won't forget the original position &rarr; Output shape (sequence_length, d_model)
@@ -39,6 +41,7 @@ The Transformer can be seen as a sequence of different steps:
 # Architecture
 ## Introduction
 There are two main elements that differentiate how different LLM works:
+
 1. The Architecture (e.g., decoder only, encoder only, etc.)
 2. The training process (e.g., pre-training + fine-tuning + etc.)
 
@@ -51,11 +54,13 @@ In the original paper were used 6 Encoder blocks and 6 Decoder blocks.
 ![Transformer Architecture Example](./images/transformer_architecture_example.png)
 
 There are of course many alternatives:
+
 - **Decoders Only** - Like GPT-3 and GPT-2
 - **Encoders Only** - Like BERT
 - **Encoder-Decoder Models** - Like BART or T5
 
 The above alternatives may also vary for the number of Encoder and/or Decoder blocks used: 
+
 - BERT has 24 Encoder blocks
 - GTP-2 has 32 Decoder blocks
 
@@ -69,6 +74,7 @@ The embedded input is also called as *Tokens* and its length depends on the Tran
 Usually, if the input text is not long enough, **Padding** is used to fill the missing tokens.
 
 It is also important to know that there are *Special* tokens used by the Neural Network to mark:
+
 - [CLS] or 101 - Start of the sentence
 - [SEP] or 102 - Separator of sentences
 - [MASK] or 103 - Mask token for MLM (Masked Language Model)
@@ -80,6 +86,7 @@ this number is actually an index to an **Embedding Matrix**.
 The model holds an **Embedding Matrix** in which each word is represented to a Tensor of, let's say, 768 dimension.
 
 GPT-2 has a 50.257 x 768 vocabulary:
+
 - 50.257 words
 - 768 dimension (each word is represented through 768 numbers)
 
