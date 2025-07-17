@@ -111,6 +111,7 @@ It builds a contextual representation of the input sequence.
 
 #### Architecture
 The *Encoder* block is composed by a **Self-Attention** layer and a **Feed Forward Neural Network**.
+
 ![Encoder Architecture](./images/encoder.png)
 
 The encoder can also be implemented as an RNN (i.e., using LSTM and GRU). An inherit problem of Encoder is the fixed-length
@@ -135,6 +136,7 @@ It focuses only on autoregressive decoding, in which is new token is generated s
 #### Architecture
 It has a similar architecture that an encoder block, but with an additional layer in the middle to
 help focus on relevant part of the input sentence.
+
 ![Encoder Architecture](./images/decoder.png)
 
 ### Normalisation Layer
@@ -158,6 +160,7 @@ better understanding of token.
 Consider the sentence *"The animal didn't cross the street because it was too tired"*
 
 The word *"it"* refers to the *"Animal"*:
+
 ![Self-Attention Example](./images/self_attention.png)
 
 The main goal is to help memorise long sequences, by improving the compression mechanism of the encoder-decoder architecture.
@@ -186,10 +189,12 @@ in the current sequence and then center the context window over that position)
 ### Definition
 It is another kind of attention mechanism, together with Self-Attention and Cross-Attention. 
 Let’s see an example for text translation with the below architecture of Encoder (left) and Decoder (right).
+
 ![Dot-Product Attention](./images/self_attention_process.png)
 
-## Processing
+### Processing
 There would be three vectors to compare:
+
 - **Values (V)** and **Keys (K)** derived from the input sentence in english
 - **Query (Q)** derived from the input sentence in italian
 
