@@ -4,7 +4,12 @@ site_name: NexusLLM
 # Define Navigation
 nav:
   - Index: index.md
+  - Transformers: transformers.md
+  - Tokenizer: tokenizers.md
+  - Embeddings: embeddings.md
   - LLMs: LLMs.md
+  - Fine-Tuning: fine_tuning.md
+  - LLMs Evaluation: evaluation.md
 
 # Theme
 theme: readthedocs
