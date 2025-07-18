@@ -49,8 +49,8 @@ each space, leading to a Diluted Tokens problem.
 
 GPT4o Tokenizer (cl100k_base) improved this behaviour by using less tokens for the indentation.
 
-# Characteristics
-## Tokens Vocabulary
+## Characteristics
+### Tokens Vocabulary
 It represents the tokens space through which the tokenizer can convert the text.
 The bigger is this vocabulary, the lesser tokens would be required to tokenize a text.
 
@@ -60,7 +60,7 @@ meaning of a text, fighting the "Diluted Tokens" problem.
 However, too big vocabulary might influence the LLM softmax function for the token sampling
 while constructing its output.
 
-## Splitting
+### Splitting
 The very first step of any Encoder is the text split.
 
 GPT-2, for example, does that through a REGEX, which can work differently between lowercase and uppercase.
@@ -70,8 +70,8 @@ There are also rules when need to split text that includes, for example, code.
 
 This is the main change between GPT-2 and GPT-4 Tokenizers.
 
-# Techniques
-## Byte Pair Encoding (BPE)
+## Techniques
+### Byte Pair Encoding (BPE)
 It is a technique that wants to compress the output encoding by encoding together the pairs of most common bytes.
 It is essentially a token embeddings' algorithm.
 
@@ -82,21 +82,22 @@ This would reduce the length of the output sequence. This can be done recursivel
 It is possible to perform a hyperparameter tuning process in order to understand which is the best Vocabulary size that has the
 best compression (i.e, the number of times we repeat the Byte Pair Encoding).
 
-## Special Tokens
+### Special Tokens
 With the `TikToken` library it is possible to add special tokens to the Encoder.
 
 For example the `<endoftext>` and assign it with an unused index.
 
-# Training
-## General
+## Training
+### General
 The Tokenizer has its own training set, separated from the LLM's training.
 
 Taking into account the training dataset and the "Diluted Tokens" problem, it becomes clear that, the more words in the Tokenizer
 sees in the training dataset that are, for example, in Japanese, the better the Tokenizer would group up these words into 
 the same token. In this way, it would represent a Japanese sentence with far less tokens.
 
-# Libraries
-## SentencePiece
+## Libraries
+### SentencePiece
 Unlike TikToken, SentencePiece is pretty good with both training and inference:
+
 - TikToken - Encode to UTF-8 and then applied BPE
 - SentencePiece - Apply BPE directly on the code points (and eventually falls back to UTF-8 for certain code points)
