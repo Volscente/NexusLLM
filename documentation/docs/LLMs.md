@@ -1,7 +1,8 @@
-# General
+# LLMs
 ## Alignment Process
 ### Definition
 Usually, a LLM goes through the following two training steps:
+
 - Pre-training
 - Fine-Tuning
 
@@ -11,7 +12,7 @@ and decide which is better.
 ### Example
 1. Pre-Training phase
 2. Fine-Tuning phase &rarr; *"Is pineapple on Pizza a Crime?"* &rarr; *"Putting pineapple on a Pizza violates the Geneva convention etc."*
-2. Alignment phase &rarr; I
+3. Alignment phase &rarr; Use the user's feedbacks
 
 ## Prompting
 ### Definition
@@ -31,6 +32,7 @@ Usually called also "Prompt Engineering", it is the process of crafting a good p
 
 ### System, Contextual and Role Prompting
 System, contextual and role prompting are all techniques used to guide how LLMs generate text, but they focus on different aspects:
+
 - **System prompting** sets the overall context and purpose for the language model. 
 It defines the ‘big picture’ of what the model should be doing, like translating a language, classifying a review etc.
 
@@ -54,12 +56,14 @@ question into a subsequent prompt for the specific task. This ‘step back’ al
 background knowledge and reasoning processes before attempting to solve the specific problem.
 
 Examples:
+
 - Write a one paragraph storyline for a new level of a first-person shooter video game that is challenging and engaging.
 - Based on popular first-person shooter action games, what are
 5 fictional key settings that contribute to a challenging and engaging level storyline in a first-person shooter video game?
 
 #### Self-Consistency
 It follows the following steps:
+
 1. Generating diverse reasoning paths: The LLM is provided with the same prompt multiple times. 
 A high temperature setting encourages the model to generate different reasoning paths and perspectives on the problem.
 2. Extract the answer from each generated response.
@@ -121,6 +125,7 @@ Randomly samples from the top K most probable tokens.
 
 ### Performance
 There are several ways to make the inference process more performing:
+
 1. Quantisation - It uses lower precision memory in order to not lose many
 2. Distillation - Train a smaller model
 
