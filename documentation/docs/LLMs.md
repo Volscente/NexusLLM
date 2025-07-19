@@ -137,6 +137,7 @@ are good for prompts that expect a more deterministic response, while higher tem
 4. Top-P - Sampling selects the top tokens whose cumulative probability does not exceed a certain value (P).
 
 Considerations:
+
 1. If you set temperature to 0, top-K and top-P become irrelevant–the most probable token becomes the next token predicted. 
 If you set temperature extremely high (above 1–generally into the 10s), temperature becomes irrelevant and whatever tokens make
 it through the top-K and/or top-P criteria are then randomly sampled to choose a next predicted token.
