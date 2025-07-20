@@ -84,10 +84,7 @@ It is good to have:
 ### Process
 1. Prompt with the following information: 1) Task Introduction; 2) Evaluation Criteria
 2. Generate through the previous output the list of Evaluation Steps through the *"Auto Chain of Thoughts"*
-3. Prompt the Scorer LLM with
-   - Evaluation Steps
-   - Input Context
-   - Input Target
+3. Prompt the Scorer LLM with Evaluation Steps, Input Context and Input Target
 4. (Optional) Normalise the output score by the probabilities of the output tokens
 
 ### Code Snippets
@@ -309,11 +306,10 @@ metric.measure(test_case)
 print(metric.score, metric.reason)
 ```
 
-## Task Completion
-### Introduction
-Task completion is an agentic metric that uses LLM-as-a-judge to evaluate whether your LLM agent is able to accomplish its given task.
+### Task Completion
+Task completion is an agentic metric that uses LLM-as-a-judge to evaluate whether your
+LLM agent is able to accomplish its given task.
 
-### Code
 ```python
 from deepeval.test_case import LLMTestCase
 from deepeval.metrics import TaskCompletionMetric
@@ -354,8 +350,8 @@ metric.measure(test_case)
 print(metric.score, metric.reason)
 ```
 
-# LLM Metrics
-## Hallucination
+## LLM Metrics
+### Hallucination
 ```python
 from deepeval.metrics import HallucinationMetric
 from deepeval.test_case import LLMTestCase
@@ -376,7 +372,7 @@ print(metric.score)
 print(metric.is_successful())
 ```
 
-## Toxicity
+### Toxicity
 ```python
 from deepeval.metrics import ToxicityMetric
 from deepeval.test_case import LLMTestCase
@@ -392,11 +388,9 @@ metric.measure(test_case)
 print(metric.score)
 ```
 
-## Bias
-### Introduction
+### Bias
 The bias metric evaluates aspects such as political, gender, and social biases in textual content.
 
-### Code
 ```python
 from deepeval.metrics import GEval
 from deepeval.test_case import LLMTestCase
@@ -416,13 +410,14 @@ metric.measure(test_case)
 print(metric.score)
 ```
 
-# Evaluation Framework Platforms
-## Azure AI Foundry Automated Evaluation(Microsoft)
-Azure AI Foundry is an all-in-one AI platform for building, evaluating, and deploying generative AI solutions and custom copilots.
+## Evaluation Framework Platforms
+### Azure AI Foundry Automated Evaluation (Microsoft)
+Azure AI Foundry is an all-in-one AI platform for building, evaluating, 
+and deploying generative AI solutions and custom copilots.
 
-## OpenAI Evals (OpenAI)
-### Introduction
-The OpenAI Evals framework consists of a framework to evaluate an LLM or a system built on top of an LLM, 
+### OpenAI Evals (OpenAI)
+The OpenAI Evals framework consists of a framework to evaluate an LLM or 
+a system built on top of an LLM, 
 and an open-source registry of challenging evals.
 
 It is based on pre-defined dataset.
@@ -430,30 +425,31 @@ It is based on pre-defined dataset.
 The process to create a new evaluation dataset is described in [custom-eval.md](https://github.com/openai/evals/blob/main/docs/custom-eval.md)
 from the OpenAI Evals package. Although it seems pretty rigid and too schematic for the actual standards.
 
-## Weights & Biases
-A Machine Learning platform to quickly track experiments, version and iterate on datasets, evaluate model performance.
+### Weights & Biases
+A Machine Learning platform to quickly track experiments, version and iterate on datasets, 
+evaluate model performance.
 
-## LangSmith (LangChain)
+### LangSmith (LangChain)
 Trace and evaluate language model applications and intelligent agents.
 
-## TruLens (TruEra)
+### TruLens (TruEra)
 TruLens provides a set of tools for developing and monitoring neural nets, including LLMs.
 
-## Vertex AI Studio (Google)
+### Vertex AI Studio (Google)
 You can evaluate the performance of foundation models and your tuned generative AI models on Vertex AI.
 
-## Amazon Bedrock
+### Amazon Bedrock
 Amazon Bedrock supports model evaluation jobs.
 
-## DeepEval (Confident AI)
+### DeepEval (Confident AI)
 An open-source LLM evaluation framework for LLM applications.
 
 [Sample Codes](https://github.com/confident-ai/deepeval/tree/main/examples).
 
-## Parea AI
+### Parea AI
 Parea provides tools for debugging, testing, evaluating, and monitoring LLM-powered applications.
 
-## Optik by Comet
+### Optik by Comet
 Opik is an open-source platform by Comet for evaluating, testing, and monitoring Large Language Models (LLMs). 
 It provides flexible tools to track, annotate, and refine LLM applications across development and production environments.
 
@@ -469,11 +465,11 @@ score = metric.score(
 print(score)
 ```
 
-# Code-Based LLM Evaluations
-## Introduction
+## Code-Based LLM Evaluations
+### Introduction
 - It involves creating automated CI/CD test cases to evaluate how the LLM performs on specific tasks or datasets
 - The advantage is that it's cost-efficient as it does not introduce token usage or latency
 
-## Use Cases
+### Use Cases
 - Test Correct Structure of Output
 - Test Specific Data in Output by verifying that the LLM output contains specific data points
