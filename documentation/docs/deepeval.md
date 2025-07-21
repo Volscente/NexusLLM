@@ -1,4 +1,4 @@
-# Introduction
+# DeepEval
 ## Installation
 ```
 # Install
@@ -12,6 +12,7 @@ pip install deepeval
 - It is possible to customise the back-end LLM.
 
 Set the output folder:
+
 ```
 # linux
 export DEEPEVAL_RESULTS_FOLDER="./data"
@@ -32,7 +33,9 @@ deepeval test run test_example.py
 ## LLM Evaluation
 ### General
 It is composed by:
+
 - Test Cases
+
 ```python
 from deepeval.test_case import LLMTestCase
 
@@ -42,15 +45,19 @@ test_case = LLMTestCase(
   retrieval_context=["Joe Biden serves as the current president of America."]
 )
 ```
+
 - Metrics
+
 ```python
 from deepeval.metrics import AnswerRelevancyMetric
 
 answer_relevancy_metric = AnswerRelevancyMetric()
 ```
+
 - Evaluation Datasets (Check the dedicated section)
 
 Running a "Test Run":
+
 ```python
 answer_relevancy_metric.measure(test_case)
 print(answer_relevancy_metric.score)
@@ -60,19 +67,19 @@ print(answer_relevancy_metric.score)
 - End-to-end evaluation
 - Component-level evaluation
 
-# Metrics
-## General
+## Metrics
+### General
 There are two types of metrics:
+
 - Out-of-the-Box stored in `deepeval.metrics`
 - Custom metrics &rarr; defined by `deepeval.metrics.GEval` (Non-deterministic) or `deepeval.metrics.DAGMetric` (Deterministic)
 
-# Datasets
-## General
+## Datasets
+### General
 - They are evaluation datasets instance from `EvaluationDataset` (groups together multiple test cases of a same category)
 - Either `LLMTestCase` or `Goldens` (no `actual_output`) instances
 
-## Types
-### Goldens
+## Goldens
 - Allow for LLM output generation during evaluation time &rarr; That's why they don't have `actual_output`
 - Serve as templates before becoming fully-formed test cases
 
@@ -101,6 +108,7 @@ Other useful parameters are:
 
 ### Tools
 The `tools_called` is a list of `ToolCall` objects, which are Pydantic types:
+
 ```python
 class ToolCall(BaseModel):
     name: str
@@ -111,6 +119,7 @@ class ToolCall(BaseModel):
 ```
 
 An example:
+
 ```python
 tools_called=[
     ToolCall(
@@ -132,6 +141,7 @@ tools_called=[
 An MLLMTestCase in deepeval is designed to unit test outputs from MLLM (Multimodal Large Language Model) applications.
 
 Example:
+
 ```python
 from deepeval.test_case import MLLMTestCase, MLLMImage
 
@@ -145,6 +155,7 @@ mllm_test_case = MLLMTestCase(
 
 ### Multi-Turn
 A multi-turn test case in deepeval is represented by a `ConversationalTestCase`, and has TWO parameters:
+
 - `turns`
 - `chatbot_role`
 
@@ -201,6 +212,7 @@ dataset.add_test_case(test_case)
 ```
 
 - Pull it from the Cloud
+
 ```python
 from deepeval.dataset import EvaluationDataset
 from deepeval.metrics import AnswerRelevancyMetric
@@ -213,6 +225,7 @@ evaluate(dataset, metrics=[AnswerRelevancyMetric()])
 ```
 
 - Generate synthetic data
+
 ```python
 from deepeval.synthesizer import Synthesizer
 from deepeval.dataset import EvaluationDataset
@@ -227,6 +240,7 @@ dataset = EvaluationDataset(goldens=goldens)
 
 ### Evaluate Function
 - Evaluate over the entire dataset
+
 ```python
 from deepeval.metrics import AnswerRelevancyMetric
 from deepeval import evaluate
@@ -236,6 +250,7 @@ evaluate(dataset, [AnswerRelevancyMetric()])
 ```
 
 - Run the evaluation in parallel
+
 ```bash
 deepeval test run test_dataset.py -n 2
 ```
@@ -336,8 +351,8 @@ evaluate(test_cases=test_cases, metrics=[AnswerRelevancyMetric()])
 dataset.save_as(file_type="csv", directory="./deepeval-test-dataset", include_test_cases=True)
 ```
 
-# Code Snippets
-## Basic Usage
+## Code Snippets
+### Basic Usage
 ```python
 from deepeval import assert_test
 from deepeval.test_case import LLMTestCase, LLMTestCaseParams
@@ -359,7 +374,7 @@ def test_correctness():
     assert_test(test_case, [correctness_metric]) # Possible to specify multiple metrics
 ```
 
-## Observe Decorator
+### Observe Decorator
 It is used to evaluate and keep track of the evaluation of single app's components
 
 ```python
@@ -385,13 +400,11 @@ def llm_app(input: str):
 evaluate(observed_callback=llm_app, goldens=[Golden(input="Hi!")])
 ```
 
-# Evaluation
-## Component Level
-### Definition
+## Evaluation
+### Component Level
 Component-level evaluation assess individual units of LLM interaction between internal components such as retrievers, 
 tool calls, LLM generations, or even agents interacting with other agents, rather than treating the LLM app as a black box.
 
-### Tracing
 Including a Component Level evaluation implies tracing some part of your code.
 
 Example:
