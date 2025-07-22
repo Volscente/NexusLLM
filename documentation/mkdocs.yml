@@ -3,7 +3,7 @@ site_name: NexusLLM
 
 # Define Navigation
 nav:
-  - Index: index.md
+  - NexusLLM: index.md
   - Transformers: transformers.md
   - Tokenizer: tokenizers.md
   - Embeddings: embeddings.md
