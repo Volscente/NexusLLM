@@ -3,11 +3,46 @@
 # NexusLLM
 # Introduction
 NexusLLM is a GitHub repository dedicated to exploring various experiments related to Language Model Models (LMM). From fine-tuning and instruction-tuning to RAG and agent-based systems, it offers a diverse range of experiments and insights for researchers and enthusiasts interested in natural language processing and AI innovation.
+
+# Resources
+The full documentation of the project can be found in the dedicated [GitHub Pages]().
+
+For the developers, check the wiki [https://github.com/Volscente/NexusLLM/wiki/Package-&-Modules) Section.
+
+Please refer to this [Contributing Guidelines](https://github.com/Volscente/NexusLLM/wiki/Contributing-Guidelines) in order to contribute to the repository.
+
 # Setup
-## Update PYTHONPATH
-Add the current directory to the `PYTHONPATH` environment variables.
+## Environment Variables
+Add the project root directory as `NEXUSLLM_ROOT_PATH` environment variable.
 ``` bash
-export PYTHONPATH="$PYTHONPATH:/<absolute_path>/MediBioticsAI"
+export NEXUSLLM_ROOT_PATH="/<absolute_path>/NexusLLM"
+```
+Create a `.env` file in the root folder like
+```
+# Set the Root Path
+NEXUSLLM_ROOT_PATH="/<absolute_path>/NexusLLM"
+```
+
+## Setup gcloud CLI
+Install `gcloud` on the local machine ([Guide](https://cloud.google.com/sdk/docs/install)).
+
+Authenticate locally to GCP:
+```bash
+gcloud auth login
+```
+
+Set the project ID.
+```bash
+# List all the projects
+gcloud projects list
+
+# Set the project
+gcloud config set project <project_id>
+```
+
+Create authentication keys.
+```bash
+gcloud auth application-default login
 ```
 
 ## Justfile
@@ -18,58 +53,15 @@ export PYTHONPATH="$PYTHONPATH:/<absolute_path>/MediBioticsAI"
 > It uses the `.env` file for ingesting variables.
 
 You can install it by following the [Documentation](https://just.systems/man/en/chapter_4.html).
-Afterwards, you can execute existing commands located in the `justfile`.
+Afterward, you can execute existing commands located in the `justfile`.
 
 Type `just` to list all available commands.
 
+## Pre-commit
+```bash
+# Install
+pre-commit install
 
-## Poetry
-
-> Python packaging and dependency management made easy
-
-### Installation
-
-[Reference Documentation](https://python-poetry.org/)
-
-Run the following command from the terminal:
-``` bash
-curl -sSL https://install.python-poetry.org | python3 -
+# Check locally
+pre-commit run --all-files
 ```
-
-For **MacOS** with ZSH add the `.local/bin` to the `PATH` environment variable. Modify the `.zshrc` file with the following command:
-
-``` bash
-export PATH="$HOME/.local/bin:$PATH"
-```
-
-### Add Dependency
-``` bash
-# NOTE: Use '--group dev' to install in the 'dev' dependencies list
-poetry add <library_name>
-
-poetry add <library> --group dev
-
-poetry add <libarry> --group <group_name>
-```
-
-### Install Dependencies
-``` bash
-# Install the dependencies listed in pyproject.toml [tool.poetry.dependencies]
-poetry install
-
-# Use the option '--without test,docs,dev' if you want to esclude the specified group from install
-poetry install --without test,docs,dev
-```
-
-# Resources
-## ChatGPT
-- [Andrej Karpathy Tutorial](https://www.youtube.com/watch?v=kCc8FmEb1nY)
-
-## GPT-3
-
-## HuggingFace Bloomz
-- [Link to the resource](https://huggingface.co/bigscience/bloomz)
-
-## LoRA
-- [Link to a Tutorial from Phischmid](https://www.philschmid.de/fine-tune-flan-t5-peft)
-

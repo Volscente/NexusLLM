@@ -1,4 +1,4 @@
-# General
+# Embeddings
 ## Definition
 Embeddings are numerical representations of real-world data such as text,
 speech, image, or videos. They are expressed as low-dimensional vectors where the
@@ -9,15 +9,18 @@ Such low dimensional representation try to preserve the most of the "essential i
 original objects.
 
 Ideally the embeddings are created, so they place objects with similar semantic properties
-closer in the embedding space
+closer in the embedding space.
+
+The Embeddings are usually obtained through different ML models, like Encoder-based Transformers such as BERT.
 
 ## Usage
+### Semantic Search
 1. Precomputing the embeddings for billions items of the search space.
 2. Mapping query embeddings to the same embedding space.
 3. Efficient computing and retrieving of the nearest neighbors of the query embeddings in
 the search space.
 
-## Applications
+### Applications
 - Retrieval
 - Recommendations
 - Features for ML Models
@@ -93,7 +96,7 @@ have to create the embedding model for the structured data since it would be spe
 a particular application.
 
 ### General Computation
-use dimensionality reductions techniques such as PCA.
+Use dimensionality reductions techniques such as PCA.
 
 ## Graph Embeddings
 ### Definition
@@ -111,3 +114,51 @@ the queries and the other tower is used to encode the documents.
 The training includes a pretraining (unsupervised learning) and fine tuning (supervised
 learning). Nowadays, the embedding models are usually directly initialized from foundation
 models such as BERT, T5, GPT, Gemini, CoCa.
+
+# Applications
+## Semi-Categorical Text
+- Suppose you have a column "Location" with entries that are not coherent (e.g., "US", "USA", United States", etc.
+- It is possible to use directly the Text Embeddings possibility
+
+## Text Embeddings
+### SentenceTransformer
+- The solution is preferable when a plug-and-play model is needed.
+- It does not require pre-tokenisation and post-distillation (e.g., MeanPooling)
+- PCA can be applied to the output
+```python
+from sentence_transformers import SentenceTransformer
+from sklearn.decomposition import PCA
+
+model = SentenceTransformer("all-MiniLM-L6-v2")
+sentence_embeddings = model.encode(texts, convert_to_numpy=True)
+
+pca = PCA(n_components=64)
+reduced_embeddings = pca.fit_transform(sentence_embeddings)
+```
+
+### AutoTokenizer + AutoModel
+- The solution is preferable when it is needed more customisation and control over the embedding process
+- It requires pre-tokenisation and post-distillation
+- PCA can be applied to the output
+```python
+from transformers import AutoTokenizer, AutoModel
+import torch
+from sklearn.decomposition import PCA
+
+tokenizer = AutoTokenizer.from_pretrained('sentence-transformers/all-MiniLM-L6-v2')
+model = AutoModel.from_pretrained('sentence-transformers/all-MiniLM-L6-v2')
+
+inputs = tokenizer("This is a sentence.", return_tensors='pt')
+outputs = model(**inputs)
+
+# Get token embeddings (shape: [1, seq_len, hidden_dim])
+token_embeddings = outputs.last_hidden_state
+
+# Mean pooling (manual)
+attention_mask = inputs['attention_mask']
+mask = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
+pooled = torch.sum(token_embeddings * mask, 1) / torch.clamp(mask.sum(1), min=1e-9)
+
+pca = PCA(n_components=64)
+reduced_embeddings = pca.fit_transform(pooled)
+```

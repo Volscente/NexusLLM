@@ -1,3 +1,9 @@
+# Description
+The PR resolves the issue #<issue_number> by ...
+
+# Changelog
+- [x] Files Changed
+
 # Checklist
 ## Mandatory
 - [ ] The title of the Pull Request starts with the JIRA ticket number (if provided)

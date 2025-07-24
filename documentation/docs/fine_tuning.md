@@ -1,5 +1,6 @@
-# Terminology
-## Auto-Regression
+# Fine-Tuning
+## Terminology
+### Auto-Regression
 the way these models actually work is that after each token is produced, 
 that token is added to the sequence of inputs. 
 
@@ -8,13 +9,13 @@ This is an idea called *“Auto-Regression”*.
 
 This feature is not always incorporated. For example, BERT does not have it.
 
-# Pre-Training
-## Definition
+## Pre-Training
+### Definition
 It's the very first step of training a LLM and, in this operation, a huge amount of
 text data is processed.
 
-## Steps
-### Data Processing
+### Steps
+#### Data Processing
 In order to feed the text data in the training process, they have to be converted into tokens
 by a *Tokenizer*, which is specifically trained for the task.
 
@@ -26,17 +27,16 @@ This step involves mapping tokens to their corresponding IDs,
 and incorporating any necessary special tokens or attention masks. 
 Once the dataset is pre-processed, it is ready to be used for the pre-training phase.
 
-### Training
+#### Training
 In this step, the model learns either to predict the next token in a sequence,
 or filling the missing tokens in a given sequence. In this way, the model learn  language patterns, grammar, and semantic relationships 
 
 The task depends on the training algorithm, but it is a supervised-learning algorithm.
 
-#### Learning Algorithms
+##### Learning Algorithms
 - **Masked Language Modeling** - The model tries to predict certain masked tokens within the input sequence
 - **Casual Language Modeling** - The model tries to predict the next token given the preceding context
 
-# Fine-Tuning
 ## Definition
 LLMs are *pre-trained* on very extensive text corpus
 - LLaMa 2 on 2 trillion tokens
@@ -60,6 +60,7 @@ dropout, weight decay, overfit and early stopping.
 
 ## Dataset Definition
 The dataset used for the Fine-Tuning should have:
+
 1. **Data Diversity** - Do not address a single task, but aim for more. Ensure to include all possible conversation scenarios
 2. **Dataset Size** - At least 10MiB. It's not easy to overfit a pre-trained model with fine-tuning, so the more, the better
 3. **Dataset Quality** - Do not feed garbage
@@ -75,6 +76,7 @@ It adjusts the weights in the LLM to minimize the difference between the generat
 acting as labels.
 
 It requires:
+
 1. Good quality instruction dataset
 2. Prompt template
 
@@ -94,6 +96,7 @@ the LLM to perform a new task or set of tasks. This has the benefit of training 
 compared to traditional fine-tuning of the entire model.
 
 Some PEFT techniques are:
+
 - **Adapter-based fine-tuning** - It employs small modules, called adapters, to the pre-trained model. Only adapters' parameters are trained
 - **Low-Rank Adaptation (LoRA)** - It uses two smaller matrices to approximate the original weight matrix update instead 
 of fine-tuning the whole LLM. This technique freezes the original weights and trains these update matrices, 
@@ -103,8 +106,8 @@ Additionally, LoRA has improved variants such as QLoRA,48 which uses quantized w
 ### Comparison
 RLHF is able to better capture humans way of generating responses, but it's harder to implement.
 
-# LoRA
-## General
+## LoRA
+### General
 The *Low-Rang Adaptation* algorithm is designed for fine-tuning LLMs while keeping memory consumption low.
 
 The main concept is the *Low Rank*: there are very few elements in the weights matrices of an LLM that carry information.
@@ -112,7 +115,7 @@ So it is required to just add a Low Rank Update matrices in order to capture suc
 
 The main point to fine-tune is the Self-Attention layer, since it's the one having the lowest rank (i.e, the most redundant information)
 
-## Process
+### Process
 LLMs are pre-trained by updating the weights of certain weight matrices, added into the model's architecture. 
 LoRA focuses on pair of *Rank-Decomposition Weight Matrices* (Update matrices) 
 to the existing pre-training weights. It basically adds new weights matrices on top.
@@ -132,6 +135,7 @@ To match a full fine-tune, the rank has to be equal to the model's hidden size (
 It determines which weights and matrices have to be targeted. By default, the
 *Query Vector* and *Value Vector*.
 Such matrices can be usually retrieved as follow:
+
 ```python
 from transformers import AutoModelForCausalLM
 model_name = "huggyllama/llama-7b"      # can also be a local directory
@@ -162,6 +166,7 @@ lm_head.weight
 Naming convention is: `{identifier}.{layer}.{layer_number}.{component}.{module}.{parameter}`.
 
 Some basic modules are:
+
 - `up_proj`: The projection matrix used in the upward (decoder to encoder) attention pass. 
 It projects the decoder's hidden states to the same dimension as the encoder's hidden states 
 for compatibility during attention calculations.
@@ -177,44 +182,46 @@ Transforms the input hidden states to the desired dimension for effective value 
 - `o_proj`: The projection matrix applied to the output of the attention mechanism. 
 Transforms the combined attention output to the desired dimension before further processing.
 
-## Advantages
+### Advantages
 1. Preserve pre-training weights, minimizing the risk of catastrophic forgetting
 2. Update Matrices have far fewer parameters tha pre-training weights, thus are much more portable
 3. Update Matrices are incorporated into original attention layers
 4. Memory efficiency due to the dimension of Update Matrices
 
 
-# QLoRA
-## Definition
+## QLoRA
+### Definition
 QLoRA (Quantized Low Rank Adapters) is an efficient fine-tuning approach that reduces memory usage 
 while maintaining high performance for large language models. 
 It enables the fine-tuning of a 65B parameter model on a single 48GB GPU, 
 while preserving full 16-bit fine-tuning task performance.
 
 **Key Innovations:**
+
 - Backpropagation of gradients through a frozen, 4-bit quantized pretrained language model into Low Rank Adapters (LoRA)
 - Use of a new data type called 4-bit NormalFloat (NF4), which optimally handles normally distributed weights
 - Double quantization to reduce the average memory footprint by quantising the quantization constants
 - Paged optimizers to effectively manage memory spikes during the fine-tuning process
 
-## Hyperparameters
+### Hyperparameters
 - **Batch Size** - Number of training sample processed at the same time, before updating the weights
 - **Epochs** - The number of time the model sees the entire dataset
 
-# Axolotl
-## Definition
+## Axolotl
+### Definition
 Axolotl is a tool designed to streamline the fine-tuning of various AI models, 
 offering support for multiple configurations and architectures. It supports different moodels (e.g., LLaMA, Falcon, etc.)
 and different Fine-Tuning algorithms, such as LoRA and QLoRA.
 
-## Advantages
+### Advantages
 - **Single Configuration File** - All parameters used to train an LLM are neatly stored in a yaml config file. 
 This makes it convenient for sharing and reproducing models.
 Examples in the GitHub repo [here](https://github.com/OpenAccess-AI-Collective/axolotl/tree/main/examples).
 - **Dataset Flexibility** - Different prompt's formats supported
 
-## Modify Configuration
+### Modify Configuration
 Some parameters that should be usually changed are:
+
 - `base_model`
 - `base_model_config` (Usually the same as the `base_model`)
 - `hub_model_id` (New model name)
@@ -235,11 +242,11 @@ Instead of storing the gradients for all layers,
 only a subset of the layers' activations and intermediate gradients are stored, 
 while the remaining layers' activations are recomputed during the backward pass when needed. 
 
-# Direct Preference Optimisation (DPO)
-## Definition
+## Direct Preference Optimisation (DPO)
+### Definition
 It is RLHF Fine-Tuning technique.
 
-## PPO vs DPO
+### PPO vs DPO
 The *Proximal Policy Optimization (PPO)* is another reinforcement learning algorithm that aims to improve the policy of an agent.
 One of the key features of PPO is the use of a "proximal policy optimization" approach, 
 which constrains the policy updates to be within a certain "trust region" 
@@ -253,8 +260,8 @@ rather than optimizing a surrogate objective function.
 In DPO, the agent learns a preference function that assigns values or scores to different actions or 
 policies based on their expected long-term rewards.
 
-# Code Examples
-## SFT on Vertex AI
+## Code Examples
+### SFT on Vertex AI
 ```python
 Python
   # Before you start run this command:

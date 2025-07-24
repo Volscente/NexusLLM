@@ -1,42 +1,70 @@
-[tool.poetry]
-name = "llm-experimentation"
-version = "1.0.1"
-description = "A repository containing research and experimentations with LLMs"
-authors = ["Simone Porreca <porrecasimone@gmail.com>", "Ali Abbas Jaffri <megahertz888@gmail.com>"]
-license = "GPL-3.0-or-later"
+[project]
+name = "nexusllm"
+version = "1.0.3"
+description = "NexusLLM is a GitHub repository dedicated to exploring various experiments related to Language Model Models (LMM). From fine-tuning and instruction-tuning to RAG and agent-based systems, it offers a diverse range of experiments and insights for researchers and enthusiasts interested in natural language processing and AI innovation."
+authors = [
+  {name = "Simone Porreca", email = "porrecasimone@gmail.com"},
+]
+requires-python = ">=3.13"
+dependencies = [
+    "dynaconf>=3.2.11",
+    "pandas>=2.3.1",
+    "pydantic>=2.11.7",
+]
 readme = "README.md"
-packages = []
+license = "GPL-3.0"
+license-files = ["LICENSE"]
+keywords = ["AI", "Artificial Intelligence", "Machine Learning", "ML", "Python", "LLM", "Agent", "Transformer", "Embedding"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Framework :: Pytest",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence"
+]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-tiktoken = "^0.3.3"
-torch = "^2.0.0"
-torchvision = "^0.15.1"
-pylint = "^3.0.3"
-pandas = "^2.2.0"
-numpy = "^1.26.4"
-matplotlib = "^3.8.2"
-jupyterlab = "^4.1.0"
-openai = "^1.11.1"
-pytest = "^8.0.0"
-pylint-pytest = "^1.1.7"
-accelerate = "^0.27.2"
-peft = "^0.8.2"
-bitsandbytes = "^0.42.0"
-transformers = "^4.37.2"
-trl = "^0.7.11"
-ipywidgets = "^8.1.2"
-google-generativeai = "^0.8.3"
-gensim = "^4.3.3"
-chromadb = "^0.5.18"
-google-cloud-aiplatform = "^1.72.0"
-ipython-sql = "^0.5.0"
-langgraph = "0.2.45"
-langchain-google-genai = "2.0.4"
+[project.urls]
+Documentation = "https://volscente.github.io/NexusLLM/"
+Repository = "https://github.com/Volscente/NexusLLM"
+Backlog = "https://github.com/users/Volscente/projects/11/views/1"
+Changelog = "https://github.com/Volscente/NexusLLM/blob/main/CHANGELOG.md"
 
-[tool.poetry.group.dev.dependencies]
-python-dotenv = "^1.0.1"
+[dependency-groups]
+dev = [
+    "jupyterlab>=4.4.4",
+    "matplotlib>=3.10.3",
+    "mkdocs>=1.6.1",
+    "pre-commit>=4.2.0",
+    "pytest>=8.4.1",
+    "pytest-dotenv>=0.5.2",
+    "ruff>=0.12.3",
+    "sqlfluff>=3.4.2",
+]
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.pytest.ini_options]
+
+# Filter deprecation warning from google-cloud-bigquery
+filterwarnings = [
+    "ignore:Deprecated call to `pkg_resources\\.declare_namespace\\('.*'\\):DeprecationWarning",
+    "ignore::DeprecationWarning",
+    "ignore:BigQuery Storage module not found, fetch data with the REST endpoint instead:UserWarning"
+]
+# Set the PYTHONPATH
+pythonpath = [
+  "src"
+]
+# Read from the .env file
+env_files = [".env"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F"]  # E=pycodestyle, F=pyflakes
+ignore = ["E501", "E731"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
