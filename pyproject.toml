@@ -62,7 +62,7 @@ target-version = "py313"
 
 [tool.ruff.lint]
 select = ["E", "F"]  # E=pycodestyle, F=pyflakes
-ignore = ["E501"]
+ignore = ["E501", "E731"]
 
 [tool.ruff.format]
 quote-style = "double"
