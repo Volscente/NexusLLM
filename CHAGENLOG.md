@@ -1,3 +1,20 @@
+# v.1.0.3
+
+-----
+
+- [x] Add Documentation Config `mkdocs.yml` in `documentation/`
+- [x] Refactor Document `transformers.md` in `documentation/docs/`
+- [x] Refactor Document `tokenizers.md` in `documentation/docs/`
+- [x] Refactor Document `embeddings.md` in `documentation/docs/`
+- [x] Refactor Document `vector_search.md` in `documentation/docs/`
+- [x] Refactor Document `LLMs.md` in `documentation/docs/`
+- [x] Refactor Document `google_llms.md` in `documentation/docs/`
+- [x] Refactor Document `fine_tuning.md` in `documentation/docs/`
+- [x] Refactor Document `evaluation.md` in `documentation/docs/`
+- [x] Refactor Document `deepeval.md` in `documentation/docs/`
+- [x] Refactor Document `LLMOps.md` in `documentation/docs/`
+- [x] Refactor Document `agents.md` in `documentation/docs/`
+
 # v.1.0.2
 
 ------

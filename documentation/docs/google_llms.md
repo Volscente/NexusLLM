@@ -1,10 +1,11 @@
-# Services
-## AI Studio
+# Google LLMs
+## Services
+### AI Studio
 AI Studio is free to use and only requires a compatible Google account to log in and get started. It is deeply 
 integrated with the Gemini API, which comes with a generous free tier that you can use to run.
 
-# Python SDK
-## Installation
+## Python SDK
+### Installation
 ```bash
 pip install -U -q "google-generativeai>=0.8.3"
 ```
@@ -13,7 +14,7 @@ pip install -U -q "google-generativeai>=0.8.3"
 import google.generativeai as genai
 ```
 
-## Setup
+### Setup
 ```python
 # Import Standard Libraries
 import google.generativeai as genai

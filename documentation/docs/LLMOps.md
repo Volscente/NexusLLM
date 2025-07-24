@@ -1,6 +1,7 @@
-# GenAI Development Lifecycle
-## Introduction
+# LLMOps
+## GenAI Development Lifecycle
 It is composed by 5 steps or phases:
+
 - **Discovery** - Explore landscape of available models to identify the most suitable one for their specific gen AI
 application.
 - **Development and Experimentation** - Techniques like prompt engineering, few-shot learning or PEFT.
@@ -15,11 +16,13 @@ fine-tuning or incorporating human feedback loops are still needed.
 ![GenAI Lifecycle](./images/genai_lifecycle.png)
 
 ## Discovery
-Current AI Landscape has:
+The current AI Landscape has:
+
 1. An abundance of models
 2. No model can fit all solutions
 
 Here are some factors to consider when exploring models:
+
 1. Quality: Early assessments can involve running test prompts or analyzing public
 benchmarks and metrics to gauge output quality.
 2. Latency & throughput: These factors directly impact user experience. A chatbot
@@ -35,6 +38,7 @@ licensing terms.
 ## Development and Experimentation
 ### Definition
 It involves experimental iterations composed by three steps:
+
 1. Data Refinement
 2. Foundation model selection and adaptation
 3. Evaluation
@@ -58,11 +62,11 @@ and need an additional element beyond the user input to function as part of a
 gen AI Application: a prompt, and more specifically, a prompt template, defined as a set of
 instructions and examples along with placeholders to accommodate user input.
 
-# MLOps for GenAI or LLMops
-## Definition
+## MLOps for GenAI or LLMops
+### Definition
 GenAI models are usually a chain of agents, which characteristic presents few more challenges with respect to traditional MLOps.
 
-## Aspects
+### Aspects
 1. Evaluation - Because of their tight coupling, chains need end-to-end evaluation, not just
 on a per-component basis, to gauge their overall performance and the quality of their
 output.
@@ -74,19 +78,20 @@ performance degradation, data drift, or unexpected behavior in the chain.
 4. Introspection - The ability to inspect the internal data flows of a chain (inputs and outputs
 from each component) as well as the inputs and outputs of the entire chain is paramount.
 
-# Continuous Training & Tuning
-## Definition
+## Continuous Training & Tuning
+### Definition
 In machine learning operations (MLOps), continuous training is the practice of repeatedly
 retraining machine learning models in a production environment.
 
 For gen AI models, continuous tuning of the models is often more practical than
 retraining from scratch due to the high data and computational costs involved.
 
-## Data Requirements
+### Data Requirements
 This ease of prototyping, however, comes with a challenge. Traditional predictive AI relies on
 apriori well-defined dataset(s). In gen AI, a single application can leverage various data types,
 from completely different data sources, all working together (Figure 10). Let’s explore some
 of these data types:
+
 1. Conditioning Prompts - System prompts or Contextual prompts
 2. Few-shot Examples - Input-output pairs
 3. Grounding/Augmentation Data - Data coming from external sources to help the model crafting the output
@@ -94,40 +99,27 @@ of these data types:
 5. Human Preference Datasets - Used for RLHF
 6. Full Pre Training Corpora - Dataset for pre-training
 
-# Evaluation
-## Approaches
-There are some established metrics, like BLEU for translations and ROUGE for summaries,
-but they don't always tell the full story. That's where custom evaluation methods come in.
-One approach is to use another foundational model as a judge. For example, you could
-prompt a large language model to score the quality of generated texts across various
-dimensions. This is the idea behind techniques like AutoSxS.
-
-The key here is to make sure your automated evaluation aligns with human judgment.
-
-Lack of ground truth data is another common hurdle, especially in the early stages of a
-project. One workaround is to generate synthetic data to serve as a temporary ground truth,
-which can be refined over time with human feedback.
-
-# Deploy
-## Introduction
+## Deploy
+### Introduction
 We need to distinguish between deployment of:
 - Foundation Models
 - Generative AI Systems
 
-## Generative AI Systems
-### Versioning
+### Generative AI Systems
+Versioning:
+
 - Prompt template
 - Chain definition
 - External datasets
 - Adapter models
 
-## Foundation Models
-### Infrastructure Validation
+### Foundation Models
+**Infrastructure Validation**
 This refers to the introduction of an additional verification step, prior
 to deploying the training and serving systems, to check both the compatibility of the model
 with the defined serving configuration and the availability of the required hardware.
 
-### Compression
+**Compression**
 Another way of addressing infrastructure challenges is to optimize the model itself.
 Compressing and/or optimizing the model can often significantly reduce the storage and
 compute resources needed for training and serving, and in many cases can also decrease
@@ -144,15 +136,15 @@ generated by a larger LLM, to reproduce the output of the larger LLM for a speci
 This can significantly reduce the amount of training data, compute, and storage resources
 needed for the application.
 
-# Monitoring
-## Introduction
+## Monitoring
+### Introduction
 Monitoring can be applied to the overall gen AI application and to individual components. We
 prioritize monitoring at the application level. This is because if the application is performan
 and monitoring proves that, it implies that all components are also performant. You can also
 apply the same practices to each of the prompted model components to get more granular
 results and understanding of your application.
 
-## Skew Detection
+### Skew Detection
 Skew detection in traditional ML systems refers to training-serving skew that occurs when
 the feature data distribution in production deviates from the feature data distribution
 observed during model training. In the case of Gen AI systems using pretrained models in
@@ -161,7 +153,7 @@ can measure skew by comparing the distribution of the input data we used to eval
 application (the test set as described under the Data Curation and Principles section above)
 and the distribution of the inputs to our application in production.
 
-## Drift Detection
+### Drift Detection
 Like skew detection, the drift detection process checks for statistical differences between
 two datasets. However, instead of comparing evaluations and serving inputs, drift looks for
 changes in input data. This allows you to check how the inputs and therefore the behavior of

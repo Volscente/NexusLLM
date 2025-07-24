@@ -1,4 +1,4 @@
-# General
+# Embeddings
 ## Definition
 Embeddings are numerical representations of real-world data such as text,
 speech, image, or videos. They are expressed as low-dimensional vectors where the
@@ -20,7 +20,7 @@ The Embeddings are usually obtained through different ML models, like Encoder-ba
 3. Efficient computing and retrieving of the nearest neighbors of the query embeddings in
 the search space.
 
-## Applications
+### Applications
 - Retrieval
 - Recommendations
 - Features for ML Models

@@ -1,32 +1,36 @@
-# General
-## Areas of Evaluation
+# LLMs Evaluation
+## Introduction
+### Areas of Evaluation
 An evaluation framework for LLMs should target two main areas:
+
 - **Use Case** or **Dynamic Behavior Evaluation** - Custom metrics that directly measure how well the LLM is performing regarding the specific task
 - **System Architecture** - Generic metrics on, for example, faithfulness of information 
 retrieved by the RAG or the Task Completion for AI Agents
 
-## LLM Standalone Metrics
+### LLM Standalone Metrics
 These metrics are related to evaluate LLM against standardised benchmarks:
+
 - GLUE
 - SyperGLUE
 - HellaSwag
 - TruthfulQA
 - MMLU
 
-## Online vs. Offline Evaluation
-### Motivation
-Offline evaluation usually proves valuable in the initial development stages of features, but it falls short in assessing how model changes impact the user experience in a live production environment.
+### Online vs. Offline Evaluation
+Offline evaluation usually proves valuable in the initial development stages of features, 
+but it falls short in assessing how model changes impact the user experience in a 
+live production environment.
 
-### Definitions
-- **Offline** - Offline evaluation scrutinizes LLMs against specific datasets.
+- **Offline** - Offline evaluation scrutinizes LLMs against specific datasets
+- **Online** - Test the E2E system
 
-## Evaluation Methodologies
+### Evaluation Methodologies
 
 ![LLM Evaluation Methodologies](./images/llm_evaluation_methodologies.png)
 
 
-# LLM Evaluation Metrics
-## General List
+## LLM Evaluation Metrics
+### General List
 - **Answer Relevancy** - Determines whether an LLM output is able to address the given input and certain context and rules ✅
 - **Task Completion** - Determines whether an LLM agent is able to complete the task it was set out to do ⚠️ &rarr; How to determine completion state?
 - **Correctness** - Determines whether an LLM output is factually correct based on some ground truth ✅
@@ -36,7 +40,7 @@ Offline evaluation usually proves valuable in the initial development stages of 
 - **Responsible Metrics** - Includes metrics such as bias and toxicity, which determines whether an LLM output contains (generally) harmful and offensive content ✅
 - **Task-Specific Metrics** - Includes metrics such as summarization, which usually contains a custom criteria depending on the use-case ✅
 
-## Types
+### Metrics Types
 Some metrics are based on Statistics, while others are sometimes referred as *"Model-based"*:
 
 ![LLM Metrics](./images/llm_metrics.png)
@@ -46,6 +50,7 @@ Some metrics are based on Statistics, while others are sometimes referred as *"M
 - They do not take into account any
 
 **List of Metrics:**
+
 - **BLEU (BiLingual Evaluation Understudy)** - It evaluates the output of the LLM application against annotated ground truths. It calculates the precision for each matching n-gram (n consecutive words) between an LLM output and expected output to calculate their geometric mean and applies a brevity penalty if needed.
 - **ROUGE (Recall-Oriented Understudy for Gisting Evaluation)** - It is used for text summarisation and calculates recall by comparing the overlap of n-grams between LLM outputs and expected outputs.  It also leverages external linguistic databases like WordNet to account for synonyms. The final score is the harmonic mean of precision and recall, with a penalty for ordering discrepancies.
 - **METEOR (Metric for Evaluation of Translation with Explicit Ordering)** - It calculates scores by assessing both precision (n-gram matches) and recall (n-gram overlaps), adjusted for word order differences between LLM outputs and expected outputs. It can also leverages exteral linguistic databases.
@@ -55,6 +60,7 @@ Some metrics are based on Statistics, while others are sometimes referred as *"M
 - Reliable but inaccurate (struggle to keep semantic included), because of their probabilistic nature
 
 **List of Metrics:**
+
 - **NLI** - It is a Non-LLM based and uses Natural Language Inference models to classify whether an LLM output is logically consistent (entailment), contradictory, or unrelated (neutral) with respect to a given reference text.
 - **BLEURT (Bilingual Evaluation Understudy with Representations from Transformers)** - It uses pre-trained models like BERT to score LLM outputs on some expected outputs
 
@@ -62,29 +68,26 @@ Some metrics are based on Statistics, while others are sometimes referred as *"M
 - **BERTScore** - It relies on a pre-trained LLM like BERT and on the cosine similarity between expected output and predicted output. Afterward, the similarities are aggregated to produce a final score.
 - **MoverScore** - It relies on LLM like BERT to obtain deeper contextualised word embeddings for both reference text and generated text before computing the similarity.
 
-## Usage Tips
+### Usage Tips
 It is good to have:
+
 - 1-2 custom metrics (G-Eval or DAG) that are use case specific
 - 2-3 generic metrics (RAG, agentic, or conversational) that are system specific
 
-# G-Eval (Model-based Scorer)
-## Introduction
+## G-Eval (Model-based Scorer)
+### Introduction
 - It is an LLM-based Scorer ([Paper](https://arxiv.org/pdf/2303.16634.pdf))
 - Documentation from [DeepEval](https://www.deepeval.com/docs/metrics-llm-evals)
 
 ![G-Eval](./images/g_eval.png)
 
-## Process
+### Process
 1. Prompt with the following information: 1) Task Introduction; 2) Evaluation Criteria
 2. Generate through the previous output the list of Evaluation Steps through the *"Auto Chain of Thoughts"*
-3. Prompt the Scorer LLM with
-   - Evaluation Steps
-   - Input Context
-   - Input Target
+3. Prompt the Scorer LLM with Evaluation Steps, Input Context and Input Target
 4. (Optional) Normalise the output score by the probabilities of the output tokens
 
-## Code Snippets
-### Basic Implementation
+### Code Snippets
 ```python
 from deepeval.test_case import LLMTestCase, LLMTestCaseParams
 from deepeval.metrics import GEval
@@ -101,20 +104,19 @@ print(coherence_metric.score)
 print(coherence_metric.reason)
 ```
 
-# DAG (Model-based Scorer)
-## Introduction
+## DAG (Model-based Scorer)
+### Introduction
 - Deep Acyclic Graph is a LLM-based scorer that relies on a decision tree
 - Each node is an LLM Judgement and each edge is a decision
 - Each leaf node is associated with a hardcoded score
 
 ![DAG LLM Scorer](./images/dag_llm.png)
 
-## Advantages
+### Advantages
 - Slightly more deterministic, since there's a certain degree of control in the score determination
 - It can be used to filter away edge cases where LLM output doesn't even meet minimum requirements
 
-## Code Snippets
-### Basic Implementation
+### Code Snippets
 ```python
 from deepeval.test_case import LLMTestCase
 from deepeval.metrics.dag import (
@@ -164,19 +166,20 @@ format_correctness.measure(test_case)
 print(format_correctness.score, format_correctness.reason)
 ```
 
-# Prometheus (Model-based Scorer)
-## Introduction
+## Prometheus (Model-based Scorer)
+### Introduction
 - LLM-based evaluation framework use case agnostic
 - Based con Llama-2-chat and fine-tuned for evaluation purposes
 
-## Advantages
+### Advantages
 - Evaluation steps are not produced by LLM, but are embedded in the node itself
 
-# QAG Score (Hybrid Scorer)
-## Introduction
+## QAG Score (Hybrid Scorer)
+### Introduction
 QAG (Question Answer Generation) Score uses binary answer (‘yes’ or ‘no’) to close-ended questions (which can be generated or preset) to compute a final metric score.
 
 **Example:**
+
 ```
 So for this example LLM output:
 
@@ -188,36 +191,37 @@ And a corresponding close-ended question would be:
 
 Was Martin Luther King Jr. assassinated on the April 4, 1968?
 ```
-## Advantages
+
+### Advantages
 - The score is not directly generated by an LLM
 
-# GPTScore
-## Introduction
+## GPTScore
+### Introduction
 It is similar to G-Eval, but the evaluation trask is performed with a form-filling paradigm.
 
 ![GPTScore](./images/gptscore.png)
 
-# SelfCheckGPT
-## Introduction
+## SelfCheckGPT
+### Introduction
 It samples multiple output in order to detect hallucinations through a model-based approach.
 
 ![SelfCheckGPT](./images/selfcheckgpt.png)
 
-# RAG-Specific Metrics
-## Faithfulness
-### Introduction
-It evaluates whether the Generator is generating output that factually aligns with the information presented from the Retriever.
+## RAG-Specific Metrics
+### Faithfulness
+It evaluates whether the Generator is generating output that factually 
+aligns with the information presented from the Retriever.
 
 It is possible to use a QAG Score here.
 
-### Process
-For faithfulness, if you define it as the proportion of truthful claims made in an LLM output with regards to the retrieval context, we can calculate faithfulness using QAG by following this algorithm:
+For faithfulness, if you define it as the proportion of truthful claims
+made in an LLM output with regards to the retrieval context, 
+we can calculate faithfulness using QAG by following this algorithm:
 
 1. Use LLMs to extract all claims made in the output.
 2. For each claim, check whether the it agrees or contradicts with each individual node in the retrieval context. In this case, the close-ended question in QAG will be something like: “Does the given claim agree with the reference text”, where the “reference text” will be each individual retrieved node. (Note that you need to confine the answer to either a ‘yes’, ‘no’, or ‘idk’. The ‘idk’ state represents the edge case where the retrieval context does not contain relevant information to give a yes/no answer.)
 3. Add up the total number of truthful claims (‘yes’ and ‘idk’), and divide it by the total number of claims made.
 
-### Code
 ```python
 from deepeval.metrics import FaithfulnessMetric
 from deepeval.test_case import LLMTestCase
@@ -235,11 +239,11 @@ print(metric.reason)
 print(metric.is_successful())
 ```
 
-## Answer Relevancy
-### Introduction
-It assesses whether RAG generator outputs concise answers, and can be calculated by determining the proportion of sentences in an LLM output that a relevant to the input.
+### Answer Relevancy
+It assesses whether RAG generator outputs concise answers, 
+and can be calculated by determining the proportion of sentences in an LLM output 
+that a relevant to the input.
 
-### Code
 ```python
 from deepeval.metrics import AnswerRelevancyMetric
 from deepeval.test_case import LLMTestCase
@@ -257,11 +261,9 @@ print(metric.reason)
 print(metric.is_successful())
 ```
 
-## Contextual Precision
-### Introduction
+### Contextual Precision
 Contextual Precision is a RAG metric that assesses the quality of your RAG pipeline’s retriever.
 
-### Code
 ```python
 from deepeval.metrics import ContextualPrecisionMetric
 from deepeval.test_case import LLMTestCase
@@ -282,12 +284,11 @@ print(metric.reason)
 print(metric.is_successful())
 ```
 
-# Agentic Metrics
-## Tool Correctness
-### Introduction
-Tool correctness is an agentic metric that assesses the quality of your agentic systems, and is the most unusual metric here because it is based on exact matching and not any LLM-as-a-judge. It is computed by comparing the tools called for a given input to the expected tools that should be called.
+## Agentic Metrics
+### Tool Correctness
+Tool correctness is an agentic metric that assesses the quality of your agentic systems, 
+and is the most unusual metric here because it is based on exact matching and not any LLM-as-a-judge. It is computed by comparing the tools called for a given input to the expected tools that should be called.
 
-### Code
 ```python
 from deepeval.test_case import LLMTestCase, ToolCall
 from deepeval.metrics import ToolCorrectnessMetric
@@ -305,11 +306,10 @@ metric.measure(test_case)
 print(metric.score, metric.reason)
 ```
 
-## Task Completion
-### Introduction
-Task completion is an agentic metric that uses LLM-as-a-judge to evaluate whether your LLM agent is able to accomplish its given task.
+### Task Completion
+Task completion is an agentic metric that uses LLM-as-a-judge to evaluate whether your
+LLM agent is able to accomplish its given task.
 
-### Code
 ```python
 from deepeval.test_case import LLMTestCase
 from deepeval.metrics import TaskCompletionMetric
@@ -350,8 +350,8 @@ metric.measure(test_case)
 print(metric.score, metric.reason)
 ```
 
-# LLM Metrics
-## Hallucination
+## LLM Metrics
+### Hallucination
 ```python
 from deepeval.metrics import HallucinationMetric
 from deepeval.test_case import LLMTestCase
@@ -372,7 +372,7 @@ print(metric.score)
 print(metric.is_successful())
 ```
 
-## Toxicity
+### Toxicity
 ```python
 from deepeval.metrics import ToxicityMetric
 from deepeval.test_case import LLMTestCase
@@ -388,11 +388,9 @@ metric.measure(test_case)
 print(metric.score)
 ```
 
-## Bias
-### Introduction
+### Bias
 The bias metric evaluates aspects such as political, gender, and social biases in textual content.
 
-### Code
 ```python
 from deepeval.metrics import GEval
 from deepeval.test_case import LLMTestCase
@@ -412,13 +410,14 @@ metric.measure(test_case)
 print(metric.score)
 ```
 
-# Evaluation Framework Platforms
-## Azure AI Foundry Automated Evaluation(Microsoft)
-Azure AI Foundry is an all-in-one AI platform for building, evaluating, and deploying generative AI solutions and custom copilots.
+## Evaluation Framework Platforms
+### Azure AI Foundry Automated Evaluation (Microsoft)
+Azure AI Foundry is an all-in-one AI platform for building, evaluating, 
+and deploying generative AI solutions and custom copilots.
 
-## OpenAI Evals (OpenAI)
-### Introduction
-The OpenAI Evals framework consists of a framework to evaluate an LLM or a system built on top of an LLM, 
+### OpenAI Evals (OpenAI)
+The OpenAI Evals framework consists of a framework to evaluate an LLM or 
+a system built on top of an LLM, 
 and an open-source registry of challenging evals.
 
 It is based on pre-defined dataset.
@@ -426,30 +425,31 @@ It is based on pre-defined dataset.
 The process to create a new evaluation dataset is described in [custom-eval.md](https://github.com/openai/evals/blob/main/docs/custom-eval.md)
 from the OpenAI Evals package. Although it seems pretty rigid and too schematic for the actual standards.
 
-## Weights & Biases
-A Machine Learning platform to quickly track experiments, version and iterate on datasets, evaluate model performance.
+### Weights & Biases
+A Machine Learning platform to quickly track experiments, version and iterate on datasets, 
+evaluate model performance.
 
-## LangSmith (LangChain)
+### LangSmith (LangChain)
 Trace and evaluate language model applications and intelligent agents.
 
-## TruLens (TruEra)
+### TruLens (TruEra)
 TruLens provides a set of tools for developing and monitoring neural nets, including LLMs.
 
-## Vertex AI Studio (Google)
+### Vertex AI Studio (Google)
 You can evaluate the performance of foundation models and your tuned generative AI models on Vertex AI.
 
-## Amazon Bedrock
+### Amazon Bedrock
 Amazon Bedrock supports model evaluation jobs.
 
-## DeepEval (Confident AI)
+### DeepEval (Confident AI)
 An open-source LLM evaluation framework for LLM applications.
 
 [Sample Codes](https://github.com/confident-ai/deepeval/tree/main/examples).
 
-## Parea AI
+### Parea AI
 Parea provides tools for debugging, testing, evaluating, and monitoring LLM-powered applications.
 
-## Optik by Comet
+### Optik by Comet
 Opik is an open-source platform by Comet for evaluating, testing, and monitoring Large Language Models (LLMs). 
 It provides flexible tools to track, annotate, and refine LLM applications across development and production environments.
 
@@ -465,11 +465,11 @@ score = metric.score(
 print(score)
 ```
 
-# Code-Based LLM Evaluations
-## Introduction
+## Code-Based LLM Evaluations
+### Introduction
 - It involves creating automated CI/CD test cases to evaluate how the LLM performs on specific tasks or datasets
 - The advantage is that it's cost-efficient as it does not introduce token usage or latency
 
-## Use Cases
+### Use Cases
 - Test Correct Structure of Output
 - Test Specific Data in Output by verifying that the LLM output contains specific data points
