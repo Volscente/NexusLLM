@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Transformers - NexusLLM</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Transformers";
+        var mkdocs_page_input_path = "transformers.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> NexusLLM
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">NexusLLM</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Transformers</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#history">History</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#the-evolution-of-transformers">The Evolution of Transformers</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#resources">Resources</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#applications">Applications</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#process-overview">Process Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#architecture">Architecture</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#general">General</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#input">Input</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#tokens">Tokens</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#vocabulary">Vocabulary</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#input-preparation-and-embedding">Input Preparation and Embedding</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#encoder">Encoder</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#scope">Scope</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#architecture_1">Architecture</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#positional-encoder">Positional Encoder</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#decoder">Decoder</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#scope_1">Scope</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#architecture_2">Architecture</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#normalisation-layer">Normalisation Layer</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#residual-connections">Residual Connections</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#feedforward-layer">Feedforward Layer</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#attention-mechanism">Attention Mechanism</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#key-concept">Key Concept</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#characteristics">Characteristics</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#hard-vs-soft-attention">Hard vs. Soft Attention</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#global-vs-local-attention">Global vs. Local Attention</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dot-product-attention">Dot-Product Attention</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#definition">Definition</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#processing">Processing</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#self-attention">Self-Attention</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#definition_1">Definition</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#self-attention-vs-masked-self-attention">Self Attention vs. Masked Self-Attention</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#key-concept_1">Key Concept</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#processing_1">Processing</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#step-1-compute-query-key-and-value-tensors">Step 1 - Compute Query, Key and Value Tensors</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#step-2-compute-self-attention">Step 2 - Compute Self-Attention</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#step-3-standardisation">Step 3 - Standardisation</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#step-4-softmax-function">Step 4 - Softmax Function</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#step-5-retrieve-relevant-tokens">Step 5 - Retrieve Relevant Tokens</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#step-6-compute-self-attention">Step 6 - Compute Self-Attention</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#aggregated-weighted-context">Aggregated Weighted Context</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#multi-head-attention">Multi-Head Attention</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#comparison-with-single-head-attention">Comparison with Single-Head Attention</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#process">Process</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#training-process">Training Process</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#general_1">General</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#steps">Steps</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pre-training">Pre-Training</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#objective">Objective</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#data-preparation">Data Preparation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#distributed-training">Distributed Training</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#training-optimisation">Training Optimisation</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#adaptive-learning-rates-with-warmup">Adaptive Learning Rates with Warmup</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gradient-clipping">Gradient Clipping</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#normalisation">Normalisation</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#mixed-precision-training-for-memory-efficiency">Mixed-Precision Training for Memory Efficiency</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#optimisers">Optimisers</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#fine-tuning">Fine-Tuning</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#inference-process">Inference Process</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#auto-regression">Auto-Regression</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#projecting-the-output">Projecting the Output</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#generating-samples">Generating Samples</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../tokenizers/">Tokenizer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../embeddings/">Embeddings</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../vector_search/">Vector Search</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LLMs/">LLMs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../google_llms/">Google LLMs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../fine_tuning/">Fine-Tuning</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../evaluation/">LLMs Evaluation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../deepeval/">DeepEval</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LLMOps/">LLMOps</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../agents/">Agents</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">NexusLLM</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Transformers</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Volscente/NexusLLM/edit/master/docs/transformers.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="transformers">Transformers</h1>
+<h2 id="history">History</h2>
+<p>Before the invention of transformers1, recurrent neural networks (RNNSs) were the popular approach for modeling sequences.
+However, RNNs process input and output sequences sequentially, while Transformers can do it in parallel thanks to the
+self-attention mechanism. Although the cost has highly increased (Quadratic of the context length).</p>
+<p>Transformers are originally born for Natural Language Processing and, in particular, Translation problems.</p>
+<h3 id="the-evolution-of-transformers">The Evolution of Transformers</h3>
+<ul>
+<li>GPT-1 was a decoder-only that combined an unsupervised pre-training over a large amount of labelled data and
+then fine-tuned for a specific task. The model was very limited, since it could generalise to tasks that are
+similar to the task it was trained on.</li>
+<li>BERT which stands for Bidirectional Encoder Representations from Transformers, distinguishes itself 
+from traditional encoder-decoder transformer models by being an encoder-only architecture. 
+It was able to understand the context through an MLM training.</li>
+<li>GPT-2 was trained on a bigger dataset (40GB) and with 1.5B parameters. It was able to capture longer-range dependencies and common sense reasoning.</li>
+</ul>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><a href="https://jalammar.github.io/illustrated-transformer/">The Illustrated Transformer</a></li>
+<li><a href="https://arxiv.org/abs/1706.03762">Attention is All You Need</a></li>
+</ul>
+<h2 id="applications">Applications</h2>
+<p>The transformer architecture was developed at Google in 2017 for use in a translation model.
+It’s a sequence-to-sequence model capable of converting sequences from one domain into sequences in another domains.</p>
+<p>Other applications involve:</p>
+<ul>
+<li><strong>NLP</strong> - The main area is for sure everything that concerns Natural Language Processing, where Transformers were born</li>
+<li><strong>CV</strong> - Transformers have been also tested in Computer Vision field with promising results</li>
+</ul>
+<h2 id="process-overview">Process Overview</h2>
+<p>The Transformer can be seen as a sequence of different steps:</p>
+<ol>
+<li><strong>Tokenization (NLP only)</strong> &rarr; Convert raw text into a sequence of discrete tokens (e.g., words, subwords), often represented as integers &rarr; Output shape (sequence_length,)</li>
+<li><strong>Embeddings</strong> &rarr; Expand the input sequence representation in order to: a) Increase representatioin power; b) Matche the Encoder expected size &rarr; Output shape (sequence_length, d_model)</li>
+<li><strong>Positional Encoding</strong> &rarr; Encode the position of the original sequence into the new expanded representation (Output of the Embedding), so the model won't forget the original position &rarr; Output shape (sequence_length, d_model)</li>
+<li><strong>Encoder</strong> &rarr; Applies layers of self-attention and feedforward networks to produce contextualized representations of each input token, allowing the model to capture dependencies across the sequence &rarr; Output shape (input_dim, d_model)</li>
+<li><strong>Decoder</strong> &rarr; enerates the output sequence one token (or time step) at a time, using the encoder’s output as context, plus its own previously generated outputs (via masked self-attention) &rarr; Output shape (target_sequence_length, d_model)</li>
+</ol>
+<h2 id="architecture">Architecture</h2>
+<h3 id="introduction">Introduction</h3>
+<p>There are two main elements that differentiate how different LLM works:</p>
+<ol>
+<li>The Architecture (e.g., decoder only, encoder only, etc.)</li>
+<li>The training process (e.g., pre-training + fine-tuning + etc.)</li>
+</ol>
+<p>In this section we're going to explore the architecture element of LLMs.</p>
+<h3 id="general">General</h3>
+<p>The basic architecture of a Transformer is composed by <strong>Encoders</strong> and <strong>Decoders</strong>.
+In the original paper were used 6 Encoder blocks and 6 Decoder blocks.</p>
+<p><img alt="Transformer Architecture Example" src="../images/transformer_architecture_example.png" /></p>
+<p>There are of course many alternatives:</p>
+<ul>
+<li><strong>Decoders Only</strong> - Like GPT-3 and GPT-2</li>
+<li><strong>Encoders Only</strong> - Like BERT</li>
+<li><strong>Encoder-Decoder Models</strong> - Like BART or T5</li>
+</ul>
+<p>The above alternatives may also vary for the number of Encoder and/or Decoder blocks used: </p>
+<ul>
+<li>BERT has 24 Encoder blocks</li>
+<li>GTP-2 has 32 Decoder blocks</li>
+</ul>
+<h3 id="input">Input</h3>
+<h4 id="tokens">Tokens</h4>
+<p>The input of a Transformer, and in general of each Neural Network, is a Tensor. In this case, it is obtained from the input
+text through an <strong>Embedding Algorithm</strong>.</p>
+<p>The embedded input is also called as <em>Tokens</em> and its length depends on the Transformer architecture.</p>
+<p>Usually, if the input text is not long enough, <strong>Padding</strong> is used to fill the missing tokens.</p>
+<p>It is also important to know that there are <em>Special</em> tokens used by the Neural Network to mark:</p>
+<ul>
+<li>[CLS] or 101 - Start of the sentence</li>
+<li>[SEP] or 102 - Separator of sentences</li>
+<li>[MASK] or 103 - Mask token for MLM (Masked Language Model)</li>
+</ul>
+<h4 id="vocabulary">Vocabulary</h4>
+<p>It is important to notice that, when for example the word <em>"The"</em> is tokenized into the token <em>"464"</em>,
+this number is actually an index to an <strong>Embedding Matrix</strong>.</p>
+<p>The model holds an <strong>Embedding Matrix</strong> in which each word is represented to a Tensor of, let's say, 768 dimension.</p>
+<p>GPT-2 has a 50.257 x 768 vocabulary:</p>
+<ul>
+<li>50.257 words</li>
+<li>768 dimension (each word is represented through 768 numbers)</li>
+</ul>
+<h4 id="input-preparation-and-embedding">Input Preparation and Embedding</h4>
+<p>To prepare language inputs for transformers, we convert an input sequence into tokens and then into input embeddings.</p>
+<p>Generating an input embedding involves the following steps:</p>
+<ol>
+<li>Normalization (Optional): Standardizes text by removing redundant whitespace, accents, etc.</li>
+<li>Tokenization: Breaks the sentence into words or subwords and maps them to integer token IDs from a vocabulary.</li>
+<li>Embedding: Converts each token ID to its corresponding high-dimensional vector, typically using a lookup table. 
+These can be learned during the training process.</li>
+<li>Positional Encoding: Adds information about the position of each token in the sequence to help the transformer 
+understand word order.</li>
+</ol>
+<h3 id="encoder">Encoder</h3>
+<h4 id="scope">Scope</h4>
+<p>An encoder processes the input sequence and compresses the information into a context vector 
+(also known as sentence embedding vector) of a fixed length. 
+This representation is expected to be a good summary of the meaning of the whole source sequence.
+It builds a contextual representation of the input sequence.</p>
+<h4 id="architecture_1">Architecture</h4>
+<p>The <em>Encoder</em> block is composed by a <strong>Self-Attention</strong> layer and a <strong>Feed Forward Neural Network</strong>.</p>
+<p><img alt="Encoder Architecture" src="../images/encoder.png" /></p>
+<p>The encoder can also be implemented as an RNN (i.e., using LSTM and GRU). An inherit problem of Encoder is the fixed-length
+context, which makes impossible to remember long sequences. The Attention Mechanism addressed this problem.</p>
+<h4 id="positional-encoder">Positional Encoder</h4>
+<p>It is a technique used to store the original positions of tokens within a sequence. In this way, the tokens can
+also be processed in parallel while preserving the original position.</p>
+<p>The most common technique is to add a fixed-length vectors to the input embeddings of each token. 
+These vectors are designed to represent the position of the token in the sequence.</p>
+<p>By default, the Transformer is therefore position-agnostic and, through the Positional Encoder, the computed positional
+encodings are added to the token embeddings before feeding them into the transformer..</p>
+<h3 id="decoder">Decoder</h3>
+<h4 id="scope_1">Scope</h4>
+<p>A decoder is initialized with the context vector defined in the Encoder to emit the transformed output. 
+The early work only used the last state of the encoder network as the decoder initial state.
+It focuses only on autoregressive decoding, in which is new token is generated sequentially from the previous one (Autoregressive).</p>
+<h4 id="architecture_2">Architecture</h4>
+<p>It has a similar architecture that an encoder block, but with an additional layer in the middle to
+help focus on relevant part of the input sentence.</p>
+<p><img alt="Encoder Architecture" src="../images/decoder.png" /></p>
+<h3 id="normalisation-layer">Normalisation Layer</h3>
+<p>Layer normalization computes the mean and variance of the activations to normalize the activations in a given layer. 
+This is typically performed to reduce covariate shift as well as improve gradient flow to yield faster convergence 
+during training as well as improved overall performance.</p>
+<h3 id="residual-connections">Residual Connections</h3>
+<p>Residual connections propagate the inputs to the output of one or more layers. This has the effect of making the 
+optimization procedure easier to learn and also helps deal with vanishing and exploding gradients.</p>
+<h3 id="feedforward-layer">Feedforward Layer</h3>
+<p>This layer applies a position-wise transformation to the data, independently for each position in the sequence, 
+which allows the incorporation of additional non-linearity and complexity into the model’s representations</p>
+<h2 id="attention-mechanism">Attention Mechanism</h2>
+<h3 id="key-concept">Key Concept</h3>
+<p>It is a mechanism that allows the model to look at other positions in the input sequence to get a 
+better understanding of token.</p>
+<p>Consider the sentence <em>"The animal didn't cross the street because it was too tired"</em></p>
+<p>The word <em>"it"</em> refers to the <em>"Animal"</em>:</p>
+<p><img alt="Self-Attention Example" src="../images/self_attention.png" /></p>
+<p>The main goal is to help memorise long sequences, by improving the compression mechanism of the encoder-decoder architecture.</p>
+<h3 id="characteristics">Characteristics</h3>
+<h4 id="hard-vs-soft-attention">Hard vs. Soft Attention</h4>
+<p>In the paper <a href="http://proceedings.mlr.press/v37/xuc15.pdf">Show, Attend and Tell</a> the problem of image caption generation
+has been analysed.</p>
+<p>From that paper, two approaches of Attention Mechanism have been derived:</p>
+<ul>
+<li><em>Soft Attention</em> - It applies the weights alignment over all the patches of the source image. It's an expensive approach if
+the image is large, but the model is differentiable.</li>
+<li><em>Hard Attention</em> - It applies the weights alignment only on a singe patch of the source image. It's less expensive, but the model is
+non-differentiable and thus requires further techniques to be trained.</li>
+</ul>
+<h4 id="global-vs-local-attention">Global vs. Local Attention</h4>
+<p>In the paper <a href="https://arxiv.org/pdf/1508.04025.pdf">Effective Approaches to Attention-based Neural Machine Translation</a> the
+difference between Global and Local Attention has been proposed.</p>
+<ul>
+<li><em>Global Attention</em> - It is similar to the "Soft Attention" mechanism</li>
+<li><em>Local Attention</em> - It is a mix between the Hard and Soft Attention mechanisms (The model first predicts the aligned position
+in the current sequence and then center the context window over that position)</li>
+</ul>
+<h2 id="dot-product-attention">Dot-Product Attention</h2>
+<h3 id="definition">Definition</h3>
+<p>It is another kind of attention mechanism, together with Self-Attention and Cross-Attention. 
+Let’s see an example for text translation with the below architecture of Encoder (left) and Decoder (right).</p>
+<p><img alt="Dot-Product Attention" src="../images/self_attention_process.png" /></p>
+<h3 id="processing">Processing</h3>
+<p>There would be three vectors to compare:</p>
+<ul>
+<li><strong>Values (V)</strong> and <strong>Keys (K)</strong> derived from the input sentence in english</li>
+<li><strong>Query (Q)</strong> derived from the input sentence in italian</li>
+</ul>
+<p>Notice that, in order to match the length of the english sentence (4), 
+a padding token has been added at the end of the italian sentence, 
+whose original size was 3.
+The Dot-Product is computed between K and Q and then passed to a Softmax function. 
+Finally, in order to compute the Dot-Product attention z, the Dot-Product is 
+computed between V and the vector resulting from the Softmax function.
+This dot product would result in very similar values for the token that match together: 
+<em>Hello - Ciao, How</em>. </p>
+<h2 id="self-attention">Self-Attention</h2>
+<h3 id="definition_1">Definition</h3>
+<p>It has the same exact process as in the <strong>Dot-Product Attention</strong>. </p>
+<p>However here the vectors V, K and Q are built from the same exact input 
+sentence and the attention is computed only for tokens in the past of the sentence, 
+never in the future.</p>
+<p><img alt="Self-Attention Process" src="../images/self_attention_process.png" /></p>
+<h3 id="self-attention-vs-masked-self-attention">Self Attention vs. Masked Self-Attention</h3>
+<p>Sometimes, the difference between the inability of looking at future token in the sentence
+is referred as <em>"Masked Self-Attention"</em>. On the other hand, standard Self-Attention allows this
+possibility to look at future tokens. It's a matter of terminology.</p>
+<h3 id="key-concept_1">Key Concept</h3>
+<p>This is the most important aspect of Transformer that differentiate it from traditional sequence models. 
+Upon having a sequence of different tokens, like tensor <code>[18, 47, 56, 57, 58,  1, 15, 47, 58]</code>, 
+the model will start constructing a matrix (<strong>Attention Matrix</strong>) of dimension <em>Token size x Token size</em> 
+(9 x 9 in our example). Each element of this matrix is going to be the weight that the specific token 
+<code>i</code> would assign to another token <code>j</code>, depending on the importance it would give to the token <code>j</code>. 
+The value <code>-inf</code> or <code>0 would reflect the fact that the token can not</code> communicate with that token 
+because it is in the future of the sequence.`</p>
+<h3 id="processing_1">Processing</h3>
+<h4 id="step-1-compute-query-key-and-value-tensors">Step 1 - Compute Query, Key and Value Tensors</h4>
+<p>From a single input tensor of tokens, three other tensors are generated:</p>
+<ol>
+<li><strong>Query Tensor</strong> - It is a representation of the current token used to score against all the other tokens.
+It represents <em>"What we're looking for</em>" or <em>"Which other words in the sequence are relevant to me?"</em>.</li>
+<li><strong>Key Tensor</strong> - It holds like the labels for all the tokens in the segment. It is what it matches against in the search
+for relevant tokens. It represents what a token can offer.</li>
+<li><strong>Value Tensor</strong> - It is the actual content of the tokens</li>
+</ol>
+<p>Such three tensors are generated by multiplying the input tensor for three matrices that has been created during
+the training process.</p>
+<h4 id="step-2-compute-self-attention">Step 2 - Compute Self-Attention</h4>
+<p>For each token in the input sequence, the <em>Attention Score</em> with respect to each
+other token is computed.</p>
+<p>That is computed by the dot-product of the <strong>Query Tensor</strong> and the <strong>Key Tensor</strong>
+of that token:</p>
+<ul>
+<li>q_1 * k_1</li>
+<li>q_1 * k_2</li>
+<li>...</li>
+<li>q_1 * k_n</li>
+</ul>
+<p>This is done in order to understand how well the analysed token matches with all the others. </p>
+<h4 id="step-3-standardisation">Step 3 - Standardisation</h4>
+<p>Standardise the <em>Attention Score</em> by, let's say, the square dimension of the tensors.</p>
+<h4 id="step-4-softmax-function">Step 4 - Softmax Function</h4>
+<p>Pass the standardised attention score in Softmax function to normalise it.</p>
+<h4 id="step-5-retrieve-relevant-tokens">Step 5 - Retrieve Relevant Tokens</h4>
+<p>Multiply the <strong>Value Tensor</strong> by the Softmax score, in order to retrieve relevant tokens and their content.</p>
+<h4 id="step-6-compute-self-attention">Step 6 - Compute Self-Attention</h4>
+<p>Sum up the weighted value vectors to obtain the self-attention matrix.</p>
+<h3 id="aggregated-weighted-context">Aggregated Weighted Context</h3>
+<p>It is one of the first approach for of <em>Self-Attention</em>.</p>
+<p>Consider the sequence: <code>[18, 47, 56, 57, 58,  1, 15, 47, 58]</code></p>
+<p>While training the token <code>56</code>, the algorithm should retrieve its context <code>[18, 47]</code> in order 
+to learn the next token <code>57</code>. Passing the whole context everytime is expensive. 
+That’s why in Transformer architecture, it’s better to pass a more concise representation of the previous 
+context: an <strong>aggregated weighted context</strong>. </p>
+<p>A very simplified version adopts just the average:</p>
+<blockquote>
+<p>Token: <code>56</code></p>
+<p>Context: <code>[18, 47]</code> &rarr; <code>41.5</code> (avg)</p>
+<p>Target: <code>57</code></p>
+</blockquote>
+<h2 id="multi-head-attention">Multi-Head Attention</h2>
+<h3 id="comparison-with-single-head-attention">Comparison with Single-Head Attention</h3>
+<ol>
+<li>It expands the model’s ability to focus on different positions.</li>
+<li>It has multiple representation subspaces by using multiple triplets of "Query, Key and Value" vectors. It is used to
+project the input embeddings into multiple subspaces.</li>
+</ol>
+<h3 id="process">Process</h3>
+<p>Given the multiple Query, Key and Value vectors in the Self-Attention layer, there is the need
+to condense all of them into a single one, in order to be fed to the Feed Forward layer.</p>
+<p>They are concatenated and multiplied by a weight matrix.</p>
+<p><img alt="Multi-Head Attention Process" src="../images/multi_head_attention.png" /></p>
+<h2 id="training-process">Training Process</h2>
+<h3 id="general_1">General</h3>
+<p>There are different approaches to formulating the training task for transformers depending on the architecture used:</p>
+<ul>
+<li><strong>Decoder-only</strong> models are typically pre-trained on the language modeling task</li>
+<li><strong>Encoder-only models</strong> (like BERT) are often pre-trained by corrupting the input sequence in some way and having 
+the model try to reconstruct it. One such approach is masked language modeling (MLM).</li>
+<li><strong>Encoder-decoder models</strong> (like the original transformer) are trained on sequence-to- sequence supervised tasks such 
+as translation</li>
+</ul>
+<h3 id="steps">Steps</h3>
+<p>The Training process is composed by 3 main steps:</p>
+<ol>
+<li>Pre-Training</li>
+<li>Fine-Tuning</li>
+<li>Alignment (RLHF)</li>
+</ol>
+<h2 id="pre-training">Pre-Training</h2>
+<h3 id="objective">Objective</h3>
+<p>Given an input sequence of tokens (e.g., words), predict the next token. This is generally known as
+<em>Pre-Training</em> phase, and it is done by feeding to the Transformer a huge amount of Internet text data.</p>
+<h3 id="data-preparation">Data Preparation</h3>
+<p>The massive dataset required for the pre-training has to be carefully curated by:</p>
+<ul>
+<li>Cleaning data</li>
+<li>Remove duplicates</li>
+<li>Tokenization</li>
+<li>Remove problematic data</li>
+</ul>
+<h3 id="distributed-training">Distributed Training</h3>
+<p>It is a combination of different parallelisation strategies:</p>
+<ul>
+<li><strong>Data Parallel</strong> - Split the training dataset into batches and run them on parallel GPUs at the same time. The only
+requirement is to add gradient synchronisation at the end of each batch step. Since gradients are computed in parallel,
+there is not a linear decrease of the training time. Feasible only if the memory is not a constraint.</li>
+<li><strong>Model Parallelism</strong> - If the memory is a constraint, this strategy allows to split the model into several GPUs, thus
+reducing the memory requirement as the number of GPUs increases.<ul>
+<li><strong>Pipeline Parallel</strong> - Each layer is loaded into a GPU. </li>
+<li><strong>Tensor Parallel</strong> - It splits each layer into multiple GPUs, further refining the Pipeline Parallelism</li>
+</ul>
+</li>
+</ul>
+<h3 id="training-optimisation">Training Optimisation</h3>
+<p>The goal is to optimise the training by using different strategies:</p>
+<h4 id="adaptive-learning-rates-with-warmup">Adaptive Learning Rates with Warmup</h4>
+<ul>
+<li>Don't use a fixed learning rate, but adapt it dynamically during the training</li>
+<li>In order to help the model not diverging at the start, initially use a very low learning rate (warmup)</li>
+<li>Gradually increase the learning rate from the warmup value to the target value over a thousand in order to prevent
+sudden large updates which might destabilise the training</li>
+<li>In order to ensure a stable convergence, reduce the learning rate over time through a decay strategy (Linear, Cosine or Exponential)</li>
+</ul>
+<h4 id="gradient-clipping">Gradient Clipping</h4>
+<ul>
+<li>Cap the magnitude of the gradient to a certain threshold</li>
+<li>It prevents <strong>Exploding Gradients</strong> (Gradients become too big)</li>
+</ul>
+<h4 id="normalisation">Normalisation</h4>
+<ul>
+<li>Usage of techniques to ensure stable activations and gradients, such as: Batch Norm, Layer Norm and Weight Norm</li>
+<li>Reduce internal covariate shift in order to speed-up convergence</li>
+<li>Prevents Exploding Gradients</li>
+</ul>
+<h4 id="mixed-precision-training-for-memory-efficiency">Mixed-Precision Training for Memory Efficiency</h4>
+<ul>
+<li>Use lower representation numbers to restrain excessive memory usage</li>
+</ul>
+<h4 id="optimisers">Optimisers</h4>
+<ul>
+<li>AdamW (Adam with Weight Decay) - It improves Adam by decoupling the weights decays from the gradients updates</li>
+<li>Lion (EvoLved Sign Momentum) - Uses sign-based updates instead of raw gradients, leading to faster convergence
+and it works well with low-rank parameterization in transformers</li>
+</ul>
+<h2 id="fine-tuning">Fine-Tuning</h2>
+<p>In order to be useful enough, after the Pre-Training operation, the model goes to another training step called <em>Fine-Tuning</em>.
+See the dedicated file <code>fine_tuning_theory.md</code>.</p>
+<h2 id="inference-process">Inference Process</h2>
+<h3 id="auto-regression">Auto-Regression</h3>
+<p>The way these models actually work is that after each token is produced, 
+that token is added to the sequence of inputs. 
+And that new sequence becomes the input to the model in its next step. 
+This is an idea called <em>“Auto-Regression”</em>.</p>
+<p>This feature is not always incorporated. For example, BERT does not have it.</p>
+<h3 id="projecting-the-output">Projecting the Output</h3>
+<p>The Transformer network works through the following step:</p>
+<ol>
+<li>Transform input text into token IDs</li>
+<li>Feed the token IDs into the Transformer</li>
+<li>Hidden State is a tensor of probabilities with the dimension of the Transformer vocabulary</li>
+</ol>
+<p>At this point, in order to transform the number back to a text, the network picks up the max probability through a Softmax function
+from the hidden state tensor, which will correspond to a word in the vocabulary.</p>
+<h3 id="generating-samples">Generating Samples</h3>
+<p>There are two different ways for a Transformer to start generating words:</p>
+<ul>
+<li><em>Generating Interactive Conditional Samples</em> - The model is provided with a prompt</li>
+<li><em>Generating Unconditional Samples</em> - The model is provided with a <strong>Start Token</strong> (<code>&lt;|endoftext|&gt;</code>)
+and it starts generating words on its own</li>
+</ul>
+<p>In both cases, the <em>Auto-Regression</em> kicks-in.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="NexusLLM"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tokenizers/" class="btn btn-neutral float-right" title="Tokenizer">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Volscente/NexusLLM" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../tokenizers/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
