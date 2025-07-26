@@ -17,8 +17,7 @@ nav:
   - Agents: agents.md
 
 # Theme
-theme:
-  name: readthedocs
+theme: readthedocs
 
 # Configurations
 repo_url: https://github.com/Volscente/NexusLLM
