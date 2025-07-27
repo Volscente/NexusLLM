@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>LLMs - NexusLLM</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "LLMs";
+        var mkdocs_page_input_path = "LLMs.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> NexusLLM
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">NexusLLM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../transformers/">Transformers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../tokenizers/">Tokenizer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../embeddings/">Embeddings</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../vector_search/">Vector Search</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">LLMs</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#alignment-process">Alignment Process</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#definition">Definition</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#example">Example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#prompting">Prompting</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#definition_1">Definition</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#types">Types</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#system-contextual-and-role-prompting">System, Contextual and Role Prompting</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#techniques">Techniques</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#step-back-prompting">Step-back prompting</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#self-consistency">Self-Consistency</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#tree-of-thoughts-tot">Tree of Thoughts (ToT)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#react-reason-act">ReAct (reason &amp; act)</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#inference">Inference</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#process">Process</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sampling-techniques">Sampling Techniques</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#greedy-search">Greedy Search</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#beam-search">Beam Search</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#random-sampling">Random Sampling</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#temperature-sampling">Temperature Sampling</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#top-k-sampling">Top-K sampling</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#performance">Performance</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../google_llms/">Google LLMs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../fine_tuning/">Fine-Tuning</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../evaluation/">LLMs Evaluation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../deepeval/">DeepEval</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LLMOps/">LLMOps</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../agents/">Agents</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">NexusLLM</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">LLMs</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Volscente/NexusLLM/edit/master/docs/LLMs.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="llms">LLMs</h1>
+<h2 id="alignment-process">Alignment Process</h2>
+<h3 id="definition">Definition</h3>
+<p>Usually, a LLM goes through the following two training steps:</p>
+<ul>
+<li>Pre-training</li>
+<li>Fine-Tuning</li>
+</ul>
+<p>The <em>Alignment</em> process is used in order to collect feedbacks of users regarding a particular LLM's output 
+and decide which is better.</p>
+<h3 id="example">Example</h3>
+<ol>
+<li>Pre-Training phase</li>
+<li>Fine-Tuning phase &rarr; <em>"Is pineapple on Pizza a Crime?"</em> &rarr; <em>"Putting pineapple on a Pizza violates the Geneva convention etc."</em></li>
+<li>Alignment phase &rarr; Use the user's feedbacks</li>
+</ol>
+<h2 id="prompting">Prompting</h2>
+<h3 id="definition_1">Definition</h3>
+<p>Usually called also "Prompt Engineering", it is the process of crafting a good prompt for the desired purpose.</p>
+<h3 id="types">Types</h3>
+<ul>
+<li><strong>Zero-Shot Prompting</strong> - Ask the LLM to solve a problem without previous reference or example</li>
+</ul>
+<p><img alt="Zero-Shot Prompting" src="../images/zero_shot_prompting.png" /></p>
+<ul>
+<li><strong>Few-Shot Prompting</strong> - Provide few examples on how to solve the problem and then ask</li>
+</ul>
+<p><img alt="Few-Shot Prompting" src="../images/few_shot_prompting_1.png" />
+<img alt="Few-Shot Prompting" src="../images/few_shot_prompting_2.png" /></p>
+<ul>
+<li><strong>Chain-of-Thought Prompting</strong> - Guide the LLM through the entire process it has to do to solve the problem</li>
+</ul>
+<h3 id="system-contextual-and-role-prompting">System, Contextual and Role Prompting</h3>
+<p>System, contextual and role prompting are all techniques used to guide how LLMs generate text, but they focus on different aspects:</p>
+<ul>
+<li><strong>System prompting</strong> sets the overall context and purpose for the language model. 
+It defines the ‘big picture’ of what the model should be doing, like translating a language, classifying a review etc.</li>
+</ul>
+<p><img alt="System Prompting" src="../images/system_prompting.png" /></p>
+<ul>
+<li><strong>Contextual prompting</strong> provides specific details or background information relevant to the current conversation or task. 
+It helps the model to understand the nuances of what’s being asked and tailor the response accordingly.</li>
+</ul>
+<p><img alt="Contextual Prompting" src="../images/contextual_prompting.png" /></p>
+<ul>
+<li><strong>Role prompting</strong> assigns a specific character or identity for the language model to adopt. 
+This helps the model generate responses that are consistent with the assigned role and its associated knowledge and behavior.</li>
+</ul>
+<p><img alt="Role Prompting" src="../images/role_prompting.png" /></p>
+<h3 id="techniques">Techniques</h3>
+<h4 id="step-back-prompting">Step-back prompting</h4>
+<p>Step-back prompting is a technique for improving the performance by prompting the LLM to first 
+consider a general question related to the specific task at hand, and then feeding the answer to that general 
+question into a subsequent prompt for the specific task. This ‘step back’ allows the LLM to activate relevant 
+background knowledge and reasoning processes before attempting to solve the specific problem.</p>
+<p>Examples:</p>
+<ul>
+<li>Write a one paragraph storyline for a new level of a first-person shooter video game that is challenging and engaging.</li>
+<li>Based on popular first-person shooter action games, what are
+5 fictional key settings that contribute to a challenging and engaging level storyline in a first-person shooter video game?</li>
+</ul>
+<h4 id="self-consistency">Self-Consistency</h4>
+<p>It follows the following steps:</p>
+<ol>
+<li>Generating diverse reasoning paths: The LLM is provided with the same prompt multiple times. 
+A high temperature setting encourages the model to generate different reasoning paths and perspectives on the problem.</li>
+<li>Extract the answer from each generated response.</li>
+<li>Choose the most common answer.</li>
+</ol>
+<h4 id="tree-of-thoughts-tot">Tree of Thoughts (ToT)</h4>
+<p>It generalizes the concept of CoT prompting because it allows LLMs to explore multiple different reasoning paths 
+simultaneously, rather than just following a single linear chain of thought.</p>
+<h4 id="react-reason-act">ReAct (reason &amp; act)</h4>
+<p>LLM to perform certain actions, such as interacting with external APIs to retrieve information which is a first step 
+towards agent modeling.
+ReAct mimics how humans operate in the real world.</p>
+<pre><code class="language-python">from langchain.agents import load_tools
+from langchain.agents import initialize_agent
+from langchain.agents import AgentType
+from langchain.llms import VertexAI
+prompt = &quot;How many kids do the band members of Metallica have?&quot;
+llm = VertexAI(temperature=0.1)
+tools = load_tools([&quot;serpapi&quot;], llm=llm)
+agent = initialize_agent(tools, llm,
+agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True)
+agent.run(prompt)
+</code></pre>
+<h2 id="inference">Inference</h2>
+<h3 id="process">Process</h3>
+<p>There’s a common misconception that LLMs like GPT-2 directly produce text. 
+This isn’t the case. Instead, LLMs calculate logits, which are scores assigned to every possible token in their vocabulary. 
+To simplify, here’s an illustrative breakdown of the process:</p>
+<p><img alt="LLM Inference Process" src="../images/llm_digits.png" /></p>
+<p>The LLM produces just logits of the most probable tokens. Then we have the so called "Decoding" process, which will choose
+the token to sample through different Sampling Techniques.</p>
+<h3 id="sampling-techniques">Sampling Techniques</h3>
+<p>How to choose which is the best output token?</p>
+<h4 id="greedy-search">Greedy Search</h4>
+<p>It samples the most probable token each time. Once the token is sampled, it is then added to the input sequence.</p>
+<p><img alt="Greed Search" src="../images/decoding_greed_search.png" /></p>
+<h4 id="beam-search">Beam Search</h4>
+<h4 id="random-sampling">Random Sampling</h4>
+<p>Selects the next token according to the probability distribution, where each token is sampled 
+proportionally to its predicted probability.</p>
+<h4 id="temperature-sampling">Temperature Sampling</h4>
+<p>Adjusts the probability distribution by a temperature parameter. 
+Higher temperatures promote diversity, lower temperatures favor high-probability tokens.</p>
+<h4 id="top-k-sampling">Top-K sampling</h4>
+<p>Randomly samples from the top K most probable tokens.</p>
+<h3 id="performance">Performance</h3>
+<p>There are several ways to make the inference process more performing:</p>
+<ol>
+<li>Quantisation - It uses lower precision memory in order to not lose many</li>
+<li>Distillation - Train a smaller model</li>
+</ol>
+<h3 id="parameters">Parameters</h3>
+<ol>
+<li>Output Length - It's the number of tokens</li>
+<li>Temperature - Temperature controls the degree of randomness in token selection. Lower temperatures
+are good for prompts that expect a more deterministic response, while higher temperatures can lead to more diverse or unexpected results.</li>
+<li>Top-K - Sampling selects the top K most likely tokens from the model’s predicted distribution.</li>
+<li>Top-P - Sampling selects the top tokens whose cumulative probability does not exceed a certain value (P).</li>
+</ol>
+<p>Considerations:</p>
+<ol>
+<li>If you set temperature to 0, top-K and top-P become irrelevant–the most probable token becomes the next token predicted. 
+If you set temperature extremely high (above 1–generally into the 10s), temperature becomes irrelevant and whatever tokens make
+it through the top-K and/or top-P criteria are then randomly sampled to choose a next predicted token.</li>
+<li>If you set top-K to 1, temperature and top-P become irrelevant. Only one token passes the top-K criteria, 
+and that token is the next predicted token. If you set top-K extremely high, like to the size of the LLM’s vocabulary, 
+any token with a nonzero probability of being the next token will meet the top-K criteria and none are selected out.</li>
+<li>If you set top-P to 0 (or a very small value), most LLM sampling implementations will then only consider the most 
+probable token to meet the top-P criteria, making temperature and top-K irrelevant. If you set top-P to 1, any token 
+with a nonzero probability of being the next token will meet the top-P criteria, and none are selected out.</li>
+</ol>
+<h1 id="mistral">Mistral</h1>
+<h2 id="chat-template">Chat Template</h2>
+<p>Since one of the most common use case for LLMs is chat, rather than continuing a single string of text, 
+the model instead continues a conversation.</p>
+<p>Mistral uses a specific chat template called <a href="https://huggingface.co/docs/transformers/chat_templating">ChatML</a>.</p>
+<p>Much like tokenization, different models expect very different input formats for chat. 
+This is the reason for chat templates as a feature. 
+Chat templates are part of the tokenizer. 
+They specify how to convert conversations, represented as lists of messages, 
+into a single tokenizable string in the format that the model expects.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../vector_search/" class="btn btn-neutral float-left" title="Vector Search"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../google_llms/" class="btn btn-neutral float-right" title="Google LLMs">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Volscente/NexusLLM" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../vector_search/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../google_llms/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

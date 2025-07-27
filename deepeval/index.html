@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>DeepEval - NexusLLM</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "DeepEval";
+        var mkdocs_page_input_path = "deepeval.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> NexusLLM
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">NexusLLM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../transformers/">Transformers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../tokenizers/">Tokenizer</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../embeddings/">Embeddings</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../vector_search/">Vector Search</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LLMs/">LLMs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../google_llms/">Google LLMs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../fine_tuning/">Fine-Tuning</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../evaluation/">LLMs Evaluation</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">DeepEval</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#commands">Commands</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#additional-libraries">Additional Libraries</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#llm-evaluation">LLM Evaluation</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#general">General</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#types">Types</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#metrics">Metrics</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#general_1">General</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#datasets">Datasets</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#general_2">General</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#goldens">Goldens</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#testcases">TestCases</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#single-turn">Single-Turn</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tools">Tools</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mllm-test-case">MLLM Test Case</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#multi-turn">Multi-Turn</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#creation">Creation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#evaluate-function">Evaluate Function</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#loading">Loading</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pytest-integration">PyTest Integration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#end-to-end">End-to-End</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#save">Save</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#code-snippets">Code Snippets</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-usage">Basic Usage</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#observe-decorator">Observe Decorator</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#evaluation">Evaluation</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#component-level">Component Level</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#run-evaluation">Run Evaluation</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LLMOps/">LLMOps</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../agents/">Agents</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">NexusLLM</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">DeepEval</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Volscente/NexusLLM/edit/master/docs/deepeval.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="deepeval">DeepEval</h1>
+<h2 id="installation">Installation</h2>
+<pre><code># Install
+pip install deepeval
+
+# Cloud login (e.g., Confident AI)
+</code></pre>
+<ul>
+<li>By default, DeepEval uses OpenAI models for evaluation.</li>
+<li>Set the OpenAI key in <code>OPENAI_API_KEY</code>.</li>
+<li>It is possible to customise the back-end LLM.</li>
+</ul>
+<p>Set the output folder:</p>
+<pre><code># linux
+export DEEPEVAL_RESULTS_FOLDER=&quot;./data&quot;
+
+# or windows
+set DEEPEVAL_RESULTS_FOLDER=.\data
+</code></pre>
+<h2 id="commands">Commands</h2>
+<pre><code># Run test
+deepeval test run test_example.py
+</code></pre>
+<h2 id="additional-libraries">Additional Libraries</h2>
+<ul>
+<li>The <code>deepteam</code> includes any security related testing</li>
+</ul>
+<h2 id="llm-evaluation">LLM Evaluation</h2>
+<h3 id="general">General</h3>
+<p>It is composed by:</p>
+<ul>
+<li>Test Cases</li>
+</ul>
+<pre><code class="language-python">from deepeval.test_case import LLMTestCase
+
+test_case = LLMTestCase(
+  input=&quot;Who is the current president of the United States of America?&quot;,
+  actual_output=&quot;Joe Biden&quot;,
+  retrieval_context=[&quot;Joe Biden serves as the current president of America.&quot;]
+)
+</code></pre>
+<ul>
+<li>Metrics</li>
+</ul>
+<pre><code class="language-python">from deepeval.metrics import AnswerRelevancyMetric
+
+answer_relevancy_metric = AnswerRelevancyMetric()
+</code></pre>
+<ul>
+<li>Evaluation Datasets (Check the dedicated section)</li>
+</ul>
+<p>Running a "Test Run":</p>
+<pre><code class="language-python">answer_relevancy_metric.measure(test_case)
+print(answer_relevancy_metric.score)
+</code></pre>
+<h3 id="types">Types</h3>
+<ul>
+<li>End-to-end evaluation</li>
+<li>Component-level evaluation</li>
+</ul>
+<h2 id="metrics">Metrics</h2>
+<h3 id="general_1">General</h3>
+<p>There are two types of metrics:</p>
+<ul>
+<li>Out-of-the-Box stored in <code>deepeval.metrics</code></li>
+<li>Custom metrics &rarr; defined by <code>deepeval.metrics.GEval</code> (Non-deterministic) or <code>deepeval.metrics.DAGMetric</code> (Deterministic)</li>
+</ul>
+<h2 id="datasets">Datasets</h2>
+<h3 id="general_2">General</h3>
+<ul>
+<li>They are evaluation datasets instance from <code>EvaluationDataset</code> (groups together multiple test cases of a same category)</li>
+<li>Either <code>LLMTestCase</code> or <code>Goldens</code> (no <code>actual_output</code>) instances</li>
+</ul>
+<h2 id="goldens">Goldens</h2>
+<ul>
+<li>Allow for LLM output generation during evaluation time &rarr; That's why they don't have <code>actual_output</code></li>
+<li>Serve as templates before becoming fully-formed test cases</li>
+</ul>
+<h2 id="testcases">TestCases</h2>
+<h3 id="single-turn">Single-Turn</h3>
+<p>It tests a single, atomic unit of interaction, either between LLM's components or users.</p>
+<p>It can either implement an End-to-end evaluation or a Component-level evaluation.</p>
+<pre><code class="language-python">from deepeval.test_case import LLMTestCase, ToolCall
+
+test_case = LLMTestCase(
+    input=&quot;What if these shoes don't fit?&quot;,
+    expected_output=&quot;You're eligible for a 30 day refund at no extra cost.&quot;,
+    actual_output=&quot;We offer a 30-day full refund at no extra cost.&quot;,
+    context=[&quot;All customers are eligible for a 30 day full refund at no extra cost.&quot;],
+    retrieval_context=[&quot;Only shoes can be refunded.&quot;], # Retrieved documents in a RAG
+    tools_called=[ToolCall(name=&quot;WebSearch&quot;)]
+)
+</code></pre>
+<p>Other useful parameters are:
+- <code>token_cost</code>
+- <code>completion_time</code></p>
+<h3 id="tools">Tools</h3>
+<p>The <code>tools_called</code> is a list of <code>ToolCall</code> objects, which are Pydantic types:</p>
+<pre><code class="language-python">class ToolCall(BaseModel):
+    name: str
+    description: Optional[str] = None
+    reasoning: Optional[str] = None # How to use the tool
+    output: Optional[Any] = None # Tool's output - Any data type
+    input_parameters: Optional[Dict[str, Any]] = None
+</code></pre>
+<p>An example:</p>
+<pre><code class="language-python">tools_called=[
+    ToolCall(
+        name=&quot;Calculator Tool&quot;
+        description=&quot;A tool that calculates mathematical equations or expressions.&quot;,
+        input={&quot;user_input&quot;: &quot;2+3&quot;}
+        output=5
+    ),
+    ToolCall(
+        name=&quot;WebSearch Tool&quot;
+        reasoning=&quot;Knowledge base does not detail why the chicken crossed the road.&quot;
+        input={&quot;search_query&quot;: &quot;Why did the chicken crossed the road?&quot;}
+        output=&quot;Because it wanted to, duh.&quot;
+    )
+]
+</code></pre>
+<h3 id="mllm-test-case">MLLM Test Case</h3>
+<p>An MLLMTestCase in deepeval is designed to unit test outputs from MLLM (Multimodal Large Language Model) applications.</p>
+<p>Example:</p>
+<pre><code class="language-python">from deepeval.test_case import MLLMTestCase, MLLMImage
+
+mllm_test_case = MLLMTestCase(
+    # Replace this with your user input
+    input=[&quot;Change the color of the shoes to blue.&quot;, MLLMImage(url=&quot;./shoes.png&quot;, local=True)]
+    # Replace this with your actual MLLM application
+    actual_output=[&quot;The original image of red shoes now shows the shoes in blue.&quot;, MLLMImage(url=&quot;https://shoe-images.com/edited-shoes&quot;, local=False)]
+)
+</code></pre>
+<h3 id="multi-turn">Multi-Turn</h3>
+<p>A multi-turn test case in deepeval is represented by a <code>ConversationalTestCase</code>, and has TWO parameters:</p>
+<ul>
+<li><code>turns</code></li>
+<li><code>chatbot_role</code></li>
+</ul>
+<pre><code class="language-python"># Turn class definition
+class Turn:
+    role: Literal[&quot;user&quot;, &quot;assistant&quot;]
+    content: str
+    user_id: Optional[str] = None
+    retrieval_context: Optional[List[str]] = None
+    tools_called: Optional[List[ToolCall]] = None
+    additional_metadata: Optional[Dict] = None
+
+# Example
+from deepeval.test_case import Turn, ConversationalTestCase
+
+turns = [
+    Turn(
+        role=&quot;assistant&quot;,
+        content=&quot;Why did the chicken cross the road?&quot;,
+    ),
+    Turn(
+        role=&quot;user&quot;,
+        content=&quot;Are you trying to be funny?&quot;,
+    ),
+]
+
+test_case = ConversationalTestCase(turns=turns)
+</code></pre>
+<h2 id="usage">Usage</h2>
+<h3 id="creation">Creation</h3>
+<pre><code class="language-python">from deepeval.test_case import LLMTestCase
+from deepeval.dataset import EvaluationDataset, Golden
+
+# Dataset creation from LLMTestCases
+first_test_case = LLMTestCase(input=&quot;...&quot;, actual_output=&quot;...&quot;)
+second_test_case = LLMTestCase(input=&quot;...&quot;, actual_output=&quot;...&quot;)
+
+dataset = EvaluationDataset(test_cases=[first_test_case, second_test_case])
+
+# Dataset creation from Goldens
+first_golden = Golden(input=&quot;...&quot;)
+second_golden = Golden(input=&quot;...&quot;)
+
+dataset_goldens = EvaluationDataset(goldens=[first_golden, second_golden])
+print(dataset_goldens.goldens)
+
+# Append
+dataset.test_cases.append(test_case)
+# or
+dataset.add_test_case(test_case)
+</code></pre>
+<ul>
+<li>Pull it from the Cloud</li>
+</ul>
+<pre><code class="language-python">from deepeval.dataset import EvaluationDataset
+from deepeval.metrics import AnswerRelevancyMetric
+
+dataset = EvaluationDataset()
+# supply your dataset alias
+dataset.pull(alias=&quot;QA Dataset&quot;)
+
+evaluate(dataset, metrics=[AnswerRelevancyMetric()])
+</code></pre>
+<ul>
+<li>Generate synthetic data</li>
+</ul>
+<pre><code class="language-python">from deepeval.synthesizer import Synthesizer
+from deepeval.dataset import EvaluationDataset
+
+synthesizer = Synthesizer()
+goldens = synthesizer.generate_goldens_from_docs(
+  document_paths=['example.txt', 'example.docx', 'example.pdf']
+)
+
+dataset = EvaluationDataset(goldens=goldens)
+</code></pre>
+<h3 id="evaluate-function">Evaluate Function</h3>
+<ul>
+<li>Evaluate over the entire dataset</li>
+</ul>
+<pre><code class="language-python">from deepeval.metrics import AnswerRelevancyMetric
+from deepeval import evaluate
+...
+
+evaluate(dataset, [AnswerRelevancyMetric()])
+</code></pre>
+<ul>
+<li>Run the evaluation in parallel</li>
+</ul>
+<pre><code class="language-bash">deepeval test run test_dataset.py -n 2
+</code></pre>
+<h3 id="loading">Loading</h3>
+<pre><code class="language-python"># From JSON
+from deepeval.dataset import EvaluationDataset
+
+dataset = EvaluationDataset()
+
+# Add as test cases
+dataset.add_test_cases_from_json_file(
+    # file_path is the absolute path to you .json file
+    file_path=&quot;example.json&quot;,
+    input_key_name=&quot;query&quot;,
+    actual_output_key_name=&quot;actual_output&quot;,
+    expected_output_key_name=&quot;expected_output&quot;,
+    context_key_name=&quot;context&quot;,
+    retrieval_context_key_name=&quot;retrieval_context&quot;,
+)
+
+# Or, add as goldens
+dataset.add_goldens_from_json_file(
+    # file_path is the absolute path to you .json file
+    file_path=&quot;example.json&quot;,
+    input_key_name=&quot;query&quot;
+)
+
+# From CSV
+# Add as test cases
+dataset.add_test_cases_from_csv_file(
+    # file_path is the absolute path to you .csv file
+    file_path=&quot;example.csv&quot;,
+    input_col_name=&quot;query&quot;,
+    actual_output_col_name=&quot;actual_output&quot;,
+    expected_output_col_name=&quot;expected_output&quot;,
+    context_col_name=&quot;context&quot;,
+    context_col_delimiter= &quot;;&quot;,
+    retrieval_context_col_name=&quot;retrieval_context&quot;,
+    retrieval_context_col_delimiter= &quot;;&quot;
+)
+
+# Or, add as goldens
+dataset.add_goldens_from_csv_file(
+    # file_path is the absolute path to you .csv file
+    file_path=&quot;example.csv&quot;,
+    input_col_name=&quot;query&quot;
+)
+</code></pre>
+<h3 id="pytest-integration">PyTest Integration</h3>
+<pre><code class="language-python">import pytest
+from deepeval import assert_test
+from deepeval.metrics import AnswerRelevancyMetric
+
+
+
+# Loop through test cases using Pytest
+@pytest.mark.parametrize(
+    &quot;test_case&quot;,
+    dataset,
+)
+def test_customer_chatbot(test_case: LLMTestCase):
+    hallucination_metric = HallucinationMetric(threshold=0.3)
+    answer_relevancy_metric = AnswerRelevancyMetric(threshold=0.5)
+    assert_test(test_case, [hallucination_metric, answer_relevancy_metric])
+
+
+@deepeval.on_test_run_end
+def function_to_be_called_after_test_run():
+    print(&quot;Test finished!&quot;)
+</code></pre>
+<h3 id="end-to-end">End-to-End</h3>
+<pre><code class="language-python"># Define you LLM application
+def your_llm_app(input: str):
+    print(&quot;Call LLM!&quot;)
+
+# Define the Dataset for evaluation
+goldens = [Golden(input=&quot;...&quot;)]
+
+# Create the test cases
+test_case = []
+for golden in goldens:
+    res, text_chunks = your_llm_app(golden.input) # Call the LLM to generate the output and maybe a RAG context
+    test_case = LLMTestCase(input=golden.input, actual_output=res, retrieval_context=text_chunks)
+
+# Evaluate end-to-end
+evaluate(test_cases=test_cases, metrics=[AnswerRelevancyMetric()])
+</code></pre>
+<h3 id="save">Save</h3>
+<pre><code class="language-python"># Locally
+dataset.save_as(file_type=&quot;csv&quot;, directory=&quot;./deepeval-test-dataset&quot;, include_test_cases=True)
+</code></pre>
+<h2 id="code-snippets">Code Snippets</h2>
+<h3 id="basic-usage">Basic Usage</h3>
+<pre><code class="language-python">from deepeval import assert_test
+from deepeval.test_case import LLMTestCase, LLMTestCaseParams
+from deepeval.metrics import GEval
+
+def test_correctness():
+    correctness_metric = GEval(
+        name=&quot;Correctness&quot;,
+        criteria=&quot;Determine if the 'actual output' is correct based on the 'expected output'.&quot;,
+        evaluation_params=[LLMTestCaseParams.ACTUAL_OUTPUT, LLMTestCaseParams.EXPECTED_OUTPUT],
+        threshold=0.5
+    )
+    test_case = LLMTestCase(
+        input=&quot;I have a persistent cough and fever. Should I be worried?&quot;,
+        # Replace this with the actual output from your LLM application
+        actual_output=&quot;A persistent cough and fever could be a viral infection or something more serious. See a doctor if symptoms worsen or don't improve in a few days.&quot;,
+        expected_output=&quot;A persistent cough and fever could indicate a range of illnesses, from a mild viral infection to more serious conditions like pneumonia or COVID-19. You should seek medical attention if your symptoms worsen, persist for more than a few days, or are accompanied by difficulty breathing, chest pain, or other concerning signs.&quot;
+    )
+    assert_test(test_case, [correctness_metric]) # Possible to specify multiple metrics
+</code></pre>
+<h3 id="observe-decorator">Observe Decorator</h3>
+<p>It is used to evaluate and keep track of the evaluation of single app's components</p>
+<pre><code class="language-python">from deepeval.tracing import observe, update_current_span
+from deepeval.test_case import LLMTestCase
+from deepeval.dataset import Golden
+from deepeval.metrics import GEval
+from deepeval import evaluate
+
+correctness = GEval(name=&quot;Correctness&quot;, criteria=&quot;Determine if the 'actual output' is correct based on the 'expected output'.&quot;, evaluation_params=[LLMTestCaseParams.ACTUAL_OUTPUT, LLMTestCaseParams.EXPECTED_OUTPUT])
+
+@observe(metrics=[correctness])
+def inner_component():
+    # Component can be anything from an LLM call, retrieval, agent, tool use, etc.
+    update_current_span(test_case=LLMTestCase(input=&quot;...&quot;, actual_output=&quot;...&quot;))
+    return
+
+@observe
+def llm_app(input: str):
+    inner_component()
+    return
+
+evaluate(observed_callback=llm_app, goldens=[Golden(input=&quot;Hi!&quot;)])
+</code></pre>
+<h2 id="evaluation">Evaluation</h2>
+<h3 id="component-level">Component Level</h3>
+<p>Component-level evaluation assess individual units of LLM interaction between internal components such as retrievers, 
+tool calls, LLM generations, or even agents interacting with other agents, rather than treating the LLM app as a black box.</p>
+<p>Including a Component Level evaluation implies tracing some part of your code.</p>
+<p>Example:</p>
+<pre><code class="language-python">from typing import List
+from openai import OpenAI
+
+from deepeval.tracing import observe, update_current_span
+from deepeval.test_case import LLMTestCase
+from deepeval.metrics import AnswerRelevancyMetric
+
+client = OpenAI()
+
+def your_llm_app(input: str):
+    def retriever(input: str):
+        return [&quot;Hardcoded text chunks from your vector database&quot;]
+
+    @observe(metrics=[AnswerRelevancyMetric()])
+    def generator(input: str, retrieved_chunks: List[str]):
+        res = client.chat.completions.create(
+            model=&quot;gpt-4o&quot;,
+            messages=[
+                {&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: &quot;Use the provided context to answer the question.&quot;},
+                {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;\n\n&quot;.join(retrieved_chunks) + &quot;\n\nQuestion: &quot; + input}
+            ]
+        ).choices[0].message.content
+
+        # Create test case at runtime
+        update_current_span(test_case=LLMTestCase(input=input, actual_output=res))
+
+        return res
+
+    return generator(input, retriever(input))
+
+
+print(your_llm_app(&quot;How are you?&quot;))
+</code></pre>
+<h3 id="run-evaluation">Run Evaluation</h3>
+<pre><code class="language-python">from somewhere import your_llm_app # Replace with your LLM app
+
+from deepeval.dataset import Golden
+from deepeval import evaluate
+
+# Goldens from your dataset
+goldens = [Golden(input=&quot;...&quot;)]
+
+# Evaluate with `observed_callback`
+evaluate(goldens=goldens, observed_callback=your_llm_app)
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../evaluation/" class="btn btn-neutral float-left" title="LLMs Evaluation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../LLMOps/" class="btn btn-neutral float-right" title="LLMOps">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Volscente/NexusLLM" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../evaluation/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../LLMOps/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
