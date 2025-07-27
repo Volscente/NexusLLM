@@ -28,3 +28,7 @@ test:
 # Launch Jupyter Lab
 jupy:
   uv run jupyter lab
+
+# Build and push documentation
+docs:
+    mkdocs gh-deploy --theme readthedocs
