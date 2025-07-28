@@ -8,6 +8,7 @@ authors = [
 requires-python = ">=3.13"
 dependencies = [
     "dynaconf>=3.2.11",
+    "huggingface-hub[cli,torch]>=0.34.2",
     "pandas>=2.3.1",
     "pydantic>=2.11.7",
 ]
