@@ -368,7 +368,26 @@ sudden large updates which might destabilise the training
 #### Optimisers
 - AdamW (Adam with Weight Decay) - It improves Adam by decoupling the weights decays from the gradients updates
 - Lion (EvoLved Sign Momentum) - Uses sign-based updates instead of raw gradients, leading to faster convergence
-and it works well with low-rank parameterization in transformers
+and it works well with low-rank parametrisation in transformers
+
+### Weight Decay
+#### Definition
+The *"Weight Decay"* or *"L2 Regularisation"* is a regularisation technique widely used in Machine Learning trainings.
+
+It prevents overfitting by penalising large weights in favour of smaller ones.
+
+It does that by applying a weight decay coefficient in the weights update:
+
+![Weight Decay Formula](./images/weight_decay_formula.png)
+
+#### Advantages
+- It improves generalisation in LLMs by avoiding large parameter values
+- It is useful in small models or small datasets
+
+#### Application
+The weight decay should not be applied everywhere, otherwise it can destabilise the training process.
+
+
 
 ## Fine-Tuning
 In order to be useful enough, after the Pre-Training operation, the model goes to another training step called *Fine-Tuning*.
