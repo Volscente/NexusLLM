@@ -387,6 +387,18 @@ It does that by applying a weight decay coefficient in the weights update:
 #### Application
 The weight decay should not be applied everywhere, otherwise it can destabilise the training process.
 
+#### LayerNorm with Weight Decay
+Layer Normalization (LayerNorm) is a technique used in transformers (and thus in LLMs) to normalise 
+activations across the features of a layer.
+
+It has two trainable parameters:
+
+- Scale (γ) — multiplies the normalized output, controlling how much the features are stretched.
+- Bias (β) — shifts the normalized output up or down.
+
+Mathematically, for input vector 
+𝑥
+x:
 
 
 ## Fine-Tuning
