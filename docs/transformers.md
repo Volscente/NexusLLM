@@ -287,7 +287,7 @@ A very simplified version adopts just the average:
 > 
 > Target: `57`
 
-## Multi-Head Attention
+## Multi-Head Attention (MHA)
 ### Comparison with Single-Head Attention
 1. It expands the model’s ability to focus on different positions.
 2. It has multiple representation subspaces by using multiple triplets of "Query, Key and Value" vectors. It is used to
@@ -300,6 +300,20 @@ to condense all of them into a single one, in order to be fed to the Feed Forwar
 They are concatenated and multiplied by a weight matrix.
 
 ![Multi-Head Attention Process](./images/multi_head_attention.png)
+
+## Multi-Query Attention (MQA)
+### Definition
+It is a variation of Multi-Head Attention that aims to reduce computation and memory costs, 
+by using the same Key and Value for all the Query Heads.
+
+In a nutshell, while MHA has several tuple(query, key, value), in MQA, the (key, value) are always the same across all the heads.
+
+## Grouped Query Attention (CQA)
+### Definition
+It is a balance between:
+
+- MHA: very accurate, but expensive
+- MQA: more efficient
 
 ## Training Process
 ### General
