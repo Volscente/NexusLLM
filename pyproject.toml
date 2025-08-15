@@ -32,6 +32,7 @@ Changelog = "https://github.com/Volscente/NexusLLM/blob/main/CHANGELOG.md"
 
 [dependency-groups]
 dev = [
+    "ipywidgets>=8.1.7",
     "jupyterlab>=4.4.4",
     "matplotlib>=3.10.3",
     "mkdocs>=1.6.1",
