@@ -1,2 +1,4 @@
+# --------- Small Language Models ---------
 [smollm3_3b]
 model_name = 'HuggingFaceTB/SmolLM3-3B'
+# -----------------------------------------
