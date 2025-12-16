@@ -7,7 +7,7 @@ NexusLLM is a GitHub repository dedicated to exploring various experiments relat
 # Resources
 The full documentation of the project can be found in the dedicated [GitHub Pages]().
 
-For the developers, check the wiki [https://github.com/Volscente/NexusLLM/wiki/Package-&-Modules) Section.
+For the developers, check the wiki [Package & Modules](https://github.com/Volscente/NexusLLM/wiki/Package-&-Modules) Section.
 
 Please refer to this [Contributing Guidelines](https://github.com/Volscente/NexusLLM/wiki/Contributing-Guidelines) in order to contribute to the repository.
 

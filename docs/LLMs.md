@@ -14,6 +14,13 @@ and decide which is better.
 2. Fine-Tuning phase &rarr; *"Is pineapple on Pizza a Crime?"* &rarr; *"Putting pineapple on a Pizza violates the Geneva convention etc."*
 3. Alignment phase &rarr; Use the user's feedbacks
 
+### Limitations
+- **Hallucinations**: They can generate incorrect information confidently
+- **Lack of true understanding**: They lack true understanding of the world and operate purely on statistical patterns
+- **Bias**: They may reproduce biases present in their training data or inputs.
+- **Context windows**: They have limited context windows (though this is improving)
+- **Computational resources**: They require significant computational resources
+
 ## Prompting
 ### Definition
 Usually called also "Prompt Engineering", it is the process of crafting a good prompt for the desired purpose.

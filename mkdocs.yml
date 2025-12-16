@@ -9,6 +9,7 @@ nav:
   - Embeddings: embeddings.md
   - Vector Search: vector_search.md
   - LLMs: LLMs.md
+  - Hugging Face: hugging_face.md
   - Google LLMs: google_llms.md
   - Fine-Tuning: fine_tuning.md
   - LLMs Evaluation: evaluation.md
