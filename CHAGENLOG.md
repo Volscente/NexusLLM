@@ -1,3 +1,10 @@
+# v.1.0.4
+
+-----
+
+- [x] Update Transformers documentation
+- [x] Experimentation on SmoLL3
+
 # v.1.0.3
 
 -----

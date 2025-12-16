@@ -1,16 +1,16 @@
 [project]
 name = "nexusllm"
-version = "1.0.3"
+version = "1.0.4"
 description = "NexusLLM is a GitHub repository dedicated to exploring various experiments related to Language Model Models (LMM). From fine-tuning and instruction-tuning to RAG and agent-based systems, it offers a diverse range of experiments and insights for researchers and enthusiasts interested in natural language processing and AI innovation."
 authors = [
   {name = "Simone Porreca", email = "porrecasimone@gmail.com"},
 ]
 requires-python = ">=3.13"
 dependencies = [
-    "dynaconf>=3.2.11",
+    "dynaconf>=3.2.12",
     "huggingface-hub[cli,torch]>=0.34.2",
-    "pandas>=2.3.1",
-    "pydantic>=2.11.7",
+    "pandas>=2.3.3",
+    "pydantic>=2.12.5",
 ]
 readme = "README.md"
 license = "GPL-3.0"
@@ -32,7 +32,7 @@ Changelog = "https://github.com/Volscente/NexusLLM/blob/main/CHANGELOG.md"
 
 [dependency-groups]
 dev = [
-    "ipywidgets>=8.1.7",
+    "ipywidgets>=8.1.8",
     "jupyterlab>=4.4.4",
     "matplotlib>=3.10.3",
     "mkdocs>=1.6.1",
