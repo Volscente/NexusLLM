@@ -148,8 +148,8 @@ any token with a nonzero probability of being the next token will meet the top-K
 probable token to meet the top-P criteria, making temperature and top-K irrelevant. If you set top-P to 1, any token 
 with a nonzero probability of being the next token will meet the top-P criteria, and none are selected out.
 
-# Mistral
-## Chat Template
+## Mistral
+### Chat Template
 Since one of the most common use case for LLMs is chat, rather than continuing a single string of text, 
 the model instead continues a conversation.
 
@@ -160,3 +160,12 @@ This is the reason for chat templates as a feature.
 Chat templates are part of the tokenizer. 
 They specify how to convert conversations, represented as lists of messages, 
 into a single tokenizable string in the format that the model expects.
+
+## SmolLM3
+### Architecture
+
+![SmolLM3 Architecture](./images/smollm3_architecture.png)
+
+Composition:
+- Tokenizer 
+- Embeddings
