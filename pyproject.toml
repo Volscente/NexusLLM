@@ -8,6 +8,7 @@ authors = [
 requires-python = ">=3.13"
 dependencies = [
     "dynaconf>=3.2.11",
+    "huggingface-hub[cli,torch]>=0.34.2",
     "pandas>=2.3.1",
     "pydantic>=2.11.7",
 ]
@@ -31,12 +32,14 @@ Changelog = "https://github.com/Volscente/NexusLLM/blob/main/CHANGELOG.md"
 
 [dependency-groups]
 dev = [
+    "ipywidgets>=8.1.7",
     "jupyterlab>=4.4.4",
     "matplotlib>=3.10.3",
     "mkdocs>=1.6.1",
     "pre-commit>=4.2.0",
     "pytest>=8.4.1",
     "pytest-dotenv>=0.5.2",
+    "python-dotenv>=1.1.1",
     "ruff>=0.12.3",
     "sqlfluff>=3.4.2",
 ]
